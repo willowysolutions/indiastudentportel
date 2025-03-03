@@ -1,0 +1,52 @@
+/* Import this file in your component using:
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+*/
+
+.rbc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .rbc-header > span {
+    font-weight: bold;
+  }
+  
+  .rbc-month-row {
+    display: flex; /* Ensure flexbox for horizontal layout */
+  }
+  
+  .rbc-month-row .rbc-month-cell {
+    padding: 5px; /* Add some padding for readability */
+    text-align: center; /* Center align dates within cells */
+  }
+  
+  .rbc-month-row .rbc-month-cell:hover {
+    background-color: #eee; /* Optional hover effect */
+  }
+  
+  .rbc-off-range-bg {
+    background-color: #eee; /* Style out-of-month days */
+    opacity: 0.6;
+  }
+  
+  .rbc-date-header {
+    font-weight: bold;
+  }
+  
+  .rbc-event {
+    border-radius: 2px;
+    padding: 5px 10px;
+    margin: 5px 0;
+  }
+  
+  .rbc-event-content {
+    white-space: nowrap; /* Prevent event text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ellipsis for long event titles */
+  }
+  
+  /* (Optional) Adjust other styles as needed */
+  

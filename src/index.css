@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+@layer components {
+  .btn {
+    @apply block mx-5 my-2.5 px-3 py-2  font-medium text-gray-700 bg-white/90 shadow-md border border-white/30 rounded-full cursor-pointer;
+  }
+
+  .btn:hover,
+  .btn:focus,
+  .btn:active,
+  .btn:visited {
+    @apply transition-all ease-out;
+    transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+    animation: gelatine 0.5s 1;
+  }
+  .btndiv {
+    @apply    cursor-pointer;
+  }
+
+  .btndiv:hover,
+  .btndiv:focus,
+  .btndiv:active,
+  .btndiv:visited {
+    @apply transition-all ease-out;
+    transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+    animation: gelatine 0.5s 1;
+  }
+
+  @keyframes gelatine {
+    0%, 100% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(0.9, 1.1);
+    }
+    50% {
+      transform: scale(1.1, 0.9);
+    }
+    75% {
+      transform: scale(0.95, 1.05);
+    }
+  }
+  .activity-one {
+    background-color: rgba(124, 136, 224, 0.5);
+    background-image: linear-gradient(240deg, rgb(124, 136, 224) 0%, #c3f4fc 100%);
+  }
+  .activity-two {
+    background-color: #aee2a4a1;
+    background-image: linear-gradient(240deg, #e5a243ab 0%, #f7f7aa 90%);
+  }
+  .activity-three {
+    background-color: #ecfcc376;
+    background-image: linear-gradient(240deg, #97e7d1 0%, #ecfcc3 100%);
+  }
+  .activity-four {
+    background-color: #e6a7c3b5;
+    background-image: linear-gradient(240deg, #fc8ebe 0%, #fce5c3 100%);
+  }
+  .activity-five {
+    background-color: rgba(237, 66, 69, 0.5);
+    background-image: linear-gradient(240deg, rgb(237, 66, 69) 0%, #fcb045 100%);
+  }
+  .activity-six {
+    background-color: rgba(61, 90, 254, 0.5);
+    background-image: linear-gradient(240deg, rgb(61, 90, 254) 0%, #62d6fb 100%);
+  }
+}
+/* Custom scrollbar styles */
+.scrollbar-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+  }
+  
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 2px; /* Chrome, Safari, Opera */
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar-track {
+   display: none;
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background-color: #0b356f; /* Scroll thumb color */
+    border-radius: 50%;
+  }
+  

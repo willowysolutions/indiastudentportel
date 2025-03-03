@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/proxy/:match*",
+      "destination": "https://lodestar.guru:8443/:match*"
+    },
+    { "source": "/(.*)", "destination": "" }
+  ]
+}
