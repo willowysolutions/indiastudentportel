@@ -12,13 +12,13 @@ function StudentPreLogin() {
         <div className="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
           <div className="inline-flex w-full justify-end ml-5 space-x-6">
             <a
-              href="https://indiastudentportal-app.vercel.app/student/login"
+              href="https://indiastudentportal.vercel.app/student/login"
               className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap bg-gray-50 border border-transparent rounded-md shadow-sm hover:bg-gray-00 focus:outline-none focus:ring-2 focus:ring-offset-2"
             >
               Sign in
             </a>
             <a
-              href="https://indiastudentportal-app.vercel.app/student/signup"
+              href="https://indiastudentportal.vercel.app/student/signup"
               className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-custom-indigo border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
             >
               Sign up
