@@ -47,7 +47,7 @@ function StudentPreLogin() {
                 </p>
                 <div className="relative flex flex-col sm:flex-row sm:space-x-4">
                   <a
-                    href="https://indiastudentportal-app.vercel.app/student/login"
+                    href="https://indiastudentportal.vercel.app/student/login"
                     className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-custom-indigo rounded-md sm:mb-0 hover:bg-indigo-700 sm:w-auto"
                   >
                     Try It Free
