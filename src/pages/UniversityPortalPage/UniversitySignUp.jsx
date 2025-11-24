@@ -9,6 +9,7 @@ import sideImage from "../../assets/loginPage image.svg";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
+import { allCountries } from "country-telephone-data"; // ⬅ NEW
 
 const UniversitySignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,15 +25,11 @@ const UniversitySignUp = () => {
   useEffect(() => {
     dispatch(getStateList())
       .unwrap()
-      .catch((error) => {
-        toast.error("Failed to fetch state list. Please try again.");
-      });
+      .catch(() => toast.error("Failed to fetch state list."));
   }, [dispatch]);
 
   useEffect(() => {
-    if (StateLists) {
-      setIsLoading(false);
-    }
+    if (StateLists) setIsLoading(false);
   }, [StateLists]);
 
   const initialValues = {
@@ -40,6 +37,7 @@ const UniversitySignUp = () => {
     university_name: "",
     email: "",
     password: "",
+    country_code: "+91", // ⬅ default India
     contact: "",
     established_year: "",
     accrediction_grade: "",
@@ -56,121 +54,73 @@ const UniversitySignUp = () => {
     logo: null,
     image: null,
     activeStatus: "false",
-    // affliation:"",
-    // location:"",
-    // category:"",
-    // created_by:"",
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .required("Name is required")
-      .min(3, "Name must be at least 3 characters")
-      .max(50, "Name must be at most 50 characters"),
-    university_name: Yup.string().required("university name is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters"),
+    name: Yup.string().required(),
+    university_name: Yup.string().required(),
+    email: Yup.string().email().required(),
+    password: Yup.string().min(8).required(),
+    country_code: Yup.string().required("Country Code Required"),
     contact: Yup.string()
-      .required("Contact number is required")
+      .required()
       .matches(/^\d{10}$/, "Invalid phone number"),
-    established_year: Yup.string().required("District is required"),
-    accrediction_grade: Yup.string().required("District is required"),
-    naac_grade: Yup.string().required("District is required"),
-    nirf_ranking: Yup.string().required("District is required"),
-    pin_code: Yup.string().required("District is required"),
-
-    state_id: Yup.number().required("State ID is required"),
-    district: Yup.string().required("District is required"),
-    street: Yup.string().required("street is required"),
-    address: Yup.string().required("Address is required"),
-    college_details: Yup.string()
-      .required("College details are required")
-      .min(10, "Details must be at least 10 characters"),
-    college_highlights: Yup.string()
-      .required("college highlights  are required")
-      .min(10, "college highlights must be at least 10 characters"),
-    logo: Yup.mixed().required("Logo is required"),
-    image: Yup.mixed().required("Image is required"),
+    state_id: Yup.number().required(),
+    college_details: Yup.string().min(10).required(),
+    college_highlights: Yup.string().min(10).required(),
+    logo: Yup.mixed().required(),
+    image: Yup.mixed().required(),
   });
 
   const compressImage = async (file) => {
-    const options = {
-      maxSizeMB: 0.2,
-      maxWidthOrHeight: 1024,
-      useWebWorker: true,
-    };
     try {
-      const compressedFile = await imageCompression(file, options);
-      return compressedFile;
-    } catch (error) {
-      console.error("Image compression error:", error);
+      return await imageCompression(file, {
+        maxSizeMB: 0.2,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+      });
+    } catch {
       return file;
     }
   };
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
+  const convertToBase64 = (file) =>
+    new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
+      reader.onerror = reject;
     });
-  };
 
   const validateFile = (file) => {
-    if (!file) return true; // Skip if no file is selected
-    if (file.size > 6 * 1024 * 1024) {
-      toast.error("File size should not exceed 2MB.");
-      return false;
-    }
-    if (!["image/jpeg", "image/png"].includes(file.type)) {
-      toast.error("Only JPEG and PNG formats are supported.");
-      return false;
-    }
+    if (!file) return true;
+    if (file.size > 6 * 1024 * 1024) return toast.error("Max size 6MB");
+    if (!["image/jpeg", "image/png"].includes(file.type))
+      return toast.error("Only PNG/JPG allowed");
     return true;
   };
 
   const onSubmit = async (values, { setSubmitting }) => {
     try {
-      let base64Logo = null;
-      let base64Image = null;
+      const compressedLogo = await compressImage(values.logo);
+      const compressedImage = await compressImage(values.image);
 
-      if (values.logo) {
-        const compressedLogo = await compressImage(values.logo);
-        base64Logo = await convertToBase64(compressedLogo);
-      }
+      const payload = {
+        ...values,
+        contact: `${values.country_code}${values.contact}`, // ⬅ merge code + number
+        logo: await convertToBase64(compressedLogo),
+        image: await convertToBase64(compressedImage),
+      };
 
-      if (values.image) {
-        const compressedImage = await compressImage(values.image);
-        base64Image = await convertToBase64(compressedImage);
-      }
-
-      const signupData = { ...values, logo: base64Logo, image: base64Image };
-      const response = await dispatch(signupUniversity(signupData));
+      const response = await dispatch(signupUniversity(payload));
 
       if (response?.payload?.success) {
-        toast.success(
-          "Registration successful now admin will approve your signup after that you will get access for login"
-        );
+        toast.success("Registration submitted. Await admin approval.");
         navigate("/university/login");
-      } else {
-        toast.error(
-          response?.payload?.message ||
-            "Something went wrong, please try again later"
-        );
-      }
-    } catch (error) {
-      console.error("Error occurred during registration:", error.message);
-      toast.error("Registration failed. Please try again.");
+      } else toast.error(response?.payload?.message || "Something went wrong");
     } finally {
       setSubmitting(false);
     }
-  };
-
-  const navigateNext = () => {
-    navigate("../university/login");
   };
 
   const formFields = [
@@ -182,13 +132,14 @@ const UniversitySignUp = () => {
       placeholder: "Password",
       type: showPassword ? "text" : "password",
     },
-    { id: "contact", placeholder: "Contact", type: "text" },
+
+    // ⬇ ADD THIS NEW FIELD BEFORE 'contact'
+    { id: "country_code", placeholder: "Country Code", type: "country" },
+
+    { id: "contact", placeholder: "Phone Number", type: "text" },
+
     { id: "established_year", placeholder: "Established Year", type: "text" },
-    {
-      id: "accrediction_grade",
-      placeholder: "e.g., UGC, NAAC, AICTE",
-      type: "text",
-    },
+    { id: "accrediction_grade", placeholder: "e.g., UGC, NAAC", type: "text" },
     { id: "naac_grade", placeholder: "NAAC Grade", type: "text" },
     { id: "nirf_ranking", placeholder: "NIRF Ranking", type: "text" },
     { id: "pin_code", placeholder: "Pincode", type: "text" },
@@ -196,18 +147,9 @@ const UniversitySignUp = () => {
     { id: "district", placeholder: "District", type: "text" },
     { id: "street", placeholder: "Street", type: "text" },
     { id: "address", placeholder: "Address", type: "text" },
-    { id: "link", placeholder: "College CRM Link", type: "text" },
-    // { id: "dummy", placeholder: "", type: "none" },
-    {
-      id: "college_details",
-      placeholder: "Describe College Details",
-      type: "textarea",
-    },
-    {
-      id: "college_highlights",
-      placeholder: "Describe College Highlights",
-      type: "textarea",
-    },
+    { id: "link", placeholder: "CRM Link", type: "text" },
+    { id: "college_details", placeholder: "College Details", type: "textarea" },
+    { id: "college_highlights", placeholder: "Highlights", type: "textarea" },
   ];
 
   return (
@@ -217,6 +159,7 @@ const UniversitySignUp = () => {
           <h2 className="text-[32px] md:text-[45px] font-bold text-center">
             Sign Up College
           </h2>
+
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -226,49 +169,58 @@ const UniversitySignUp = () => {
               <Form className="space-y-6 mt-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {formFields.map(({ id, placeholder, type }) => (
-                    <div key={id} className="flex flex-col">
-                      <div className="border-[1px] border-gray-300 rounded-md gap-2 flex items-center mt-2">
-                        {id === "state_id" ? (
+                    <div key={id}>
+                      <div className="border rounded flex items-center px-2 py-1">
+                        {/* Country Dropdown */}
+                        {type === "country" ? (
                           <Field
                             as="select"
-                            id={id}
                             name={id}
-                            className="block w-full px-2 border-0 py-1.5 focus:outline-none ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                            className="w-full outline-none p-2"
+                          >
+                            {allCountries.map((item) => {
+                              const cleanName = item.name.split("(")[0].trim(); // remove extra language text
+
+                              return (
+                                <option
+                                  key={item.iso2}
+                                  value={`+${item.dialCode}`}
+                                >
+                                  {cleanName} (+{item.dialCode})
+                                </option>
+                              );
+                            })}
+                          </Field>
+                        ) : id === "state_id" ? (
+                          <Field
+                            as="select"
+                            name={id}
+                            className="w-full outline-none p-2"
                           >
                             <option value="">Select State</option>
-                            {StateLists && StateLists.length > 0 ? (
-                              StateLists.map((state) => (
-                                <option key={state.id} value={state.id}>
-                                  {state.state}
-                                </option>
-                              ))
-                            ) : (
-                              <option value="" disabled>
-                                {isLoading
-                                  ? "Loading states..."
-                                  : "No states available"}
+                            {StateLists?.map((state) => (
+                              <option key={state.id} value={state.id}>
+                                {state.state}
                               </option>
-                            )}
+                            ))}
                           </Field>
                         ) : type === "textarea" ? (
                           <Field
                             as="textarea"
-                            id={id}
                             name={id}
-                            required
-                            className="block w-full px-2 border-0 py-1.5 focus:outline-none ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             placeholder={placeholder}
+                            className="w-full outline-none p-2"
                           />
                         ) : (
                           <Field
-                            id={id}
                             name={id}
-                            type={type}
-                            required
-                            className="block w-full px-2 border-0 py-1.5 focus:outline-none ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             placeholder={placeholder}
+                            className="w-full outline-none p-2"
+                            type={type}
                           />
                         )}
+
+                        {/* Password Eye */}
                         {id === "password" &&
                           (showPassword ? (
                             <FaEyeSlash
@@ -282,97 +234,83 @@ const UniversitySignUp = () => {
                             />
                           ))}
                       </div>
+
                       <ErrorMessage
                         name={id}
                         component="div"
-                        className="text-red-500 text-[15px]"
+                        className="text-red-500 text-sm"
                       />
                     </div>
                   ))}
                 </div>
-                <div className="mt-4">
-                  Upload Logo
+
+                {/* Logo Upload */}
+                <div>
+                  <label>Upload Logo</label>
                   <input
                     type="file"
-                    id="logo"
-                    name="logo"
                     accept="image/*"
                     onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (validateFile(file)) {
-                        setLogoPreview(URL.createObjectURL(file));
-                        setFieldValue("logo", file);
+                      if (validateFile(e.target.files[0])) {
+                        setFieldValue("logo", e.target.files[0]);
+                        setLogoPreview(URL.createObjectURL(e.target.files[0]));
                       }
                     }}
-                    className="block w-full px-2 py-1.5 mt-2"
+                    className="block w-full mt-2"
                   />
                   {logoPreview && (
                     <img
                       src={logoPreview}
-                      alt="Logo Preview"
-                      className="mt-2 h-16"
+                      alt="preview"
+                      className="h-16 mt-2"
                     />
                   )}
-                  <ErrorMessage
-                    name="logo"
-                    component="div"
-                    className="text-red-500 text-[15px]"
-                  />
                 </div>
-                <div className="mt-4">
-                  Upload College Image
+
+                {/* Image Upload */}
+                <div>
+                  <label>Upload College Image</label>
                   <input
                     type="file"
-                    id="image"
-                    name="image"
                     accept="image/*"
                     onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (validateFile(file)) {
-                        setImagePreview(URL.createObjectURL(file));
-                        setFieldValue("image", file);
+                      if (validateFile(e.target.files[0])) {
+                        setFieldValue("image", e.target.files[0]);
+                        setImagePreview(URL.createObjectURL(e.target.files[0]));
                       }
                     }}
-                    className="block w-full px-2 py-1.5 mt-2"
+                    className="block w-full mt-2"
                   />
                   {imagePreview && (
                     <img
                       src={imagePreview}
-                      alt="Image Preview"
-                      className="mt-2 h-16"
+                      alt="preview"
+                      className="h-16 mt-2"
                     />
                   )}
-                  <ErrorMessage
-                    name="image"
-                    component="div"
-                    className="text-red-500 text-[15px]"
-                  />
                 </div>
+
                 <button
-                  type="submit"
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-md mt-4"
                   disabled={isSubmitting}
+                  className="w-full bg-blue-500 text-white rounded py-2"
                 >
-                  {isSubmitting ? "Signing Up..." : "Sign Up"}
+                  {isSubmitting ? "Submitting..." : "Sign Up"}
                 </button>
-                <button
-                  type="button"
-                  className="text-blue-500 underline text-sm"
-                  onClick={navigateNext}
+
+                <p
+                  className="text-blue-500 text-center cursor-pointer"
+                  onClick={() => navigate("/university/login")}
                 >
-                  Already have an account? Login
-                </button>
+                  Already have an account?
+                </p>
               </Form>
             )}
           </Formik>
         </div>
       </div>
+
       <div className="hidden md:flex items-center">
-        <img
-          src={sideImage}
-          alt="Side Decoration"
-          className="w-full h-full object-contain"
-        />
+        <img src={sideImage} className="w-full object-contain" alt="" />
       </div>
     </div>
   );
