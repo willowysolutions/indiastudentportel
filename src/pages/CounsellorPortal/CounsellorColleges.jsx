@@ -1,5 +1,3 @@
-import { Card, CircularProgress, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
 import { FaSchool } from "react-icons/fa";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +7,7 @@ import Table from "../../components/table/Table";
 import { CounsellorCollegesColumn } from "../../components/commonComponents/CounsilerCommenComponent/CouncilerColumn";
 import { getAdminSingleCollege } from "../../Redux/features/admin/AdminSlice";
 import { getCollege_Course } from "../../Redux/features/Counciler/CouncilerSlice";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 const CollegesCounsellors = () => {
   const [data, setData] = useState([]);
@@ -48,46 +47,41 @@ const CollegesCounsellors = () => {
   const columns = useMemo(() => CounsellorCollegesColumn(handleViewProfile), [handleViewProfile]);
 
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <Card>
-          {/* Header Section */}
-          {/* <div className="mb-1">
-            <Header title="Colleges" Icon={FaSchool} />
-          </div> */}
+    <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
+      <Header title="Colleges" Icon={FaSchool} />
 
-          {/* Content Section */}
-          {loading ? (
-            <div className="text-center">
-              <CircularProgress />
+      <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+        {loading ? (
+           <div className="flex flex-col items-center justify-center p-20 min-h-[400px]">
+            <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+            <p className="text-slate-500 font-medium">Loading colleges...</p>
+          </div>
+        ) : error ? (
+          <div className="p-10 text-center text-red-500 bg-red-50/50 min-h-[200px] flex items-center justify-center">
+            {error}
+          </div>
+        ) : data.length > 0 ? (
+          <div className="p-2">
+            <div className="overflow-x-auto">
+               <Table heading={"Colleges List"} DATA={data} COLUMNS={columns} />
             </div>
-          ) : error ? (
-            <Typography color="error" align="center" variant="subtitle1">
-              {error}
-            </Typography>
-          ) : data.length > 0 ? (
-            <>
-              <Table heading={"Colleges List"} DATA={data} COLUMNS={columns} />
-              <Typography
-                variant="subtitle2"
-                align="center"
-                style={{ marginTop: "16px", color: "#555" }}
-              >
-                Total Colleges: {data.length}
-              </Typography>
-            </>
-          ) : (
-            <Typography
-              align="center"
-              color="textSecondary"
-              variant="subtitle1"
-            >
-              No colleges found. Add some colleges to see them listed here.
-            </Typography>
-          )}
-        </Card>
-      </Grid>
-    </Grid>
+             <div className="p-4 bg-slate-50 border-t border-slate-100 text-center text-sm text-slate-500 font-medium">
+              Total Colleges: <span className="text-indigo-600 font-bold">{data.length}</span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-24 px-4 text-center">
+             <div className="w-24 h-24 bg-indigo-50 text-indigo-200 rounded-full flex items-center justify-center mb-6">
+              <HiOutlineOfficeBuilding className="w-12 h-12" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-2">No Colleges Found</h3>
+            <p className="text-slate-500 max-w-sm mx-auto mb-8">
+              There are no colleges listed at the moment.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -1,7 +1,9 @@
 import icon from "../../assets/dashboard/wepik-export-20240313072348V9B7.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Button from "../../components/Button";
+import { MdOutlineEventNote } from "react-icons/md";
+import { FaUniversity, FaWallet } from "react-icons/fa";
+import { HiArrowRight } from "react-icons/hi";
 //imports................................................................................................
 
 const Dashbord = () => {
@@ -9,60 +11,107 @@ const Dashbord = () => {
   const councilerdata = useSelector(
     (state) => state?.councilerAuth?.counsillor
   );
+
+  const cards = [
+    {
+      title: "Bookings",
+      description: "View all your upcoming sessions",
+      icon: MdOutlineEventNote,
+      path: "/counsellor/booking",
+      color: "from-blue-500 to-indigo-600",
+      bg: "bg-blue-50 text-blue-600",
+    },
+    {
+      title: "Colleges",
+      description: "Explore and manage college lists",
+      icon: FaUniversity,
+      path: "/counsellor/collegesCounsellors",
+      color: "from-emerald-500 to-teal-600",
+      bg: "bg-emerald-50 text-emerald-600",
+    },
+    {
+      title: "Wallet",
+      description: "Check your earnings and balance",
+      icon: FaWallet,
+      path: "/counsellor/wallet",
+      color: "from-violet-500 to-purple-600",
+      bg: "bg-violet-50 text-violet-600",
+    },
+  ];
+
   return (
-    <div className="space-y-8">
-      <section className="bg-[#F5F7F8] rounded-2xl p-4 lg:p-6">
-        <div className="flex flex-col md:flex-row justify-between gap-6 lg:gap-8">
-          <div className="space-y-3">
-            <h2 className="text-xl lg:text-2xl font-semibold">
-              {councilerdata?.name}
-            </h2>
-            <div className="space-y-2 text-sm lg:text-base">
-              <p>E-mail: {councilerdata?.email}</p>
-              <p>Contact: {councilerdata?.contact}</p>
-              <p>Session Mode: {councilerdata.counsellor?.session_mode}</p>
-              <p>Language : {councilerdata.counsellor?.language}</p>
+    <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
+      {/* Welcome Section */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 text-white shadow-2xl">
+        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center p-6 md:p-10 gap-8">
+          <div className="space-y-6 max-w-2xl">
+            <div>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-2">
+                Hello, {councilerdata?.name?.split(" ")[0]}! <span className="inline-block animate-wave">👋</span>
+              </h2>
+              <p className="text-indigo-200 text-lg font-medium">
+                Here&apos;s what&apos;s happening in your portal today.
+              </p>
             </div>
-            <p className="text-zinc-600 text-xs mt-4">
-              Always Stay Updated With counsellor Portal
-            </p>
+            
+            <div className="flex flex-wrap gap-4 text-sm md:text-base">
+              <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2">
+                <span className="text-indigo-200">Session Mode:</span>
+                <span className="font-semibold text-white">{councilerdata.counsellor?.session_mode || "Online"}</span>
+              </div>
+              <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2">
+                <span className="text-indigo-200">Language:</span>
+                <span className="font-semibold text-white">{councilerdata.counsellor?.language || "English"}</span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex justify-center md:justify-end">
+          <div className="hidden md:block relative group">
+             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/30 to-purple-500/30 rounded-full blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
             <img
               src={icon}
-              alt="Counselor"
-              className="w-32 md:w-48 lg:w-56 hover:animate-pulse transition-all"
+              alt="Counselor Profile"
+              className="relative w-48 md:w-64 lg:w-72 drop-shadow-2xl transform group-hover:-translate-y-2 transition-transform duration-500 ease-in-out"
             />
           </div>
         </div>
       </section>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
-        <div
-          className="activity-card bg-[#F5F7F8] p-4 rounded-xl hover:scale-105 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center gap-4"
-          onClick={() => navigate("/counsellor/booking")}
-        >
-          <h3 className="text-center ">Show all the Bookings</h3>
-          <Button title="View" />
-        </div>
-        <div
-          className="activity-card bg-[#F5F7F8] p-4 rounded-xl  hover:scale-105 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center gap-4"
-          onClick={() => navigate("/counsellor/collegesCounsellors")}
-        >
-          <h3 className="text-center ">Fetch All Colleges</h3>
-          <Button title="View" />
-        </div>
-        <div
-          className="activity-card bg-[#F5F7F8] p-4 rounded-xl  hover:scale-105 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center gap-4"
-          onClick={() => navigate("/counsellor/wallet")}
-        >
-          <h3 className="text-center ">Wallet Money</h3>
-          <Button title="View" />
-        </div>
+
+      {/* Cards Grid */}
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            onClick={() => navigate(card.path)}
+            className="group relative bg-white border border-slate-100 rounded-3xl p-6 lg:p-8 cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-6">
+              <div className={`p-4 rounded-2xl ${card.bg} transition-transform duration-300 group-hover:scale-110`}>
+                <card.icon className="w-8 h-8" />
+              </div>
+              <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 transform group-hover:rotate-45">
+                <HiArrowRight className="w-5 h-5" />
+              </div>
+            </div>
+            
+            <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-indigo-700 transition-colors">
+              {card.title}
+            </h3>
+            <p className="text-slate-500 text-sm font-medium">
+              {card.description}
+            </p>
+
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent group-hover:via-indigo-500 transition-all duration-500 opacity-50"></div>
+          </div>
+        ))}
       </section>
     </div>
   );
 };
+
 
 export default Dashbord;
 

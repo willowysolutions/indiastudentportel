@@ -152,7 +152,12 @@ export const CounsellorCollegesColumn = (handleViewProfile) => [
   },
   {
     Header: "Affiliation",
-    accessor: "university_name", // accessor is the "key" in the data
+    accessor: "university_name",
+    Cell: ({ value }) => (
+      <div className="whitespace-normal min-w-[200px] break-words">
+        {value}
+      </div>
+    ),
   },
   {
     Header: "Location",
