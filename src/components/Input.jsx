@@ -14,7 +14,6 @@ const Input = ({ label,type,name,register, error } ) => {
 
   // Calculate whether the label should stay up
   const labelShouldStayUp = inputValue.length > 0;
-  console.log(type,"list fo typesssssssssss")
 
   return (
     <div className="relative mb-3">

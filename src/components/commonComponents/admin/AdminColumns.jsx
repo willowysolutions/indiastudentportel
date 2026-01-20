@@ -195,6 +195,11 @@ export const AdminCollegesColumn = (
   {
     Header: "College",
     accessor: "name",
+    Cell: ({ value }) => (
+      <div className="whitespace-normal break-words min-w-[200px]">
+        {value}
+      </div>
+    ),
   },
   {
     Header: "Email",
