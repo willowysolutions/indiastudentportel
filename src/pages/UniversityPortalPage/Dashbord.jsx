@@ -42,8 +42,9 @@ const Dashbord = () => {
     <div className="space-y-8 font-poppins min-h-[80vh]">
         
         {/* Welcome Section / Header */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden relative">
-             <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-r from-violet-600 to-indigo-600"></div>
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl shadow-xl overflow-hidden relative text-white">
+             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none"></div>
              
              {/* Action Button */}
              <div className="absolute top-6 right-6 z-20">
@@ -55,19 +56,19 @@ const Dashbord = () => {
                 </button>
              </div>
 
-             <div className="pt-24 px-8 pb-8 flex flex-col md:flex-row items-center md:items-end gap-8 relative z-10">
+             <div className="p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 relative z-10">
                  {/* Icon/Image */}
-                 <div className="w-40 h-40 rounded-2xl bg-white p-2 shadow-2xl skew-y-0 md:-skew-y-2 transform transition-transform hover:skew-y-0 duration-500 border-4 border-white flex items-center justify-center text-indigo-600 text-6xl">
+                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-white/10 backdrop-blur-sm p-4 shadow-lg border border-white/20 flex items-center justify-center text-white text-6xl shadow-indigo-900/20">
                       {/* <img src={icon} alt="University" className="w-full h-full object-contain" /> */}
                       <FaUniversity />
                  </div>
 
                  {/* Info */}
-                 <div className="flex-1 text-center md:text-left mb-2">
-                      <h2 className="text-3xl md:text-4xl font-bold text-slate-800 drop-shadow-sm leading-tight">
+                 <div className="flex-1 text-center md:text-left">
+                      <h2 className="text-3xl md:text-4xl font-bold text-white drop-shadow-sm leading-tight mb-2">
                           {universityData?.name || "University Name"}
                       </h2>
-                      <p className="text-slate-500 font-medium flex items-center justify-center md:justify-start gap-2 mt-2">
+                      <p className="text-blue-100 font-medium text-lg flex items-center justify-center md:justify-start gap-2">
                            Welcome to your University Portal Dashboard
                       </p>
                  </div>

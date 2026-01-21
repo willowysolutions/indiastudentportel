@@ -72,19 +72,22 @@ console.log(admissions,'addmm');
     const columns = useMemo(() => StudentCollumn(handleViewStudent, ), []);
         
     return (
-      <div>
-        <div className="p-2">
-          <Header title="Students" Icon={FaGraduationCap} />
+      <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
+        <Header title="Students" Icon={FaGraduationCap} />
+        
+        <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+            {isLoading ? (
+            // Render the loading content
+            <div className="flex justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+            </div>
+            ) : (
+            // Render the table
+            <div className="p-2">
+                 <Table heading={"Students List"} DATA={admissions} COLUMNS={columns} />
+            </div>
+            )}
         </div>
-        {isLoading ? (
-          // Render the loading content
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
-          </div>
-        ) : (
-          // Render the table
-          <Table heading={""} DATA={admissions} COLUMNS={columns} />
-        )}
       </div>
     );
 }

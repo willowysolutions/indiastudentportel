@@ -57,30 +57,31 @@ const Dashbord = () => {
         <div className="space-y-8 font-poppins min-h-[80vh]">
             
              {/* Header Section */}
-             <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden relative">
-                 <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-r from-indigo-600 to-violet-600"></div>
+             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl shadow-xl overflow-hidden relative text-white">
+                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none"></div>
                  
-                 <div className="pt-24 px-8 pb-8 flex flex-col md:flex-row items-center md:items-end gap-8 relative z-10">
+                 <div className="p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 relative z-10">
                      {/* Avatar/Icon */}
-                     <div className="w-40 h-40 rounded-2xl bg-white p-2 shadow-2xl skew-y-0 md:-skew-y-2 transform transition-transform hover:skew-y-0 duration-500 border-4 border-white flex items-center justify-center text-indigo-600 text-6xl">
+                     <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-white/10 backdrop-blur-sm p-4 shadow-lg border border-white/20 flex items-center justify-center text-white text-6xl shadow-indigo-900/20">
                           <FaUserGraduate />
                      </div>
     
                      {/* Info */}
-                     <div className="flex-1 text-center md:text-left mb-2">
-                          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 drop-shadow-sm leading-tight">
-                              Hello, {student?.name || "Student"}! 👋
+                     <div className="flex-1 text-center md:text-left">
+                          <h2 className="text-3xl md:text-4xl font-bold text-white drop-shadow-sm leading-tight mb-2">
+                              Hello, {student?.name || "Student"}!
                           </h2>
-                          <p className="text-slate-500 font-medium mt-2 max-w-2xl">
+                          <p className="text-blue-100 font-medium text-lg max-w-2xl mb-6">
                                Welcome to your personal dashboard. Manage your bookings, take tests, and explore your future opportunities.
                           </p>
                           
-                          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-6 text-sm text-slate-500">
-                                <span className="flex items-center gap-2 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-                                    <FaEnvelope className="text-indigo-400" /> {student?.email || "N/A"}
+                          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm font-medium">
+                                <span className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full border border-white/10 transition-colors backdrop-blur-sm">
+                                    <FaEnvelope className="text-blue-200" /> {student?.email || "N/A"}
                                 </span>
-                                <span className="flex items-center gap-2 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-                                    <FaPhoneAlt className="text-indigo-400" /> {student?.contact || "N/A"}
+                                <span className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full border border-white/10 transition-colors backdrop-blur-sm">
+                                    <FaPhoneAlt className="text-blue-200" /> {student?.contact || "N/A"}
                                 </span>
                           </div>
                      </div>

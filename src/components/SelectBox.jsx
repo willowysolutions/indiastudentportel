@@ -1,18 +1,20 @@
-const SelectBox = ({ label, register, options, error, Icon, onChange }) => {
+const SelectBox = ({ label, register, options, error, onChange }) => {
 	return (
-		<div className=''>
-			<div className='flex border-blue-500 border rounded-md'>
-				<div className='flex items-center  p-3 border-r'>
-					<Icon className='w-5 h-5' />
-				</div>
-				{/* Merge custom onChange with register's onChange */}
+		<div className="flex flex-col">
+            {label && (
+                <label className="mb-1.5 text-sm font-semibold text-slate-700 ml-1">
+                    {label}
+                </label>
+            )}
+			<div className='relative'>
+				{/* Note: Icon prop is removed from usage to match Admin design, but kept in signature if passed to avoid errors, or we can just ignore it */}
 				<select
 					{...register}
 					onChange={e => {
-						register.onChange(e) // react-hook-form's onChange
-						onChange && onChange(e) // custom onChange
+                        if (register && register.onChange) register.onChange(e);
+						onChange && onChange(e)
 					}}
-					className=' border rounded-md border-blue-300 text-gray-900 text-sm focus:border-blue-500 block w-full p-2.5 outline-none'
+					className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all placeholder:text-slate-400 text-slate-700 appearance-none"
 				>
 					<option value=''>Choose a {label}</option>
 					{options?.map(option => (
@@ -21,12 +23,10 @@ const SelectBox = ({ label, register, options, error, Icon, onChange }) => {
 						</option>
 					))}
 				</select>
+                {/* Add a custom arrow if needed, or rely on browser default. standard admin uses browser default usually or a specific icon. for now appearance-none needs an icon or we allow default appearance. AdminAddCollege uses appearance-none but I don't see an icon added. I will use standard appearance for now or rely on specific CSS */}
 			</div>
-			<div className='flex justify-end'>
-				{error && (
-					<p className='mt-2 text-[.8rem] text-red-600'>{error.message}</p>
-				)}
-			</div>
+			
+            {error && <div className="text-rose-500 text-xs mt-1 ml-1">{error.message || error}</div>}
 		</div>
 	)
 }

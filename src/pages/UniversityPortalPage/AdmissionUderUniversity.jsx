@@ -97,22 +97,22 @@ console.log(admissions,'addmm');
         
   
   return (
-    
-        <div>
-        <div className="p-2">
-
-         <Header title='Sudents' Icon={FaGraduationCap} />
+    <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
+        <Header title='Students' Icon={FaGraduationCap} />
+        
+        <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+             {/* <div className="p-4">Optional controls or stats can go here</div> */}
+             <Table heading={"Admitted Students"} DATA={admissions} COLUMNS={columns} />
         </div>
-         <Table heading={""} DATA={admissions} COLUMNS={columns} />
-         {/* Render the EditModal component conditionally */}
-      {/* {showModal && (
+        
+        {/* Render the EditModal component conditionally */}
+        {/* {showModal && (
         <EditModal
-          college={selectedCollege}
-          onClose={() => setShowModal(false)} // Pass a function to close the modal
+            college={selectedCollege}
+            onClose={() => setShowModal(false)} // Pass a function to close the modal
         />
-      )} */}
-            </div>
-    
+        )} */}
+    </div>
   )
 }
 

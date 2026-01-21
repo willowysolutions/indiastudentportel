@@ -7,9 +7,9 @@ import {
   SingleCounselor,
   getcouncilerBooking,
 } from "../../../Redux/features/student/StudentSlice";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CircularProgress from "@mui/material/CircularProgress";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import Header from "../../../components/Header";
+
 const BookCouncillor = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -71,34 +71,45 @@ const BookCouncillor = () => {
   );
 
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <Card>
-          {isDataLoading ? (
-            <div className="text-center py-8">
-              <CircularProgress />
+    <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
+      <Header title="Book a Counsellor" Icon={FaChalkboardTeacher} />
+      
+      <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+        {isDataLoading ? (
+            <div className="flex flex-col items-center justify-center p-20 min-h-[400px]">
+                <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+                <p className="text-slate-500 font-medium">Loading counsellors...</p>
             </div>
-          ) : error ? (
-            <div className="text-center text-red-500 py-8">{error}</div>
-          ) : Datas?.length > 0 ? (
-            <div>
-              <Tables
-                heading="List Of Counsellor"
-                DATA={Datas}
-                COLUMNS={columns}
-              />
-              <div className="p-4 border-t text-sm text-gray-500">
-                Total Counsellor: {Datas.length}
+        ) : error ? (
+            <div className="text-center text-rose-500 py-12 bg-rose-50 rounded-xl border border-rose-100 m-4">
+                <p className="font-semibold">{error}</p>
+            </div>
+        ) : Datas?.length > 0 ? (
+            <div className="p-2">
+              <div className="overflow-x-auto">
+                <Tables
+                  heading="List Of Counsellor"
+                  DATA={Datas}
+                  COLUMNS={columns}
+                />
+              </div>
+              <div className="p-4 bg-slate-50 border-t border-slate-100 text-center text-sm text-slate-500 font-medium">
+                Total Counsellor: <span className="text-indigo-600 font-bold">{Datas.length}</span>
               </div>
             </div>
-          ) : (
-            <div className="text-center text-gray-500 py-8">
-              No Counsellor found. Please try again later or contact support.
+        ) : (
+            <div className="flex flex-col items-center justify-center py-24 px-4 text-center">
+                 <div className="w-24 h-24 bg-indigo-50 text-indigo-200 rounded-full flex items-center justify-center mb-6">
+                    <FaChalkboardTeacher className="w-12 h-12" />
+                 </div>
+                 <h3 className="text-xl font-bold text-slate-700 mb-2">No Counsellor Found</h3>
+                 <p className="text-slate-500 max-w-sm mx-auto">
+                    Please try again later or contact support.
+                 </p>
             </div>
-          )}
-        </Card>
-      </Grid>
-    </Grid>
+        )}
+      </div>
+    </div>
   );
 };
 

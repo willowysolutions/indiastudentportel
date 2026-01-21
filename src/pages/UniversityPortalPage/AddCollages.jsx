@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Input from "../../components/commonComponents/Input";
+import Header from "../../components/Header";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -105,21 +106,7 @@ const AddCourse = () => {
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Header */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden relative">
-             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600 to-indigo-600 opacity-90"></div>
-             <div className="relative z-10 p-8 flex flex-col md:flex-row items-center justify-between gap-6 text-white">
-                 <div>
-                    <h1 className="text-3xl font-bold flex items-center gap-3">
-                        <FaBookOpen className="text-blue-200" />
-                        Manage Courses
-                    </h1>
-                    <p className="text-blue-100 mt-2 text-lg">Add new courses to your college curriculum.</p>
-                 </div>
-                 <div className="hidden md:block">
-                     <FaGraduationCap className="text-9xl text-white/20" />
-                 </div>
-             </div>
-        </div>
+        <Header title="Manage Courses" Icon={FaBookOpen} />
 
         {/* Form Container */}
         <div className="bg-white/90 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 md:p-10">

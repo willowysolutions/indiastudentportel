@@ -214,93 +214,96 @@ const Admission = () => {
 	}
 
 	return (
-		<div className=''>
+		<div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
 			<Header title='Admission' Icon={FaWpforms} />
-			{switchForm === 'Admission' && (
-				<div className='mt-14'>
-					<div
-						className='text-black bg-green-600'
-						onClick={() => setSwitchForm('PersonalDetails')}
-					></div>
-					<div className='text-zinc-600 font-bold text-[1.6rem]'>
-						College and University
-					</div>
+            
+            <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden p-8">
+                {switchForm === 'Admission' && (
+                    <div className='mt-2'>
+                        <div
+                            className='text-black bg-green-600'
+                            onClick={() => setSwitchForm('PersonalDetails')}
+                        ></div>
+                        <div className='text-zinc-600 font-bold text-[1.6rem]'>
+                            College and University
+                        </div>
 
-					<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-						<div className='grid mt-8 grid-cols-2 gap-5'>
-							<SelectBox
-								name='university_state'
-								label='State'
-								options={stateOptions}
-								register={register('university_state')}
-								error={errors.university_state}
-								Icon={RiRoadMapLine}
-								onChange={handleStateChange}
-							/>
-							<SelectBox
-								name='university_id'
-								label='University'
-								options={universityOptions}
-								register={register('university_id')}
-								error={errors.university_id}
-								Icon={LiaUniversitySolid}
-								onChange={handleUniversityChange}
-							/>
-							<SelectBox
-								name='college_id'
-								label='College'
-								options={collegeOptions}
-								register={register('college_id')}
-								error={errors.college_id}
-								Icon={BiSolidSchool}
-								onChange={handleCollegeChange}
-							/>
-							<SelectBox
-								name='course_id'
-								label='Course'
-								options={courseOptions}
-								register={register('course_id')}
-								error={errors.course_id}
-								Icon={LuTextSelect}
-							/>
-						</div>
-						<div className='flex justify-end'>
-							<Button type='submit' title='Next'></Button>
-						</div>
-					</form>
-				</div>
-			)}
-			{switchForm === 'PersonalDetails' && (
-				<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-					<div className='pt-8 grid gap-1 gap-y-6 grid-cols-3'>
-						{studentFormSchema?.map(field => (
-							<div key={field.name}>
-								{field.type === 'select' ? (
-									<SelectBox
-										label={field.label}
-										name={field.name}
-										options={field.options}
-										register={register(field.name)}
-										error={errors[field.name]?.message}
-										Icon={LuTextSelect}
-									/>
-								) : (
-									<Input
-										label={field.label}
-										type={field.type}
-										name={field.name}
-										register={register(field.name)}
-										error={errors[field.name]?.message}
-									/>
-								)}
-							</div>
-						))}
-						<div className='flex justify-end col-span-3'>
-							<Button type='submit' title='Submit Details'></Button>
-						</div>
-					</div>
-				</form>
-			)}
+                        <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+                            <div className='grid mt-8 grid-cols-2 gap-5'>
+                                <SelectBox
+                                    name='university_state'
+                                    label='State'
+                                    options={stateOptions}
+                                    register={register('university_state')}
+                                    error={errors.university_state}
+                                    Icon={RiRoadMapLine}
+                                    onChange={handleStateChange}
+                                />
+                                <SelectBox
+                                    name='university_id'
+                                    label='University'
+                                    options={universityOptions}
+                                    register={register('university_id')}
+                                    error={errors.university_id}
+                                    Icon={LiaUniversitySolid}
+                                    onChange={handleUniversityChange}
+                                />
+                                <SelectBox
+                                    name='college_id'
+                                    label='College'
+                                    options={collegeOptions}
+                                    register={register('college_id')}
+                                    error={errors.college_id}
+                                    Icon={BiSolidSchool}
+                                    onChange={handleCollegeChange}
+                                />
+                                <SelectBox
+                                    name='course_id'
+                                    label='Course'
+                                    options={courseOptions}
+                                    register={register('course_id')}
+                                    error={errors.course_id}
+                                    Icon={LuTextSelect}
+                                />
+                            </div>
+                            <div className='flex justify-end pt-4'>
+                                <Button type='submit' title='Next'></Button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+                {switchForm === 'PersonalDetails' && (
+                    <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+                        <div className='pt-2 grid gap-1 gap-y-6 grid-cols-3'>
+                            {studentFormSchema?.map(field => (
+                                <div key={field.name}>
+                                    {field.type === 'select' ? (
+                                        <SelectBox
+                                            label={field.label}
+                                            name={field.name}
+                                            options={field.options}
+                                            register={register(field.name)}
+                                            error={errors[field.name]?.message}
+                                            Icon={LuTextSelect}
+                                        />
+                                    ) : (
+                                        <Input
+                                            label={field.label}
+                                            type={field.type}
+                                            name={field.name}
+                                            register={register(field.name)}
+                                            error={errors[field.name]?.message}
+                                        />
+                                    )}
+                                </div>
+                            ))}
+                            <div className='flex justify-end col-span-3 pt-6'>
+                                <Button type='submit' title='Submit Details'></Button>
+                            </div>
+                        </div>
+                    </form>
+                )}
+            </div>
 		</div>
 	)
 }

@@ -6,11 +6,10 @@ import {
   getAllBookings,
 } from "../../../Redux/features/student/StudentSlice";
 import Tables from "../../../components/table/Table";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CircularProgress from "@mui/material/CircularProgress";
 import Button from "../../../components/Button";
 import { BookingsColumns } from "../../../components/commonComponents/student/TableColumns";
+import Header from "../../../components/Header";
+import { FaCalendarCheck, FaCalendarPlus } from "react-icons/fa";
 
 const Bookings = () => {
   const navigate = useNavigate();
@@ -59,53 +58,45 @@ const Bookings = () => {
     []
   );
 
-  const renderContent = () => {
-    if (loading) {
-      return (
-        <div className="text-center py-8">
-          <CircularProgress />
-        </div>
-      );
-    }
-
-    if (error) {
-      return <div className="text-center text-red-500 py-8">{error}</div>;
-    }
-
-    if (data?.length > 0) {
-      return (
-        <div>
-          <Tables heading="List Of Counselors" DATA={data} COLUMNS={columns} />
-          <div className="p-4 border-t text-sm text-gray-500">
-            Total Bookings: {data.length}
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="text-center text-gray-500 py-8">
-        <div className="flex flex-col items-center justify-center gap-3 p-10">
-          <h1 className="font-bold text-red-400 text-center">
-            No bookings found!
-          </h1>
-          <p className="text-center">
-            Schedule a session to see your admissions here.
-          </p>
-          <span onClick={() => navigate("/student/counsillor")}>
-            <Button title="Book A Counselor" />
-          </span>
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <Card>{renderContent()}</Card>
-      </Grid>
-    </Grid>
+    <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
+      <Header title="My Bookings" Icon={FaCalendarCheck} />
+
+      <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+        {loading ? (
+             <div className="flex flex-col items-center justify-center p-20 min-h-[400px]">
+                <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+                <p className="text-slate-500 font-medium">Loading bookings...</p>
+            </div>
+        ) : error ? (
+            <div className="text-center text-rose-500 py-12 bg-rose-50 rounded-xl border border-rose-100 m-4">
+                <p className="font-semibold">{error}</p>
+            </div>
+        ) : data?.length > 0 ? (
+            <div className="p-2">
+              <div className="overflow-x-auto">
+                 <Tables heading="My Bookings" DATA={data} COLUMNS={columns} />
+              </div>
+              <div className="p-4 bg-slate-50 border-t border-slate-100 text-center text-sm text-slate-500 font-medium">
+                Total Bookings: <span className="text-indigo-600 font-bold">{data.length}</span>
+              </div>
+            </div>
+        ) : (
+             <div className="flex flex-col items-center justify-center py-24 px-4 text-center">
+                 <div className="w-24 h-24 bg-indigo-50 text-indigo-200 rounded-full flex items-center justify-center mb-6">
+                    <FaCalendarPlus className="w-12 h-12" />
+                 </div>
+                 <h3 className="text-xl font-bold text-slate-700 mb-2">No Bookings Found</h3>
+                 <p className="text-slate-500 max-w-sm mx-auto mb-6">
+                    You haven&apos;t booked any counselling sessions yet.
+                 </p>
+                 <span onClick={() => navigate("/student/counsillor")}>
+                    <Button title="Book A Counsellor" />
+                 </span>
+            </div>
+        )}
+      </div>
+    </div>
   );
 };
 

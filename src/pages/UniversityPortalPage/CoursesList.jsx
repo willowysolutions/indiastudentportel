@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCourse } from "../../Redux/features/University/UniversitySlice";
-import { Card, CircularProgress, Typography, Grid } from "@mui/material";
 import Tables from "../../components/table/Table";
 import Header from "../../components/Header";
 import { FaWpforms } from "react-icons/fa";
@@ -16,7 +15,6 @@ const CoursesList = () => {
   const [error, setError] = useState(null);
 
   const { courses } = useSelector((state) => state.university);
-  console.log(courses, "coursescourses");
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -38,47 +36,46 @@ const CoursesList = () => {
     });
   };
 
-  const columns = useMemo(() => coursesColumns(handleEditCourse));
+  const columns = useMemo(() => coursesColumns(handleEditCourse), []);
 
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <Card>
-          {loading ? (
-            <div className="text-center">
-              <CircularProgress />
+    <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
+      <Header title="Courses Offered" Icon={FaWpforms} />
+
+      <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+         {loading ? (
+             <div className="flex flex-col items-center justify-center p-20 min-h-[400px]">
+                 <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+                 <p className="text-slate-500 font-medium">Loading courses...</p>
+             </div>
+         ) : error ? (
+            <div className="text-center p-10 text-rose-500">
+                {error}
             </div>
-          ) : error ? (
-            <Typography color="error" align="center" variant="subtitle1">
-              {error}
-            </Typography>
-          ) : courses?.length > 0 ? (
-            <>
-              <Tables
-                heading="Courses Offered"
-                DATA={courses}
-                COLUMNS={columns}
-              />
-              <Typography
-                variant="subtitle2"
-                align="center"
-                style={{ marginTop: "16px", color: "#555" }}
-              >
-                Total Courses: {courses.length}
-              </Typography>
-            </>
-          ) : (
-            <Typography
-              align="center"
-              color="textSecondary"
-              variant="subtitle1"
-            >
-              No courses found.
-            </Typography>
-          )}
-        </Card>
-      </Grid>
-    </Grid>
+         ) : courses?.length > 0 ? (
+            <div className="p-2">
+                 <Tables
+                   heading="Courses List"
+                   DATA={courses}
+                   COLUMNS={columns}
+                 />
+                 <div className="p-4 bg-slate-50 border-t border-slate-100 text-center text-sm text-slate-500 font-medium">
+                    Total Courses: <span className="text-indigo-600 font-bold">{courses.length}</span>
+                </div>
+            </div>
+         ) : (
+             <div className="flex flex-col items-center justify-center py-24 px-4 text-center">
+                 <div className="w-24 h-24 bg-indigo-50 text-indigo-200 rounded-full flex items-center justify-center mb-6">
+                     <FaWpforms className="w-12 h-12" />
+                 </div>
+                 <h3 className="text-xl font-bold text-slate-800 mb-2">No Courses Found</h3>
+                 <p className="text-slate-500 max-w-sm mx-auto">
+                     No courses available at the moment.
+                 </p>
+             </div>
+         )}
+      </div>
+    </div>
   );
 };
 
