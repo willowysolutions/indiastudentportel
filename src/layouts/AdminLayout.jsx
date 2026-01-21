@@ -30,6 +30,7 @@ function AdminLayout() {
           className="shadow-md z-50"
           onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)}
           DATA={adminName}
+          portalName="Admin Portal"
         />
 
         {/* Content */}

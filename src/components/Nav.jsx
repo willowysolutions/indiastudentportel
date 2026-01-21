@@ -3,7 +3,7 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import PropTypes from "prop-types";
 //imports................................................................................................
 
-const Nav = ({ onMenuClick , DATA }) => {
+const Nav = ({ onMenuClick , DATA, portalName }) => {
   return (
     <header className="sticky top-0 z-50 transition-all duration-300">
       <div className="absolute inset-0 bg-white/70 backdrop-blur-md shadow-sm border-b border-white/20"></div>
@@ -19,7 +19,7 @@ const Nav = ({ onMenuClick , DATA }) => {
           
           <div className="hidden sm:block">
             <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600">
-              Counsellor Portal
+              {portalName}
             </h1>
           </div>
         </div>
@@ -38,6 +38,7 @@ const Nav = ({ onMenuClick , DATA }) => {
 Nav.propTypes = {
   onMenuClick: PropTypes.func.isRequired,
   DATA: PropTypes.object,
+  portalName: PropTypes.string,
 };
 
 export default Nav;

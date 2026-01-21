@@ -29,6 +29,7 @@ function UniversityLayout() {
           className="shadow-md z-50"
           onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)}
           DATA={universityName}
+          portalName="University Portal"
         />
 
         {/* Content */}

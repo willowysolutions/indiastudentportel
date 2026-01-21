@@ -28,6 +28,7 @@ const StudentLayout = () => {
           className="shadow-md z-50"
           onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)}
           DATA={student}
+          portalName="Student Portal"
         />
         {/* Content */}
         <div className="flex-grow overflow-y-auto no-scrollbar overflow-x-auto h-full p-2">

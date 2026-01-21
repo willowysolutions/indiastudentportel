@@ -34,6 +34,7 @@ function CounsellorLayout() {
           className="shadow-md z-50"
           onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)}
           DATA={counsellorName}
+          portalName="Counsellor Portal"
         />
 
         {/* Content */}
