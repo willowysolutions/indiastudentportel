@@ -10,15 +10,17 @@ import {
   getCourseName,
   postCourse,
 } from "../../Redux/features/University/UniversitySlice";
+import { FaBookOpen, FaPlusCircle, FaMoneyBillWave, FaClock, FaGraduationCap } from "react-icons/fa";
+
 // Validation schema for the course form
 const courseValidationSchema = yup.object().shape({
   course_id: yup.string().required("Course Name is required"),
   title: yup.string().required("Title is required"),
   course_duration: yup.string().required("Duration is required"),
   course_fee: yup.string().required("Course Fee is required"),
-  courses_and_fees: yup.string().required("courses & fees are required"),
-  eligibility: yup.string().required("eligibility are required"),
-  highlights: yup.string().required("college info are required"),
+  courses_and_fees: yup.string().required("Courses & fees details are required"),
+  eligibility: yup.string().required("Eligibility criteria is required"),
+  highlights: yup.string().required("Course highlights are required"),
 });
 
 const AddCourse = () => {
@@ -45,7 +47,7 @@ const AddCourse = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm({
     resolver: yupResolver(courseValidationSchema),
@@ -59,39 +61,33 @@ const AddCourse = () => {
       courses_and_fees: "",
       eligibility: "",
       highlights: "",
-      // college_info: "",
-      // details: "",
     },
   });
 
   const onSubmitCourse = async (data) => {
     try {
-      // Ensure college_id exists before submitting
       if (!college_id) {
         toast.error("College ID not found. Please login again.");
         return;
       }
-      // Format the data properly
+      
       const courseData = {
         college_id: college_id,
-        course_id: data.course_id.toString(), // Convert to string if needed
+        course_id: data.course_id.toString(),
         title: data.title.trim(),
         course_duration: data.course_duration.trim(),
-        course_fee: data.course_fee.toString(), // Convert to string if needed
-        streem: data.streem.toString(), // Convert to string if needed
-        program_offered_by: data.program_offered_by.toString(), // Convert to string if needed
+        course_fee: data.course_fee.toString(),
+        streem: data.streem.toString(),
+        program_offered_by: data.program_offered_by.toString(),
         courses_and_fees: data.courses_and_fees.trim(),
         eligibility: data.eligibility.trim(),
         highlights: data.highlights.trim(),
       };
 
-      // Dispatch and wait for the result
-      const result = await dispatch(postCourse(courseData)).unwrap();
-      // If successful, show success message and reset form
+      await dispatch(postCourse(courseData)).unwrap();
       toast.success("Course added successfully!");
       reset();
     } catch (error) {
-      // Handle specific error cases
       if (error.response?.status === 400) {
         toast.error("Invalid data. Please check your inputs.");
       } else if (error.response?.status === 401) {
@@ -104,139 +100,192 @@ const AddCourse = () => {
   };
 
   return (
-    <div>
-      <div className="flex-row md:py-20 py-10 bg-gray-10 bg-white">
-        <form
-          id="AddCourseForm"
-          onSubmit={handleSubmit(onSubmitCourse)}
-          className="w-full max-w-3xl mx-auto px-4"
-        >
-          <div className="flex flex-wrap -mx-4">
-            <div className="w-full md:w-1/2 px-4">
-              <select
-                {...register("course_id")}
-                className="w-full px-3 py-2 border border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select Course</option>
-                {CourseNameLists?.map((course) => (
-                  <option key={course.id} value={course.id}>
-                    {course.title}
-                  </option>
-                ))}
-              </select>
-              {errors.course_id && (
-                <span className="text-red-500 text-xs">
-                  {errors.course_id.message}
-                </span>
-              )}
-            </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                type="text"
-                id="title"
-                label="Specialization"
-                register={register}
-                errors={errors}
-              />
-            </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                type="text"
-                id="course_duration"
-                label="Duration"
-                register={register}
-                errors={errors}
-              />
-            </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                type="text"
-                id="course_fee"
-                label="Course Fee"
-                register={register}
-                errors={errors}
-              />
-            </div>{" "}
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                type="text"
-                id="streem"
-                label="Stream"
-                register={register}
-                errors={errors}
-              />
-            </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                type="text"
-                id="program_offered_by"
-                label="Programs Offered by"
-                register={register}
-                errors={errors}
-              />
-            </div>
-            <div className="w-full px-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                About Courses & Fees
-              </label>
-              <textarea
-                {...register("courses_and_fees")}
-                className="w-full px-3 py-2 border border-blue-500  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                rows="2"
-                placeholder="Enter Courses & Fees details..."
-              />
-              {errors.courses_and_fees && (
-                <span className="text-red-500 text-xs">
-                  {errors.courses_and_fees.message}
-                </span>
-              )}
-            </div>{" "}
-            <div className="w-full px-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Eligibility
-              </label>
-              <textarea
-                {...register("eligibility")}
-                className="w-full px-3 py-2 border border-blue-500  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                rows="2"
-                placeholder="Explain Eligibility Criteria..."
-              />
-              {errors.eligibility && (
-                <span className="text-red-500 text-xs">
-                  {errors.eligibility.message}
-                </span>
-              )}
-            </div>
-            <div className="w-full px-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Highlights
-              </label>
-              <textarea
-                {...register("highlights")}
-                className="w-full px-3 py-2 border border-blue-500  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                rows="2"
-                placeholder="Enter Highlights About courses..."
-              />
-              {errors.highlights && (
-                <span className="text-red-500 text-xs">
-                  {errors.highlights.message}
-                </span>
-              )}
-            </div>{" "}
-            <div className="w-full px-4 mt-4">
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                Save
-              </button>
-              <ToastContainer />
-            </div>
-          </div>
-        </form>
+    <div className="min-h-screen p-6 font-poppins">
+      <ToastContainer />
+      <div className="max-w-7xl mx-auto space-y-8">
+        
+        {/* Header */}
+        <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden relative">
+             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600 to-indigo-600 opacity-90"></div>
+             <div className="relative z-10 p-8 flex flex-col md:flex-row items-center justify-between gap-6 text-white">
+                 <div>
+                    <h1 className="text-3xl font-bold flex items-center gap-3">
+                        <FaBookOpen className="text-blue-200" />
+                        Manage Courses
+                    </h1>
+                    <p className="text-blue-100 mt-2 text-lg">Add new courses to your college curriculum.</p>
+                 </div>
+                 <div className="hidden md:block">
+                     <FaGraduationCap className="text-9xl text-white/20" />
+                 </div>
+             </div>
+        </div>
+
+        {/* Form Container */}
+        <div className="bg-white/90 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 md:p-10">
+            <form onSubmit={handleSubmit(onSubmitCourse)} className="space-y-8">
+                
+                <h2 className="text-xl font-bold text-slate-800 border-b border-slate-200 pb-4 mb-6">
+                    Course Information
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {/* Course Selection */}
+                    <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-slate-700 mb-2">Select Course <span className="text-rose-500">*</span></label>
+                        <select
+                            {...register("course_id")}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 appearance-none"
+                        >
+                            <option value="">-- Choose a Course --</option>
+                            {CourseNameLists?.map((course) => (
+                            <option key={course.id} value={course.id}>
+                                {course.title}
+                            </option>
+                            ))}
+                        </select>
+                        <ErrorMessage error={errors.course_id} />
+                    </div>
+
+                    {/* Specialization */}
+                    <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-slate-700 mb-2">Specialization Title <span className="text-rose-500">*</span></label>
+                        <input
+                            type="text"
+                            placeholder="e.g. Computer Science"
+                            {...register("title")}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                        />
+                         <ErrorMessage error={errors.title} />
+                    </div>
+
+                    {/* Duration */}
+                    <div className="flex flex-col">
+                         <label className="text-sm font-semibold text-slate-700 mb-2">Duration <span className="text-rose-500">*</span></label>
+                         <div className="relative">
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"><FaClock /></span>
+                            <input
+                                type="text"
+                                placeholder="e.g. 4 Years"
+                                {...register("course_duration")}
+                                className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                            />
+                         </div>
+                         <ErrorMessage error={errors.course_duration} />
+                    </div>
+
+                    {/* Fees */}
+                    <div className="flex flex-col">
+                         <label className="text-sm font-semibold text-slate-700 mb-2">Course Fee <span className="text-rose-500">*</span></label>
+                         <div className="relative">
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"><FaMoneyBillWave /></span>
+                            <input
+                                type="text"
+                                placeholder="e.g. 50000"
+                                {...register("course_fee")}
+                                className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                            />
+                         </div>
+                         <ErrorMessage error={errors.course_fee} />
+                    </div>
+
+                     {/* Stream */}
+                     <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-slate-700 mb-2">Stream</label>
+                        <input
+                            type="text"
+                            placeholder="e.g. Engineering"
+                            {...register("streem")}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                        />
+                         <ErrorMessage error={errors.streem} />
+                    </div>
+
+                    {/* Program By */}
+                    <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-slate-700 mb-2">Program Offered By</label>
+                        <input
+                            type="text"
+                            placeholder="University Name"
+                            {...register("program_offered_by")}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                        />
+                         <ErrorMessage error={errors.program_offered_by} />
+                    </div>
+                </div>
+                
+                <h2 className="text-xl font-bold text-slate-800 border-b border-slate-200 pb-4 mb-6 mt-8">
+                    Detailed Information
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Courses & Fees */}
+                    <div className="md:col-span-2">
+                        <label className="text-sm font-semibold text-slate-700 mb-2 block">About Courses & Fees <span className="text-rose-500">*</span></label>
+                        <textarea
+                            {...register("courses_and_fees")}
+                            rows="4"
+                            placeholder=" detailed breakdown of the course structure and fee components..."
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 resize-y min-h-[100px]"
+                        />
+                        <ErrorMessage error={errors.courses_and_fees} />
+                    </div>
+
+                    {/* Eligibility */}
+                    <div>
+                        <label className="text-sm font-semibold text-slate-700 mb-2 block">Eligibility Criteria <span className="text-rose-500">*</span></label>
+                        <textarea
+                            {...register("eligibility")}
+                            rows="4"
+                            placeholder="Minimum marks, required subjects, etc..."
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 resize-y min-h-[100px]"
+                        />
+                        <ErrorMessage error={errors.eligibility} />
+                    </div>
+
+                    {/* Highlights */}
+                    <div>
+                        <label className="text-sm font-semibold text-slate-700 mb-2 block">Course Highlights <span className="text-rose-500">*</span></label>
+                        <textarea
+                            {...register("highlights")}
+                            rows="4"
+                            placeholder="Unique features, placements, labs, etc..."
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 resize-y min-h-[100px]"
+                        />
+                        <ErrorMessage error={errors.highlights} />
+                    </div>
+                </div>
+
+                <div className="pt-6 border-t border-slate-100">
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full md:w-auto md:min-w-[200px] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mx-auto"
+                    >
+                        {isSubmitting ? (
+                            <>
+                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                Saving...
+                            </>
+                        ) : (
+                            <>
+                                <FaPlusCircle className="text-lg" />
+                                Save Course
+                            </>
+                        )}
+                    </button>
+                </div>
+
+            </form>
+        </div>
       </div>
     </div>
   );
+};
+
+const ErrorMessage = ({ error }) => {
+    if (!error) return null;
+    return <p className="text-rose-500 text-xs mt-1 font-medium">{error.message}</p>;
 };
 
 export default AddCourse;

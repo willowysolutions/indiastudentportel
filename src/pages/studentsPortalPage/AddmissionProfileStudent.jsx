@@ -1,23 +1,28 @@
 import React from 'react';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css'; // Import the styles
-import icon from '../../assets/dashboard/wepik-export-20240313072348V9B7.png';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import { useSelector } from 'react-redux';
+import { 
+    FaUserGraduate, 
+    FaUniversity, 
+    FaBookReader, 
+    FaCalendarAlt,
+    FaMapMarkerAlt,
+    FaPrayingHands,
+    FaIdCard,
+    FaGlobe
+} from 'react-icons/fa';
 
 const AdmissionProfileStudent = () => {
   const selectedAdmission = useSelector(state => state?.student?.selectedAdmission);
-  console.log(selectedAdmission,"the data in the profile page")
-  // Default data in case selectedAdmission is not available
+
+  // Default data fallback
   const defaultData = {
     student_name: 'N/A',
     email: 'N/A',
-    college: {
-      name: 'N/A'
-    },
-    course: {
-      course_name: 'N/A',
-      course_duration: 'N/A'
-    },
+    college: { name: 'N/A' },
+    university: { name: 'N/A' },
+    course: { course_name: 'N/A', course_duration: 'N/A' },
     guardian: 'N/A',
     dob: 'N/A',
     address: 'N/A',
@@ -28,96 +33,110 @@ const AdmissionProfileStudent = () => {
   };
 
   const data = selectedAdmission ? {
-    student_name: selectedAdmission.student_name,
-    email: selectedAdmission.email,
-    college: selectedAdmission.college,
-    course: selectedAdmission.course,
-    guardian: selectedAdmission.guardian,
-    dob: selectedAdmission.dob,
-    address: selectedAdmission.address,
-    district: selectedAdmission.district,
-    state: selectedAdmission.state ? selectedAdmission.state : 'N/A', // Ensure state is not null
-    nationality: selectedAdmission.nationality,
-    religion: selectedAdmission.religion
+    ...selectedAdmission,
+    state: selectedAdmission.state || 'N/A'
   } : defaultData;
 
   return (
-    <div className="h-full">
-      <div className="bg-custom-gradient h-56 rounded-2xl w-full">
-        <div className="flex justify-between">
-          <div className="text-white flex flex-col justify-center ml-10">
-            <div className="text-[1.6rem]">{data.student_name}</div>
-            <div className="text-zinc-300 text-[1rem]">{data.email}</div>
-          </div>
-          <div className="mr-8">
-            <img src={icon} alt="students log" className='w-[14rem] hover:animate-pulse' />
-          </div>
-        </div>
-        <div className="grid grid-cols-[2fr,3fr,3fr] gap-2 pt-2 mt-3">
-          <div className="dark:border-gray-700 dark:bg-gray-800 border h-full min-h-72 flex flex-col justify-center rounded-xl shadow-inner-black-25 text-white"> 
-            <div className="flex justify-center py-5 text-lg font-semibold text-gray-900 dark:text-white mb-2">Aptitude Score</div>
-            <div className='flex justify-center items-center'>
-              <div style={{ width: 200, height: 200 }}>
-                <CircularProgressbar value={60} text={`${60}%`} />
-              </div>
+    <div className='min-h-screen p-6 font-poppins'>
+        <div className="space-y-8">
+            
+            {/* Header Card */}
+            <div className='bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden relative'>
+                    <div className='absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-teal-500 to-emerald-500'></div>
+                    <div className='pt-20 px-8 pb-8 flex flex-col md:flex-row items-end gap-6 relative z-10'>
+                        <div className='w-28 h-28 rounded-full bg-white p-1 shadow-lg flex items-center justify-center text-4xl text-teal-600 border-4 border-white'>
+                            <span className="font-bold">{data.student_name?.charAt(0) || "S"}</span>
+                        </div>
+                        <div className="flex-1 mb-2">
+                            <h1 className='text-3xl font-bold text-slate-800'>{data.student_name}</h1>
+                            <p className='text-slate-500 font-medium flex items-center gap-2'>
+                                <FaUserGraduate className="text-teal-500" />
+                                Admission Candidate
+                            </p>
+                        </div>
+                        <div className="text-sm font-medium bg-white/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/60 shadow-sm text-slate-600">
+                            {data.email}
+                        </div>
+                    </div>
             </div>
-          </div>
-          <div className="w-full max-w-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow rounded-lg p-5">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Course details</h2>
-            <address className="relative bg-gray-50 dark:bg-gray-700 dark:border-gray-600 p-4 rounded-lg border border-gray-200 not-italic grid grid-cols-2">
-              <div className="space-y-2 text-gray-500 dark:text-gray-400 leading-loose hidden sm:block">
-                <div className="">University</div>
-                <div className="">College</div>
-                <div className="">Course</div>
-                <div className="">Duration</div>
-                <div className="">Batch</div>
-              </div>
-              <div id="contact-details" className="space-y-2 text-gray-900 dark:text-white font-medium leading-loose">
-                <div className="">{data.university?.name || 'N/A'}</div>
-                <div className="">{data.college?.name || 'N/A'}</div>
-                <div className="">{data.course?.course_name || 'N/A'}</div>
-                <div className="">{data.course?.course_duration || 'N/A'}</div>
-                <div className="">2017-2020</div>
-              </div>
-              <div id="tooltip-contact-details" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                <span id="default-tooltip-message-contact-details">Copy to clipboard</span>
-                <span id="success-tooltip-message-contact-details" className="hidden">Copied!</span>
-                <div className="tooltip-arrow" data-popper-arrow></div>
-              </div>
-            </address>
-          </div>
-          <div className="w-full max-w-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow rounded-lg p-5">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Personal details</h2>
-            <address className="relative bg-gray-50 dark:bg-gray-700 dark:border-gray-600 p-4 rounded-lg border border-gray-200 not-italic grid grid-cols-2">
-              <div className="space-y-2 text-gray-500 dark:text-gray-400 leading-loose hidden sm:block">
-                <div className="">Guardian</div>
-                <div className="">Date of Birth</div>
-                <div className="">Address</div>
-                <div className="">District</div>
-                <div className="">State</div>
-                <div className="">Nationality</div>
-                <div className="">Religion</div>
-              </div>
-              <div id="contact-details" className="space-y-2 text-gray-900 dark:text-white font-medium leading-loose">
-                <div className="">{data.guardian}</div>
-                <div className="">{data.dob}</div>
-                <div className="">{data.address}</div>
-                <div className="">{data.district}</div>
-                <div className="">{data.state}</div>
-                <div className="">{data.nationality}</div>
-                <div className="">{data.religion}</div>
-              </div>
-              <div id="tooltip-contact-details" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                <span id="default-tooltip-message-contact-details">Copy to clipboard</span>
-                <span id="success-tooltip-message-contact-details" className="hidden">Copied!</span>
-                <div className="tooltip-arrow" data-popper-arrow></div>
-              </div>
-            </address>
-          </div>
+
+            {/* Main Content Grid */}
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+                
+                {/* Left Column: Aptitude Score */}
+                <div className='lg:col-span-1'>
+                    <div className='bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 h-full flex flex-col items-center justify-center'>
+                            <h2 className='text-xl font-bold text-slate-800 mb-6'>Aptitude Score</h2>
+                            <div className='w-48 h-48'>
+                            <CircularProgressbar 
+                                value={60} 
+                                text={`${60}%`} 
+                                styles={buildStyles({
+                                    pathColor: `#14b8a6`, // teal-500
+                                    textColor: '#0f766e',
+                                    trailColor: '#f1f5f9',
+                                    backgroundColor: '#3e98c7',
+                                })}
+                            />
+                            </div>
+                            <p className="mt-6 text-center text-slate-500 text-sm">
+                                Performance based on initial assessment tests.
+                            </p>
+                    </div>
+                </div>
+
+                {/* Middle Column: Course Details */}
+                <div className='lg:col-span-1'>
+                    <div className='bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 h-full'>
+                        <h2 className='text-xl font-bold text-slate-800 mb-6 flex items-center gap-2'>
+                            <span className="p-2 bg-teal-100 rounded-lg text-teal-600"><FaBookReader /></span>
+                            Course Details
+                        </h2>
+                        <div className="space-y-6 relative">
+                            <DetailItem label="University" value={data.university?.name} icon={<FaUniversity />} />
+                            <DetailItem label="College" value={data.college?.name} icon={<FaUniversity />} />
+                            <DetailItem label="Course" value={data.course?.course_name} icon={<FaBookReader />} />
+                            <DetailItem label="Duration" value={data.course?.course_duration} icon={<FaCalendarAlt />} />
+                            <DetailItem label="Batch" value="2017-2020" icon={<FaCalendarAlt />} />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right Column: Personal Details */}
+                <div className='lg:col-span-1'>
+                        <div className='bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 h-full'>
+                        <h2 className='text-xl font-bold text-slate-800 mb-6 flex items-center gap-2'>
+                            <span className="p-2 bg-emerald-100 rounded-lg text-emerald-600"><FaIdCard /></span>
+                            Personal Details
+                        </h2>
+                        <div className="space-y-5">
+                            <DetailItem label="Guardian" value={data.guardian} icon={<FaUserGraduate />} />
+                            <DetailItem label="Date of Birth" value={data.dob} icon={<FaCalendarAlt />} />
+                            <DetailItem label="Address" value={data.address} icon={<FaMapMarkerAlt />} />
+                            <DetailItem label="District" value={data.district} icon={<FaMapMarkerAlt />} />
+                            <DetailItem label="State" value={data.state} icon={<FaMapMarkerAlt />} />
+                            <DetailItem label="Nationality" value={data.nationality} icon={<FaGlobe />} />
+                            <DetailItem label="Religion" value={data.religion} icon={<FaPrayingHands />} />
+                        </div>
+                        </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
   );
 };
+
+const DetailItem = ({ label, value, icon }) => (
+    <div className="group">
+        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-2">
+            {icon && <span className="text-slate-300 group-hover:text-teal-500 transition-colors">{icon}</span>}
+            {label}
+        </div>
+        <div className="text-slate-700 font-medium border-b border-slate-100 pb-2 group-hover:border-teal-200 transition-colors">
+            {value || "N/A"}
+        </div>
+    </div>
+);
 
 export default AdmissionProfileStudent;
