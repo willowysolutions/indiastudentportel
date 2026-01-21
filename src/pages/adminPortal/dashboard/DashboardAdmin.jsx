@@ -54,7 +54,7 @@ const DashbordAdmin = () => {
           <div className="space-y-6 max-w-2xl">
             <div>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-2">
-                Welcome, {admin?.name?.split(" ")[0]}! <span className="inline-block animate-wave">👋</span>
+                Welcome, {admin?.name?.split(" ")[0]}!
               </h2>
               <p className="text-blue-200 text-lg font-medium">
                 Admin Portal Overview
