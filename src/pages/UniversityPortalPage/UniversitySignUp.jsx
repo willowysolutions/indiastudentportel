@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signupUniversity } from "../../Redux/features/University/AuthUniversityLogin";
-import { getStateList } from "../../Redux/features/University/UniversitySlice";
+
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import sideImage from "../../assets/loginPage image.svg";
 import { toast } from "react-toastify";
@@ -14,7 +14,7 @@ import { Country, State } from "country-state-city";
 
 const UniversitySignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+
   const [logoPreview, setLogoPreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState("IN"); // Default to India
@@ -23,7 +23,7 @@ const UniversitySignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const StateLists = useSelector((state) => state?.university?.stateList);
+
 
   // Get all countries
   const allCountriesList = Country.getAllCountries();
@@ -56,7 +56,7 @@ const UniversitySignUp = () => {
     });
     
     return map;
-  }, []);
+  }, [allCountriesList]);
 
   // Helper function to get country code from ISO code
   const getCountryCode = (isoCode) => {
@@ -91,15 +91,7 @@ const UniversitySignUp = () => {
     setFilteredStates(states || []);
   }, []);
 
-  useEffect(() => {
-    dispatch(getStateList())
-      .unwrap()
-      .catch(() => toast.error("Failed to fetch state list."));
-  }, [dispatch]);
 
-  useEffect(() => {
-    if (StateLists) setIsLoading(false);
-  }, [StateLists]);
 
   const initialValues = {
     name: "",

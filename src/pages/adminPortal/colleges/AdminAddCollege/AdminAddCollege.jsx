@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +43,7 @@ const AdminAddCollege = () => {
     pin_code: "",
     state_id: "",
     district: "",
+    country: "",
     street: "",
     address: "",
     link: "",
@@ -73,6 +74,7 @@ const AdminAddCollege = () => {
     pin_code: Yup.string().required("Pincode is required"),
     state_id: Yup.number().required("State ID is required"),
     district: Yup.string().required("District is required"),
+    country: Yup.string().required("Country is required"),
     street: Yup.string().required("Street is required"),
     address: Yup.string().required("Address is required"),
     college_details: Yup.string()
@@ -202,6 +204,7 @@ const AdminAddCollege = () => {
     { id: "pin_code", placeholder: "Pincode", label: "Pincode", type: "text" },
     { id: "state_id", placeholder: "Select State", label: "State", type: "select" },
     { id: "district", placeholder: "District", label: "District", type: "text" },
+    { id: "country", placeholder: "Country", label: "Country", type: "text" },
     { id: "street", placeholder: "Street", label: "Street", type: "text" },
     { id: "address", placeholder: "Full Address", label: "Address", type: "text" },
     { id: "link", placeholder: "College CRM Link", label: "CRM Link", type: "text" },
