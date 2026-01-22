@@ -1,7 +1,6 @@
 import { MdDashboard, MdOutlineAddBox, MdPersonOutline } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-import graduation from "../../../assets/Sidebar/Graduation Cap.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { HiX } from "react-icons/hi";
 
@@ -50,11 +49,11 @@ const CollegeSidebar = ({ isOpen, onClose }) => {
           </button>
 
           {/* Sidebar header */}
-          <div className="flex justify-center items-center pt-4 lg:pt-5">
+          <div className="flex justify-center items-center pt-4 lg:pt-5 mb-4">
             <img
-              src={graduation}
-              alt="Graduation Cap"
-              className="bg-black p-4 rounded-xl transition-transform hover:scale-105"
+              src="/images/Logo-final-file.png"
+              alt="Logo"
+              className="w-40 object-contain transition-transform hover:scale-105"
             />
           </div>
 

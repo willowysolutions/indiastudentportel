@@ -12,13 +12,13 @@ function StudentPreLogin() {
         <div className="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
           <div className="inline-flex w-full justify-end ml-5 space-x-6">
             <a
-              href="https://indiastudentportal.vercel.app/student/login"
+              href="/student/login"
               className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap bg-gray-50 border border-transparent rounded-md shadow-sm hover:bg-gray-00 focus:outline-none focus:ring-2 focus:ring-offset-2"
             >
               Sign in
             </a>
             <a
-              href="https://indiastudentportal.vercel.app/student/signup"
+              href="/student/signup"
               className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-custom-indigo border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
             >
               Sign up
@@ -47,7 +47,7 @@ function StudentPreLogin() {
                 </p>
                 <div className="relative flex flex-col sm:flex-row sm:space-x-4">
                   <a
-                    href="https://indiastudentportal.vercel.app/student/login"
+                    href="/student/login"
                     className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-custom-indigo rounded-md sm:mb-0 hover:bg-indigo-700 sm:w-auto"
                   >
                     Try It Free
@@ -66,7 +66,7 @@ function StudentPreLogin() {
                     </svg>
                   </a>
                   <a
-                    href="https://indiastudentportal.com/"
+                    href="/"
                     className="flex items-center px-6 py-3 text-gray-500 bg-gray-100 rounded-md hover:bg-gray-200 hover:text-gray-600"
                   >
                     Learn More

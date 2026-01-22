@@ -1,134 +1,79 @@
-import { useEffect, useState } from "react";
-import icon from "../../assets/dashboard/wepik-export-20240313072348V9B7.png";
-import Button from "../../components/Button2";
-import { MdComputer } from "react-icons/md";
+import Header from "../../components/Header";
+import { FaGraduationCap, FaUniversity } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCourse, editCourse, fetchCollege } from "../../Redux/features/University/UniversitySlice";
-import Table from "../../components/table/Table";
-import EditCourseModal from "./CourseUpdateModal";
+import { fetchCollege } from "../../Redux/features/University/UniversitySlice";
+import { useEffect } from "react";
+
 
 const UniversityStudentDetail = () => {
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
-  const singleStudentDatas = useSelector((state) => state?.university?.singleAdmissionData);
-console.log(singleStudentDatas,'bhbhbaddmissions');
-
-  // Retrieve the selected college data from Redux store
-  // const selectedStudent = useSelector(
-  //   (state) => state.university.setSelectedStudent
-
-  // );
   const singleStudentData = useSelector((state) => state?.university?.singleStudentData?.student);
-console.log(singleStudentData,'bhbhbnnnnnn');
-
-  const selectedStudent=useSelector(
-    (state)=>(state.singleData)
-  )
-  console.log(selectedStudent,'ddddd');
-  // console.log(selectedCollege, "selected college");
-  //  // Log the selected college data in the console
-  //  useEffect(() => {
-  //    console.log("Selected College:", selectedCollege);
-  //  }, [selectedCollege]); // Run this effect whenever selectedCollege changes
-
+  
+  // Clean up unused selectors/state in next pass if needed, for now focusing on UI render
+  
   useEffect(() => {
-    // Dispatch the fetchCollege action when the component mounts
     dispatch(fetchCollege());
   }, [dispatch]);
 
-  // Retrieve college data from Redux store using useSelector
-  // const collegeData = useSelector((state) => state.university.collegeData);
- 
-
-
- 
-
-  
-
-  // const  allCourses = selectedCollege.courses;
-
-
-// console.log(allCourses);
-
   return (
-    <div className="">
-      <div className="bg-[#F5F7F8] h-56 rounded-2xl w-full">
-        <div className="flex bg-slate- justify-between">
-          <div className="text-white flex flex-col  justify-center ml-10">
-            <div className="text-[1.6rem]">
-              {singleStudentData.name}
+    <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
+        <Header title='Student Details' Icon={FaGraduationCap} />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Student Details Card */}
+            <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white relative overflow-hidden">
+                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                     <h3 className="text-xl font-bold relative z-10 flex items-center gap-2">
+                        <span className="p-1.5 bg-white/20 rounded-lg"><FaGraduationCap /></span>
+                        Student Review
+                     </h3>
+                </div>
+                <div className="p-6 space-y-4">
+                     <div className="flex items-center gap-4 pb-4 border-b border-slate-100">
+                         <div className="flex-1">
+                             <label className="text-xs font-bold text-slate-400 uppercase">Student Name</label>
+                             <div className="text-lg font-bold text-slate-800">{singleStudentData?.name}</div>
+                         </div>
+                     </div>
+                     <DetailRow label="Email" value={singleStudentData?.email} />
+                     <DetailRow label="Mobile" value={singleStudentData?.contact} />
+                     <DetailRow label="Address" value={singleStudentData?.address} />
+                </div>
             </div>
-            <ul className="mt-6 flex flex-col gap-2 text-white font- text-[15px]">
-              <li>Email:{singleStudentData.email}</li>
-              <li>Mobile:{singleStudentData.contact}</li>
-              <li>{singleStudentData.address}</li>
-            </ul>
-          </div>
 
-          <div className="mr-8">
-            <img
-              src={icon}
-              alt="students log"
-              className="w-[14rem] hover:animate-pulse"
-            />
-          </div>
-        </div>
-
-        <div className="mt-4  flex gap-10">
-          <div className="bg-[#D7C7F0] h-64 w-72 rounded-xl flex flex-col items-center text-justify shadow-inner-black-25 ">
-            <div className="flex justify-center font-semibold pt-5">
-              College Detail
+            {/* College Details Card (Placeholder/Static as per original file structure) */}
+            <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+                <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-6 text-white relative overflow-hidden">
+                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                     <h3 className="text-xl font-bold relative z-10 flex items-center gap-2">
+                        <span className="p-1.5 bg-white/20 rounded-lg"><FaUniversity /></span>
+                        College & Contact
+                     </h3>
+                </div>
+                <div className="p-6">
+                    <p className="text-slate-500 italic text-center py-10">
+                        {/* Original file had empty li's for details. Keeping placeholder until data binding is confirmed. */}
+                        No confirmed college details available for this view.
+                    </p>
+                     
+                     <div className="space-y-4 pt-2 hidden">
+                        {/* Hidden until data source confirmed, matching original empty display */}
+                        <DetailRow label="Affiliation" value="" />
+                        <DetailRow label="Place" value="" />
+                     </div>
+                </div>
             </div>
-            <ul className="mt-6 flex flex-col gap-2 text-[#4B4750] font-medium text-[15px]">
-              {/* <li>Affliation:{selectedCollege.colleges.affiliation}</li> */}
-              {/* <li>Place:{selectedCollege.colleges.street}</li> */}
-              {/* <li>State:{selectedCollege.colleges.state}</li>/ */}
-              {/* <li>Pin code:{selectedCollege.colleges.pin}</li> */}
-              <li></li>
-            </ul>
-          </div>
-          {/* <div className="bg-[#D7C7F0] h-64 w-72 rounded-xl flex flex-col items-center text-justify shadow-inner-black-25 ">
-            <div className="flex justify-center font-semibold pt-5">
-              Availabe Course
-            </div> */}
-            {/* <ul className="mt-6 flex flex-col gap-2 text-[#4B4750] font-medium text-[15px]"> */}
-            {/* {selectedCollege.courses.map((course, index) => ( */}
-            {/* // <li key={index}>{course.name} - Duration: {course.duration}, Fee: {course.fee}</li> */}
-            {/* <Table heading={""} DATA={selectedCollege.courses} COLUMNS={columns} /> */}
-
-            {/* ))} */}
-
-            {/* </ul> */}
-          {/* </div> */}
-
-
-          <div className="bg-[#D7C7F0] h-64 w-72 rounded-xl flex flex-col items-center text-justify shadow-inner-black-25 ">
-            <div className="flex justify-center font-semibold pt-5">
-              Contact Details
-            </div>
-            <ul className="mt-6 flex flex-col gap-2 text-[#4B4750] font-medium text-[15px]">
-              {/* <li>Mobile:{selectedCollege.colleges.mobile}</li>
-              <li>Email:{selectedCollege.colleges.email}</li>
-              <li>Place:{selectedCollege.colleges.street}</li> */}
-            </ul>
-          </div>
         </div>
-        <div>
-        {/* <Table heading={""} DATA={allCourses} COLUMNS={columns}/> */}
-        {/* { showModal && (
-          <EditCourseModal 
-            course={selectedCourse} 
-            onClose={() => {
-              setShowModal(false);
-              setSelectedCourse(null); 
-            }} 
-          />
-        )} */}
-        </div>
-
-      </div>
     </div>
   );
 };
+
+const DetailRow = ({ label, value }) => (
+    <div className="flex justify-between items-center py-2 border-b border-slate-50 last:border-0 hover:bg-slate-50/50 rounded-lg px-2 transition-colors">
+        <span className="text-sm font-medium text-slate-500">{label}</span>
+        <span className="text-sm font-semibold text-slate-700 text-right max-w-[60%]">{value || "N/A"}</span>
+    </div>
+);
 
 export default UniversityStudentDetail;

@@ -1,5 +1,4 @@
 import React from "react";
-import Input from "../../components/commonComponents/CollegeEditInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -9,8 +8,7 @@ import { editCourse } from "../../Redux/features/University/UniversitySlice";
 
 const EditCourseModal = ({ onClose, course }) => {
   const dispatch = useDispatch();
-console.log(course,'coooo');
-  // console.log(course,'.......');
+  
   // Validation schema for course form
   const courseValidationSchema = yup.object().shape({
     course_name: yup.string().required("Course Name is required"),
@@ -18,7 +16,6 @@ console.log(course,'coooo');
     course_fee: yup.string().required("Course Fee is required"),
   });
 
-  // Form state and methods
   const {
     register,
     handleSubmit,
@@ -36,60 +33,80 @@ console.log(course,'coooo');
 
 
   const handleUpdate = async (data) => {
-    console.log(data, "updatedl");
-
-    // Dispatch editCourse action with updated data
     const response = await dispatch(editCourse({ id:course.college_id, data:data }));
     if (response) {
-      onClose(); // Close the modal
+      onClose();
       reset();
     }
   };
-  console.log(onClose, "onclose");
+
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50 bg-black/70">
-      <div className="bg-white border p-5 flex- md:py-20 py-10 b-slate-700 g-white relative">
-        <form
-          id="editCourseForm"
-          className="flex flex-col"
-          onSubmit={handleSubmit(handleUpdate)}
-        >
-          <div className="flex flex-col gap-10">
-            <Input
-              type="text"
-              id="course_name" // Remove the extra space before "course_name"
-              label="Course Name"
-              register={register}
-              errors={errors}
-            />
-            <Input
-              type="text"
-              id="course_duration"
-              label="Duration"
-              register={register}
-              errors={errors}
-            />
-            <Input
-              type="text"
-              id="course_fee"
-              label="Course Fee"
-              register={register}
-              errors={errors}
-            />
-          </div>
-          <div className="flex w-fu b-red-400 gap-10 lg:pr-40">
-            <button
-              type="submit"
-              className="flex gap-2 items-center rounded-3xl px-6 py-1 overflow-hidden group bg-[F5F5FA] w-max hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-400 text-violet-400 text-[.8rem] font-bold shadow-lg shadow-gray-400 transition-all ease-out duration-300"
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-y-auto font-poppins relative animate-fadeIn">
+        
+        {/* Header */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-5 flex justify-between items-center text-white">
+            <h2 className="text-xl font-bold">Edit Course</h2>
+            <button 
+                onClick={onClose}
+                className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-2 transition-all"
             >
-              Update
+                <IoClose size={24} />
             </button>
-          </div>
-        </form>
-        <div className="absolute top-2 right-2" onClick={onClose}>
-          <button>
-            <IoClose size={24} />
-          </button>
+        </div>
+
+        <div className="p-8">
+            <form onSubmit={handleSubmit(handleUpdate)} className="space-y-6">
+                
+                <div className="space-y-5">
+                    <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-slate-700 mb-2">Course Name</label>
+                        <input
+                            type="text"
+                            {...register("course_name")}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                        />
+                         <p className="text-rose-500 text-xs mt-1">{errors.course_name?.message}</p>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-slate-700 mb-2">Duration</label>
+                        <input
+                            type="text"
+                            {...register("course_duration")}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                        />
+                         <p className="text-rose-500 text-xs mt-1">{errors.course_duration?.message}</p>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-slate-700 mb-2">Course Fee</label>
+                        <input
+                            type="text"
+                            {...register("course_fee")}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                        />
+                         <p className="text-rose-500 text-xs mt-1">{errors.course_fee?.message}</p>
+                    </div>
+                </div>
+
+                <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="px-6 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold hover:bg-slate-50 transition-all"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="submit"
+                        className="px-8 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 hover:scale-[1.02] active:scale-95 transition-all"
+                    >
+                        Update
+                    </button>
+                </div>
+
+            </form>
         </div>
       </div>
     </div>

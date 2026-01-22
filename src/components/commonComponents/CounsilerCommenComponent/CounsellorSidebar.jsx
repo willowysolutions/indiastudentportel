@@ -3,7 +3,7 @@ import { MdDashboard, MdOutlineEventNote } from "react-icons/md";
 import { FaGraduationCap } from "react-icons/fa";
 import { FaSchool } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-import graduation from "../../../assets/Sidebar/Graduation Cap.svg";
+
 import { HiX } from "react-icons/hi";
 import PropTypes from "prop-types";
 //imports................................................................................................
@@ -61,11 +61,11 @@ const CounsellorSidebar = ({ isOpen, onClose }) => {
 
           {/* Logo Section */}
           <div className="flex flex-col items-center pt-2 pb-8">
-            <div className="p-3 bg-slate-900 rounded-2xl mb-3 group transition-all duration-300 hover:shadow-md hover:shadow-indigo-500/20">
+            <div className="mb-3 group transition-all duration-300">
               <img
-                src={graduation}
-                alt="Graduation Cap"
-                className="w-10 h-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 invert brightness-0"
+                src="/images/Logo-final-file.png"
+                alt="Logo"
+                className="w-40 object-contain transition-transform duration-500 hover:scale-105"
               />
             </div>
             <h2 className="text-xl font-bold text-slate-800 text-center">
