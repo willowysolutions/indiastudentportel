@@ -1,5 +1,6 @@
 import { IoIosArrowDropup } from "react-icons/io";
 import { useState } from "react";
+import { FaEye } from "react-icons/fa";
 const getStatusColor = (status) => {
   switch (status) {
     case "approved":
@@ -65,7 +66,7 @@ export const CounsellorColumns = (handleViewSlot, handleStatusChange) => [
           </div>
           {isOpen && (
             <div
-              className="absolute z-10 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100"
+              className="absolute z-50 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100"
               style={{ bottom: "100%", marginBottom: "4px" }}
             >
               <div className="py-1">
@@ -93,9 +94,10 @@ export const CounsellorColumns = (handleViewSlot, handleStatusChange) => [
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewSlot(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-blue-500 hover:bg-blue-600 transition-all ease-out duration-300"
+        className="text-blue-600 hover:text-blue-800 transition-colors duration-200 p-2 rounded-full hover:bg-blue-50"
+        title="View Profile"
       >
-        <span className="relative text-white">View</span>
+        <FaEye size={18} />
       </button>
     ),
   },
@@ -133,9 +135,10 @@ export const RecommendCollegeToStudent = (handleViewCollege) => [
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewCollege(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-blue-500 hover:bg-blue-600 transition-all ease-out duration-300"
+        className="text-blue-600 hover:text-blue-800 transition-colors duration-200 p-2 rounded-full hover:bg-blue-50"
+        title="View Details"
       >
-        <span className="relative text-white">View</span>
+        <FaEye size={18} />
       </button>
     ),
   },
@@ -174,6 +177,24 @@ export const CounsellorCollegesColumn = (handleViewProfile) => [
   {
     Header: "IMAGE",
     accessor: "image",
+    Cell: ({ value }) => (
+       <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-100">
+         {value ? <img src={value} alt="College" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs">N/A</div>}
+       </div>
+    )
+  },
+  {
+    Header: "View",
+    id: "view",
+    Cell: ({ row }) => (
+      <button
+        onClick={() => handleViewProfile(row.original)}
+        className="text-blue-600 hover:text-blue-800 transition-colors duration-200 p-2 rounded-full hover:bg-blue-50"
+        title="View Details"
+      >
+        <FaEye size={18} />
+      </button>
+    ),
   },
 ];
 

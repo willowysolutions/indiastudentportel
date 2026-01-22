@@ -1,5 +1,5 @@
-import { Button } from "@material-tailwind/react";
 import StarRatings from "react-star-ratings";
+import { FaEye, FaCalendarCheck, FaExternalLinkAlt } from "react-icons/fa";
 
 export const getCouncillorColumns = (
   handleViewProfile,
@@ -48,9 +48,10 @@ export const getCouncillorColumns = (
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewProfile(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-yellow-500 hover:bg-yellow-600 transition-all ease-out duration-300"
+        className="text-blue-600 hover:text-blue-800 transition-colors duration-200 p-2 rounded-full hover:bg-blue-50"
+        title="View Profile"
       >
-        <span className="relative text-white">View</span>
+        <FaEye size={18} />
       </button>
     ),
   },
@@ -60,9 +61,10 @@ export const getCouncillorColumns = (
     Cell: ({ row }) => (
       <button
         onClick={() => handleCheckAvailability(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-blue-500 hover:bg-blue-600 transition-all ease-out duration-300"
+        className="text-blue-600 hover:text-blue-800 transition-colors duration-200 p-2 rounded-full hover:bg-blue-50"
+        title="Check Availability"
       >
-        <span className="relative text-white">Availability</span>
+        <FaCalendarCheck size={18} />
       </button>
     ),
   },
@@ -102,16 +104,34 @@ export const BookingsColumns = (handleViewProfile, calculateAverageRating) => [
     Header: "Status",
     accessor: "status",
     Cell: ({ value }) => {
-      let statusColor =
-        value === "success"
-          ? "green"
-          : value === "reject"
-          ? "orange"
-          : value === "pending"
-          ? "gray"
-          : "black";
+      let statusColor = "black";
+      let statusBg = "bg-gray-100";
+      
+      switch(value?.toLowerCase()) {
+        case "success":
+        case "approved": 
+          statusColor = "text-green-700";
+          statusBg = "bg-green-100";
+          break;
+        case "reject":
+        case "rejected":
+          statusColor = "text-red-700";
+          statusBg = "bg-red-100";
+          break;
+        case "pending":
+          statusColor = "text-amber-700";
+          statusBg = "bg-amber-100";
+          break;
+        default:
+          statusColor = "text-gray-700";
+          statusBg = "bg-gray-100";
+      }
 
-      return <span style={{ color: statusColor }}>{value}</span>;
+      return (
+        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusBg} ${statusColor}`}>
+          {value}
+        </span>
+      );
     },
   },
   {
@@ -120,9 +140,10 @@ export const BookingsColumns = (handleViewProfile, calculateAverageRating) => [
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewProfile(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-yellow-500 hover:bg-yellow-600 transition-all ease-out duration-300"
+        className="text-blue-600 hover:text-blue-800 transition-colors duration-200 p-2 rounded-full hover:bg-blue-50"
+        title="View Profile"
       >
-        <span className="relative text-white">View</span>
+        <FaEye size={18} />
       </button>
     ),
   },
@@ -163,9 +184,13 @@ export const CollegesColumns = (
     Header: "Direct Admission",
     accessor: "link",
     Cell: ({ row }) => (
-      <Button onClick={() => ConnectCollege(row.original)} className="">
-        Admission
-      </Button>
+      <button
+        onClick={() => ConnectCollege(row.original)}
+        className="text-blue-600 hover:text-blue-800 transition-colors duration-200 p-2 rounded-full hover:bg-blue-50"
+        title="Direct Admission"
+      >
+        <FaExternalLinkAlt size={16} />
+      </button>
     ),
   },
   // {
@@ -200,8 +225,19 @@ export const AdmissionColumns = (navigate, handleViewProfile) => [
     // Optional: You can add a Cell renderer if you want to customize how the data is displayed
     Cell: ({ value }) => {
       // Example: Custom rendering based on the status value
-      let statusColor = value === "success" ? "green" : "orange";
-      return <span style={{ color: statusColor }}>{value}</span>;
+      let statusColor = "text-orange-700";
+      let statusBg = "bg-orange-100";
+
+      if (value === "success" || value === "approved") {
+         statusColor = "text-green-700";
+         statusBg = "bg-green-100";
+      }
+
+      return (
+        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusBg} ${statusColor}`}>
+          {value || "N/A"}
+        </span>
+      );
     },
   },
   {
@@ -210,10 +246,10 @@ export const AdmissionColumns = (navigate, handleViewProfile) => [
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewProfile(row.original)}
-        className="rounded-xl px-4 py-1 overflow-hidden group bg-zinc-600 relative hover:bg-gradient-to-r hover:from-purple-500 hover:to-purple-400 text-white transition-all ease-out duration-300"
+        className="text-blue-600 hover:text-blue-800 transition-colors duration-200 p-2 rounded-full hover:bg-blue-50"
+        title="View Details"
       >
-        <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40"></span>
-        <span className="relative text-purple-400">View</span>
+        <FaEye size={18} />
       </button>
     ),
   },
