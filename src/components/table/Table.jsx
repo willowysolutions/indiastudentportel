@@ -142,8 +142,6 @@ const Tables = ({ heading, DATA, COLUMNS }) => {
                             borderBottom: "1px solid #f1f5f9",
                             whiteSpace: "nowrap",
                             maxWidth: 300,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
                           }}
                         >
                           {cell.column.id === "image" ? (
