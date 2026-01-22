@@ -7,7 +7,6 @@ import {
 } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { HiX } from "react-icons/hi";
-import Admin from "../../../assets/Icons/adminSidebar.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -62,18 +61,18 @@ const AdminSidebar = ({ isOpen, onClose }) => {
           </button>
 
            {/* Logo Section */}
-           <div className="flex flex-col items-center pt-8 pb-8 px-6">
-            <div className="p-3 bg-slate-900 rounded-2xl mb-4 group transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20">
+           <div className="flex flex-col items-center pt-6 pb-6 px-6">
+             <div className="mb-2 group transition-all duration-300">
               <img
-                src={Admin}
-                alt="Admin Icon"
-                className="w-10 h-10 transition-transform duration-500 group-hover:scale-110 invert brightness-0"
+                src="/images/Logo-final-file.png"
+                alt="India Student Portal"
+                className="w-40 object-contain transition-transform duration-500 hover:scale-105"
               />
             </div>
-            <h2 className="text-xl font-bold text-slate-800 text-center">
+            {/* <h2 className="text-xl font-bold text-slate-800 text-center">
               Admin Portal
-            </h2>
-            <p className="text-xs text-slate-400 font-medium tracking-wide uppercase mt-1">Management</p>
+            </h2> */}
+            <p className="text-xs text-slate-400 font-medium tracking-wide uppercase mt-1">Admin Portal</p>
           </div>
 
           {/* Navigation */}
