@@ -6,7 +6,7 @@ import { signupUniversity } from "../../Redux/features/University/AuthUniversity
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import sideImage from "../../assets/loginPage image.svg";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import { allCountries } from "country-telephone-data"; 
@@ -213,260 +213,260 @@ const UniversitySignUp = () => {
   ];
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
+    <div className="h-screen grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
       {/* LEFT SECTION - Signup Form */}
-      <div className="flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 bg-white">
-        <ToastContainer position="top-right" autoClose={3000} />
-        
-        <div className="w-full max-w-2xl">
-           <div className="mb-10 text-center lg:text-left">
-            <h1 className="text-4xl font-bold text-gray-900 mb-3">
-              Register University
-            </h1>
-            <p className="text-base text-gray-600">
-              Create an institutional account to manage your presence
-            </p>
-          </div>
+      <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] bg-white">
+        <div className="flex min-h-full items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+          <div className="w-full max-w-2xl">
+            <div className="mb-10 text-center lg:text-left">
+              <h1 className="text-4xl font-bold text-gray-900 mb-3">
+                Register University
+              </h1>
+              <p className="text-base text-gray-600">
+                Create an institutional account to manage your presence
+              </p>
+            </div>
 
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {({ setFieldValue, values, isSubmitting }) => (
-              <Form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {formFields.map(({ id, label, placeholder, type }) => (
-                    <div key={id} className={type === "textarea" || id === "address" ? "md:col-span-2" : ""}>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        {label}
-                      </label>
-                      <div className="relative">
-                        {/* Country Selection Dropdown */}
-                        {type === "country_select" ? (
-                          <Field
-                            as="select"
-                            name={id}
-                            className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                            onChange={(e) => {
-                              const selectedIsoCode = e.target.value;
-                              setFieldValue(id, selectedIsoCode);
-                              setSelectedCountry(selectedIsoCode);
-                              
-                              if (selectedIsoCode) {
-                                const countryCode = getCountryCode(selectedIsoCode);
-                                setFieldValue("country_code", countryCode);
-                              } else {
-                                setFieldValue("country_code", "+91");
-                              }
-                              setFieldValue("state", "");
-                            }}
-                          >
-                            <option value="">Select Country</option>
-                            {allCountriesList.map((country) => (
-                              <option key={country.isoCode} value={country.isoCode}>
-                                {country.name}
-                              </option>
-                            ))}
-                          </Field>
-                        ) : id === "state" || type === "state_select" ? (
-                          <Field
-                            as="select"
-                            name={id}
-                            className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                            disabled={!selectedCountry}
-                          >
-                             <option value="">Select State</option>
-                            {filteredStates.map((state) => (
-                              <option key={state.isoCode} value={state.name}>
-                                {state.name}
-                              </option>
-                            ))}
-                          </Field>
-                        ) : type === "phone" ? (
-                          <div className="flex">
-                            <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-100 text-gray-500 text-sm">
-                              {values.country_code || "+91"}
-                            </span>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {({ setFieldValue, values, isSubmitting }) => (
+                <Form className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {formFields.map(({ id, label, placeholder, type }) => (
+                      <div key={id} className={type === "textarea" || id === "address" ? "md:col-span-2" : ""}>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          {label}
+                        </label>
+                        <div className="relative">
+                          {/* Country Selection Dropdown */}
+                          {type === "country_select" ? (
+                            <Field
+                              as="select"
+                              name={id}
+                              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                              onChange={(e) => {
+                                const selectedIsoCode = e.target.value;
+                                setFieldValue(id, selectedIsoCode);
+                                setSelectedCountry(selectedIsoCode);
+                                
+                                if (selectedIsoCode) {
+                                  const countryCode = getCountryCode(selectedIsoCode);
+                                  setFieldValue("country_code", countryCode);
+                                } else {
+                                  setFieldValue("country_code", "+91");
+                                }
+                                setFieldValue("state", "");
+                              }}
+                            >
+                              <option value="">Select Country</option>
+                              {allCountriesList.map((country) => (
+                                <option key={country.isoCode} value={country.isoCode}>
+                                  {country.name}
+                                </option>
+                              ))}
+                            </Field>
+                          ) : id === "state" || type === "state_select" ? (
+                            <Field
+                              as="select"
+                              name={id}
+                              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                              disabled={!selectedCountry}
+                            >
+                              <option value="">Select State</option>
+                              {filteredStates.map((state) => (
+                                <option key={state.isoCode} value={state.name}>
+                                  {state.name}
+                                </option>
+                              ))}
+                            </Field>
+                          ) : type === "phone" ? (
+                            <div className="flex">
+                              <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-100 text-gray-500 text-sm">
+                                {values.country_code || "+91"}
+                              </span>
+                              <Field
+                                name={id}
+                                placeholder={placeholder}
+                                className="w-full rounded-r-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                type="text"
+                              />
+                            </div>
+                          ) : type === "textarea" ? (
+                            <Field
+                              as="textarea"
+                              name={id}
+                              placeholder={placeholder}
+                              rows="4"
+                              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all resize-none"
+                            />
+                          ) : (
                             <Field
                               name={id}
                               placeholder={placeholder}
-                              className="w-full rounded-r-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                              type="text"
+                              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                              type={type}
                             />
-                          </div>
-                        ) : type === "textarea" ? (
-                          <Field
-                            as="textarea"
-                            name={id}
-                            placeholder={placeholder}
-                            rows="4"
-                            className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all resize-none"
-                          />
-                        ) : (
-                          <Field
-                            name={id}
-                            placeholder={placeholder}
-                            className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                            type={type}
-                          />
-                        )}
+                          )}
 
-                        {/* Password Eye */}
-                        {id === "password" && (
-                           <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-gray-700 transition-colors"
-                          >
-                            {showPassword ? <FaEyeSlash className="w-5 h-5" /> : <FaEye className="w-5 h-5" />}
-                          </button>
-                        )}
+                          {/* Password Eye */}
+                          {id === "password" && (
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-gray-700 transition-colors"
+                            >
+                              {showPassword ? <FaEyeSlash className="w-5 h-5" /> : <FaEye className="w-5 h-5" />}
+                            </button>
+                          )}
+                        </div>
+
+                        <ErrorMessage
+                          name={id}
+                          component="div"
+                          className="mt-1 text-sm text-red-600"
+                        />
                       </div>
-
-                      <ErrorMessage
-                        name={id}
-                        component="div"
-                        className="mt-1 text-sm text-red-600"
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                {/* File Uploads */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
-                  {/* Logo Upload */}
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">University Logo</label>
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
-                      <div className="space-y-1 text-center">
-                        {logoPreview ? (
-                            <div className="relative">
-                                <img src={logoPreview} alt="Logo preview" className="mx-auto h-24 object-contain" />
-                                <button 
-                                    type="button"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        setFieldValue("logo", null);
-                                        setLogoPreview(null);
-                                    }}
-                                    className="text-xs text-red-500 mt-2 hover:underline"
-                                >
-                                    Remove
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="flex text-sm text-gray-600 flex-col items-center">
-                                <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <label htmlFor="logo-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
-                                    <span>Upload a file</span>
-                                    <input id="logo-upload" name="logo" type="file" className="sr-only" accept="image/*"
-                                        onChange={(e) => {
-                                            if (validateFile(e.target.files[0])) {
-                                                setFieldValue("logo", e.target.files[0]);
-                                                setLogoPreview(URL.createObjectURL(e.target.files[0]));
-                                            }
-                                        }}
-                                    />
-                                </label>
-                            </div>
-                        )}
-                      </div>
-                    </div>
-                     <ErrorMessage name="logo" component="div" className="mt-1 text-sm text-red-600" />
+                    ))}
                   </div>
 
-                  {/* Image Upload */}
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">College Image</label>
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
-                      <div className="space-y-1 text-center">
-                        {imagePreview ? (
-                             <div className="relative">
-                                <img src={imagePreview} alt="College preview" className="mx-auto h-24 object-cover rounded" />
-                                 <button 
-                                    type="button"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        setFieldValue("image", null);
-                                        setImagePreview(null);
-                                    }}
-                                    className="text-xs text-red-500 mt-2 hover:underline"
-                                >
-                                    Remove
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="flex text-sm text-gray-600 flex-col items-center">
-                                <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <label htmlFor="image-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
-                                    <span>Upload a file</span>
-                                    <input id="image-upload" name="image" type="file" className="sr-only" accept="image/*"
-                                        onChange={(e) => {
-                                            if (validateFile(e.target.files[0])) {
-                                                setFieldValue("image", e.target.files[0]);
-                                                setImagePreview(URL.createObjectURL(e.target.files[0]));
-                                            }
-                                        }}
-                                    />
-                                </label>
-                            </div>
-                        )}
+                  {/* File Uploads */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
+                    {/* Logo Upload */}
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">University Logo</label>
+                      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
+                        <div className="space-y-1 text-center">
+                          {logoPreview ? (
+                              <div className="relative">
+                                  <img src={logoPreview} alt="Logo preview" className="mx-auto h-24 object-contain" />
+                                  <button 
+                                      type="button"
+                                      onClick={(e) => {
+                                          e.preventDefault();
+                                          setFieldValue("logo", null);
+                                          setLogoPreview(null);
+                                      }}
+                                      className="text-xs text-red-500 mt-2 hover:underline"
+                                  >
+                                      Remove
+                                  </button>
+                              </div>
+                          ) : (
+                              <div className="flex text-sm text-gray-600 flex-col items-center">
+                                  <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                  </svg>
+                                  <label htmlFor="logo-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                      <span>Upload a file</span>
+                                      <input id="logo-upload" name="logo" type="file" className="sr-only" accept="image/*"
+                                          onChange={(e) => {
+                                              if (validateFile(e.target.files[0])) {
+                                                  setFieldValue("logo", e.target.files[0]);
+                                                  setLogoPreview(URL.createObjectURL(e.target.files[0]));
+                                              }
+                                          }}
+                                      />
+                                  </label>
+                              </div>
+                          )}
+                        </div>
                       </div>
+                      <ErrorMessage name="logo" component="div" className="mt-1 text-sm text-red-600" />
                     </div>
-                     <ErrorMessage name="image" component="div" className="mt-1 text-sm text-red-600" />
+
+                    {/* Image Upload */}
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">College Image</label>
+                      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
+                        <div className="space-y-1 text-center">
+                          {imagePreview ? (
+                              <div className="relative">
+                                  <img src={imagePreview} alt="College preview" className="mx-auto h-24 object-cover rounded" />
+                                  <button 
+                                      type="button"
+                                      onClick={(e) => {
+                                          e.preventDefault();
+                                          setFieldValue("image", null);
+                                          setImagePreview(null);
+                                      }}
+                                      className="text-xs text-red-500 mt-2 hover:underline"
+                                  >
+                                      Remove
+                                  </button>
+                              </div>
+                          ) : (
+                              <div className="flex text-sm text-gray-600 flex-col items-center">
+                                  <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                  </svg>
+                                  <label htmlFor="image-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                      <span>Upload a file</span>
+                                      <input id="image-upload" name="image" type="file" className="sr-only" accept="image/*"
+                                          onChange={(e) => {
+                                              if (validateFile(e.target.files[0])) {
+                                                  setFieldValue("image", e.target.files[0]);
+                                                  setImagePreview(URL.createObjectURL(e.target.files[0]));
+                                              }
+                                          }}
+                                      />
+                                  </label>
+                              </div>
+                          )}
+                        </div>
+                      </div>
+                      <ErrorMessage name="image" component="div" className="mt-1 text-sm text-red-600" />
+                    </div>
                   </div>
-                </div>
 
-                <div className="pt-6">
-                    <button
-                    type="submit"
-                    disabled={loading || isSubmitting}
-                    className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 
-                                py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30
-                                hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:shadow-blue-500/40
-                                active:scale-[0.98] transition-all duration-200
-                                disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-lg
-                                disabled:active:scale-100"
-                    >
-                    {loading || isSubmitting ? (
-                        <span className="flex items-center justify-center gap-2">
-                            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                            </svg>
-                            Creating Account...
-                        </span>
-                        ) : (
-                        "Create University Account"
-                        )}
-                    </button>
-                </div>
-
-                <div className="text-center pb-8">
-                     <p className="text-sm text-gray-600">
-                      Already have an account?{" "}
+                  <div className="pt-6">
                       <button
-                        type="button"
-                        onClick={() => navigate("/university/login")}
-                        className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                      type="submit"
+                      disabled={loading || isSubmitting}
+                      className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 
+                                  py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30
+                                  hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:shadow-blue-500/40
+                                  active:scale-[0.98] transition-all duration-200
+                                  disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-lg
+                                  disabled:active:scale-100"
                       >
-                        Sign In
+                      {loading || isSubmitting ? (
+                          <span className="flex items-center justify-center gap-2">
+                              <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                              </svg>
+                              Creating Account...
+                          </span>
+                          ) : (
+                          "Create University Account"
+                          )}
                       </button>
-                    </p>
-                </div>
-              </Form>
-            )}
-          </Formik>
+                  </div>
+
+                  <div className="text-center pb-8">
+                      <p className="text-sm text-gray-600">
+                        Already have an account?{" "}
+                        <button
+                          type="button"
+                          onClick={() => navigate("/university/login")}
+                          className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                        >
+                          Sign In
+                        </button>
+                      </p>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
         </div>
       </div>
 
        {/* RIGHT SECTION - Illustration */}
-       <div className="hidden lg:flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden fixed h-screen w-1/2 right-0 top-0">
+       <div className="hidden lg:flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden h-full">
         {/* Decorative Elements */}
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl" />

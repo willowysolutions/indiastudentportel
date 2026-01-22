@@ -33,29 +33,24 @@ const CounsillorLogin = () => {
       .min(8, "Password must be at least 8 characters"),
   });
 
-  const onSubmit = async (values) => {
-    setLoading(true);
-    dispatch(councilerLogin(values))
-      .then((res) => {
-        if (res?.payload) {
-            // Check if login was successful based on payload structure (usually has token or user data)
-            // If the action fulfilled but api returned error, it might be in payload.error or similar
-             // Adjusting logic based on previous file's onSubmit which checked for payload
-             navigate("/counsellor/dashboard");
-        } else {
-             // If payload is significantly different or indicates failure
-             toast.error("Login failed. Please check credentials.");
-             setLoading(false);
-        }
-      })
-      .catch((err) => {
-        toast.error("Something went wrong!");
-        setLoading(false);
-        console.error(err);
-      });
-  };
+  // const onSubmit = async (values) => {
+  //   setLoading(true);
+  //   dispatch(councilerLogin(values))
+  //     .then((res) => {
+  //       if (res?.payload) {
+  //            navigate("/counsellor/dashboard");
+  //       } else {
+  //            toast.error("Login failed. Please check credentials.");
+  //            setLoading(false);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       toast.error("Something went wrong!");
+  //       setLoading(false);
+  //       console.error(err);
+  //     });
+  // };
 
-   // Modified onSubmit to better match the previous logic of dispatching and checking result
    const handleLoginSubmit = async (values, { setSubmitting }) => {
     setLoading(true);
     const actionResult = await dispatch(councilerLogin(values));
