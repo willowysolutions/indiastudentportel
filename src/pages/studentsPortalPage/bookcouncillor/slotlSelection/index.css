@@ -2,51 +2,84 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 */
 
+.rbc-calendar {
+  font-family: 'Poppins', sans-serif;
+}
+
 .rbc-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .rbc-header > span {
-    font-weight: bold;
-  }
-  
-  .rbc-month-row {
-    display: flex; /* Ensure flexbox for horizontal layout */
-  }
-  
-  .rbc-month-row .rbc-month-cell {
-    padding: 5px; /* Add some padding for readability */
-    text-align: center; /* Center align dates within cells */
-  }
-  
-  .rbc-month-row .rbc-month-cell:hover {
-    background-color: #eee; /* Optional hover effect */
-  }
-  
-  .rbc-off-range-bg {
-    background-color: #eee; /* Style out-of-month days */
-    opacity: 0.6;
-  }
-  
-  .rbc-date-header {
-    font-weight: bold;
-  }
-  
-  .rbc-event {
-    border-radius: 2px;
-    padding: 5px 10px;
-    margin: 5px 0;
-  }
-  
-  .rbc-event-content {
-    white-space: nowrap; /* Prevent event text from wrapping */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Ellipsis for long event titles */
-  }
-  
-  /* (Optional) Adjust other styles as needed */
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 10px;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  color: #4b5563;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.rbc-today {
+  background-color: rgba(48, 94, 172, 0.05) !important;
+}
+
+/* Event Styling */
+.rbc-event {
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border: none !important;
+}
+
+.rbc-event.rbc-selected {
+  background-color: #305EAC;
+}
+
+/* Month View Cells */
+.rbc-month-row .rbc-month-cell {
+  padding: 8px;
+  text-align: right;
+  font-weight: 500;
+  color: #374151;
+}
+
+.rbc-day-bg+.rbc-day-bg {
+  border-left: 1px solid #f3f4f6;
+}
+
+.rbc-month-row+.rbc-month-row {
+  border-top: 1px solid #f3f4f6;
+}
+
+.rbc-off-range-bg {
+  background-color: #f9fafb;
+}
+
+.rbc-date-header {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* Toolbar Styling (Month/Week/Day buttons etc) */
+.rbc-toolbar {
+  margin-bottom: 20px;
+}
+
+.rbc-toolbar button {
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+  font-family: 'Poppins', sans-serif;
+}
+
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active {
+  background-color: #305EAC !important;
+  color: white !important;
+  border-color: #305EAC !important;
+  box-shadow: none;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #f3f4f6;
+}

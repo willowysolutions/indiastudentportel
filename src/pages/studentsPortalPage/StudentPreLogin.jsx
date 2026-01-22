@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "../../assets/ISP_images/Logo.png";
 import TestImages from "../../assets/ISP_images/onlineTest.png";
 import LoginImage from "../../assets/ISP_images/Test_Result.svg";
