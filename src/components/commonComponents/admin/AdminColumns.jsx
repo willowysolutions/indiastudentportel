@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
+import { FiEye } from "react-icons/fi";
 
 const getInitialStatus = (row) => {
   return (
@@ -13,11 +14,11 @@ const getStatusColor = (status) => {
   const normalizedStatus = String(status);
   switch (normalizedStatus) {
     case "1":
-      return "bg-green-400";
+      return "bg-green-500 shadow-green-200";
     case "0":
-      return "bg-red-400";
+      return "bg-red-500 shadow-red-200";
     default:
-      return "bg-gray-400";
+      return "bg-gray-400 shadow-gray-200";
   }
 };
 
@@ -54,13 +55,13 @@ export const StudentColumns = (handleViewProfile, handleStatusChange) => [
       return (
         <div className="relative">
           <div
-            className={`cursor-pointer text-center rounded-full px-2 py-1 flex items-center justify-between text-white ${getStatusColor(
+            className={`cursor-pointer text-center rounded-full px-3 py-1 flex items-center justify-between gap-2 text-white text-xs font-semibold shadow-sm transition-all ${getStatusColor(
               currentStatus
             )}`}
             onClick={toggleDropdown}
           >
             {currentStatus == 0 ? "Reject" : "Approve"}{" "}
-            <IoIosArrowDropdownCircle />
+            <IoIosArrowDropdownCircle size={16} />
           </div>
           {isOpen && (
             <div className="absolute z-10 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100">
@@ -92,9 +93,10 @@ export const StudentColumns = (handleViewProfile, handleStatusChange) => [
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewProfile(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-blue-500 hover:bg-blue-600 transition-all ease-out duration-300"
+        className="p-2 rounded-full text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-300"
+        title="View Details"
       >
-        <span className="relative text-white">View</span>
+        <FiEye size={20} />
       </button>
     ),
   },
@@ -136,13 +138,13 @@ export const AdminCouncillorColumns = (
       return (
         <div className="relative">
           <div
-            className={`cursor-pointer text-center rounded-full px-2 py-1 flex items-center justify-between text-white ${getStatusColor(
+            className={`cursor-pointer text-center rounded-full px-3 py-1 flex items-center justify-between gap-2 text-white text-xs font-semibold shadow-sm transition-all ${getStatusColor(
               currentStatus
             )}`}
             onClick={toggleDropdown}
           >
             {currentStatus == 0 ? "Reject" : "Approve"}{" "}
-            <IoIosArrowDropdownCircle />
+            <IoIosArrowDropdownCircle size={16} />
           </div>
           {isOpen && (
             <div className="absolute z-10 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100">
@@ -174,9 +176,10 @@ export const AdminCouncillorColumns = (
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewProfile(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-blue-500 hover:bg-blue-600 transition-all ease-out duration-300"
+        className="p-2 rounded-full text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-300"
+        title="View Details"
       >
-        <span className="relative text-white">View</span>
+        <FiEye size={20} />
       </button>
     ),
   },
@@ -241,13 +244,13 @@ export const AdminCollegesColumn = (
       return (
         <div className="relative">
           <div
-            className={`cursor-pointer text-center rounded-full px-2 py-1 flex items-center justify-between text-white ${getStatusColor(
+            className={`cursor-pointer text-center rounded-full px-3 py-1 flex items-center justify-between gap-2 text-white text-xs font-semibold shadow-sm transition-all ${getStatusColor(
               currentStatus
             )}`}
             onClick={toggleDropdown}
           >
             {currentStatus == 0 ? "Reject" : "Approve"}{" "}
-            <IoIosArrowDropdownCircle />
+            <IoIosArrowDropdownCircle size={16} />
           </div>
           {isOpen && (
             <div className="absolute z-10 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100">
@@ -279,9 +282,10 @@ export const AdminCollegesColumn = (
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewProfile(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-blue-500 hover:bg-blue-600 transition-all ease-out duration-300"
+        className="p-2 rounded-full text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-300"
+        title="View Details"
       >
-        <span className="relative text-white">View</span>
+        <FiEye size={20} />
       </button>
     ),
   },
@@ -308,9 +312,10 @@ export const AdmissionColumn = (handleViewProfile) => [
     Cell: ({ row }) => (
       <button
         onClick={() => handleViewProfile(row.original)}
-        className="rounded-xl px-4 py-1 group relative bg-blue-500 hover:bg-blue-600 transition-all ease-out duration-300"
+        className="p-2 rounded-full text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-300"
+        title="View Details"
       >
-        <span className="relative text-white">View</span>
+        <FiEye size={20} />
       </button>
     ),
   },

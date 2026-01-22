@@ -62,138 +62,136 @@ const Tables = ({ heading, DATA, COLUMNS }) => {
   const handleChangeRowsPerPage = (event) => {
     const newPageSize = parseInt(event.target.value, 10);
     setPageSize(newPageSize);
-    // setRowsPerPage(newPageSize);
-    // gotoPage(0);
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <div className="w-full border rounded-xl bg-white shadow-sm overflow-hidden border-slate-200">
       {/* Header with title and filter */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "16px",
-          backgroundColor: "white",
-          position: "sticky",
-          top: 0,
-          zIndex: 10,
-          borderBottom: "1px solid #ddd",
-        }}
-      >
-        <Typography variant="h6" component="div" fontWeight="bold">
+      <div className="flex items-center justify-between p-4 border-b border-slate-100 bg-white">
+        <h2 className="text-lg font-semibold text-slate-800 tracking-tight">
           {heading}
-        </Typography>
-        {/* <Filter filter={globalFilter} setFilter={setGlobalFilter} /> */}
-        <TextField
-          value={globalFilter || ""}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search..."
-          size="small"
-          sx={{ maxWidth: "300px" }}
-        />
-      </Box>
+        </h2>
+        <div className="relative">
+          <input
+            value={globalFilter || ""}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Filter emails..."
+            className="pl-3 pr-4 py-2 border border-slate-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 w-64 transition-all"
+          />
+        </div>
+      </div>
 
       {/* Table content */}
-      <TableContainer sx={{ maxHeight: 400 }}>
-        {loading ? (
-          // Loading state
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100px",
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        ) : data.length > 0 ? (
-          <Table stickyHeader {...getTableProps()}>
-            <TableHead>
-              {headerGroups.map((headerGroup) => (
-                <TableRow
-                  {...headerGroup.getHeaderGroupProps()}
-                  key={headerGroup.id || Math.random()}
-                >
-                  {headerGroup.headers.map((column) => (
-                    <TableCell
-                      {...column.getHeaderProps()}
-                      key={column.id}
-                      align="left"
-                      sx={{
-                        minWidth: column.minWidth,
-                        fontWeight: "bold",
-                        backgroundColor: "#f5f5f5",
-                      }}
-                    >
-                      {column.render("Header")}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHead>
-            <TableBody {...getTableBodyProps()}>
-              {page.map((row) => {
-                prepareRow(row);
-                return (
+      <div className="overflow-x-auto">
+        <TableContainer sx={{ maxHeight: 600 }}>
+          {loading ? (
+            <div className="flex justify-center items-center h-40">
+              <CircularProgress size={30} className="text-indigo-600" />
+            </div>
+          ) : data.length > 0 ? (
+            <Table stickyHeader {...getTableProps()} className="w-full text-left border-collapse">
+              <TableHead>
+                {headerGroups.map((headerGroup) => (
                   <TableRow
-                    hover
-                    {...row.getRowProps()}
-                    key={row.id || row.original.id}
+                    {...headerGroup.getHeaderGroupProps()}
+                    key={headerGroup.id || Math.random()}
+                    className="bg-slate-50/50"
                   >
-                    {row.cells.map((cell) => (
+                    {headerGroup.headers.map((column) => (
                       <TableCell
-                        {...cell.getCellProps()}
-                        key={cell.column.id + "-" + row.id}
+                        {...column.getHeaderProps()}
+                        key={column.id}
+                        align="left"
                         sx={{
+                          padding: "12px 16px",
+                          fontWeight: 600,
+                          fontSize: "0.875rem",
+                          color: "#64748b", // slate-500
+                          borderBottom: "1px solid #e2e8f0",
                           whiteSpace: "nowrap",
-                          textOverflow: "ellipsis",
-                          // overflow: "hidden",
-                          maxWidth: 200,
+                          backgroundColor: "#f8fafc",
+                          textTransform: "capitalize",
+                          letterSpacing: "0.025em"
                         }}
                       >
-                        {cell.column.id === "image" ? (
-                          <img
-                            src={cell.value}
-                            alt="Product"
-                            style={{
-                              width: 50,
-                              height: "auto",
-                              borderRadius: "4px",
-                            }}
-                          />
-                        ) : (
-                          cell.render("Cell")
-                        )}
+                        {column.render("Header")}
                       </TableCell>
                     ))}
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        ) : (
-          // Empty state
-          <Box sx={{ padding: "16px", textAlign: "center" }}>
-            <Typography variant="body1">No matching records found</Typography>
-          </Box>
-        )}
-      </TableContainer>
+                ))}
+              </TableHead>
+              <TableBody {...getTableBodyProps()}>
+                {page.map((row) => {
+                  prepareRow(row);
+                  return (
+                    <TableRow
+                      hover
+                      {...row.getRowProps()}
+                      key={row.id || row.original.id}
+                      className="transition-colors hover:bg-slate-50 group"
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      {row.cells.map((cell) => (
+                        <TableCell
+                          {...cell.getCellProps()}
+                          key={cell.column.id + "-" + row.id}
+                          sx={{
+                            padding: "12px 16px",
+                            fontSize: "0.875rem",
+                            color: "#334155", // slate-700
+                            borderBottom: "1px solid #f1f5f9",
+                            whiteSpace: "nowrap",
+                            maxWidth: 300,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {cell.column.id === "image" ? (
+                            <img
+                              src={cell.value}
+                              alt="Row Image"
+                              className="w-10 h-10 rounded-full object-cover border border-slate-200"
+                            />
+                          ) : (
+                            cell.render("Cell")
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          ) : (
+             <div className="flex flex-col items-center justify-center py-12 text-center text-slate-500">
+              <p className="text-sm">No results found.</p>
+            </div>
+          )}
+        </TableContainer>
+      </div>
 
       {/* Pagination */}
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={data.length}
-        rowsPerPage={pageSize}
-        page={pageIndex}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{ borderTop: "1px solid #ddd" }}
-      />
-    </Paper>
+      <div className="border-t border-slate-100 bg-white">
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={data.length}
+          rowsPerPage={pageSize}
+          page={pageIndex}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{
+            ".MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows": {
+              color: "#64748b",
+              fontSize: "0.875rem",
+            },
+             ".MuiTablePagination-select": {
+               color: "#334155",
+             }
+          }}
+        />
+      </div>
+    </div>
   );
 };
 
