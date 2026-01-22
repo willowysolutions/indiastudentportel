@@ -9,6 +9,7 @@ import {
   FaSchool,
   FaBook,
   FaLayerGroup,
+  FaCalendarAlt,
 } from "react-icons/fa";
 
 const StudentsProfile = () => {
@@ -18,110 +19,125 @@ const StudentsProfile = () => {
   );
 
   return (
-    <div className="min-h-screen p-6 font-poppins">
-      <div className="space-y-8">
-        
-        {/* Header / Profile Card */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden relative">
-           <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
-           <div className="pt-16 px-8 pb-8 flex flex-col items-start relative z-10">
-              <div className="w-24 h-24 rounded-full bg-white p-1 shadow-lg flex items-center justify-center text-4xl text-indigo-600 border-4 border-white">
-                  <span className="font-bold">{student?.name?.charAt(0) || "U"}</span>
-              </div>
-              <div className="mt-4">
-                 <h2 className="text-3xl font-bold text-slate-800">
+    <div className="min-h-screen font-sans text-slate-900 pb-10 px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      {/* Header / Profile Card */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+         <div className="h-32 bg-gradient-to-r from-slate-900 to-slate-800 relative">
+             <div className="absolute inset-0 bg-grid-white/5 bg-[length:20px_20px]"></div>
+         </div>
+         <div className="px-8 pb-8 flex flex-col sm:flex-row items-end -mt-12 gap-6">
+            <div className="relative p-1 bg-white rounded-full shadow-md">
+                <div className="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center text-4xl text-slate-400 font-bold border-4 border-white">
+                    {student?.name?.charAt(0) || "U"}
+                </div>
+            </div>
+            <div className="flex-1 pb-2">
+                 <h2 className="text-3xl font-bold text-slate-900">
                     {student?.name || "Name not available"}
                  </h2>
-                 <p className="text-slate-500 font-medium">Student Profile</p>
-              </div>
-           </div>
+                 <p className="text-slate-500 font-medium flex items-center gap-2">
+                     <span className="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                     Student Profile
+                 </p>
+            </div>
+         </div>
+      </div>
+
+      {/* Info Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Card 1: Personal Info */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+            <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
+                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-lg">
+                   <FaUser size={20} />
+                </div>
+                <h3 className="text-lg font-bold text-slate-800">Personal Info</h3>
+            </div>
+            
+            <div className="space-y-4">
+               <InfoItem icon={<FaUser />} label="Name" value={student?.name} />
+               <InfoItem icon={<FaEnvelope />} label="Email" value={student?.email} />
+               <InfoItem icon={<FaMapMarkerAlt />} label="Address" value={student?.address} />
+               <InfoItem icon={<FaPhoneAlt />} label="Contact" value={student?.contact} />
+            </div>
         </div>
 
-        {/* Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1: Personal Info */}
-          <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 group">
-             <div className="flex items-center gap-3 mb-6">
-                 <div className="p-3 bg-indigo-100 text-indigo-600 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                    <FaUser size={24} />
-                 </div>
-                 <h3 className="text-xl font-bold text-slate-800">Personal Info</h3>
-             </div>
-             
-             <div className="space-y-4">
-                <InfoItem icon={<FaUser />} label="Name" value={student?.name} />
-                <InfoItem icon={<FaEnvelope />} label="Email" value={student?.email} />
-                <InfoItem icon={<FaMapMarkerAlt />} label="Address" value={student?.address} />
-                <InfoItem icon={<FaPhoneAlt />} label="Contact" value={student?.contact} />
-             </div>
-          </div>
+        {/* Card 2: Academic Info */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+            <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
+                <div className="p-2.5 bg-purple-50 text-purple-600 rounded-lg">
+                   <FaSchool size={20} />
+                </div>
+                <h3 className="text-lg font-bold text-slate-800">Academic Info</h3>
+            </div>
 
-          {/* Card 2: Academic Info */}
-          <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 group">
-             <div className="flex items-center gap-3 mb-6">
-                 <div className="p-3 bg-purple-100 text-purple-600 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                    <FaSchool size={24} />
-                 </div>
-                 <h3 className="text-xl font-bold text-slate-800">Academic Info</h3>
-             </div>
-
-             <div className="space-y-4">
-                 <InfoItem icon={<FaVenusMars />} label="Gender" value={student?.gender} />
-                 <InfoItem icon={<FaSchool />} label="School" value={student?.school} />
-                 <InfoItem icon={<FaLayerGroup />} label="Class" value={student?.class_name} />
-                 <InfoItem icon={<FaBook />} label="Stream" value={student?.stream} />
-             </div>
-          </div>
+            <div className="space-y-4">
+                <InfoItem icon={<FaVenusMars />} label="Gender" value={student?.gender} />
+                <InfoItem icon={<FaSchool />} label="School" value={student?.school} />
+                <InfoItem icon={<FaLayerGroup />} label="Class" value={student?.class_name} />
+                <InfoItem icon={<FaBook />} label="Stream" value={student?.stream} />
+            </div>
         </div>
+      </div>
 
-        {/* Counselor Bookings Table */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden">
-          <div className="p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
-            <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-              <span className="w-2 h-8 bg-indigo-600 rounded-full inline-block"></span>
-              Counselor Bookings
-            </h3>
-          </div>
-          
-          <div className="p-6">
-            {counsellors?.length > 0 ? (
-              <div className="rounded-xl border border-slate-200 overflow-hidden">
-                <table className="w-full text-left border-collapse">
-                  <thead className="bg-slate-50 text-slate-700 font-semibold uppercase text-xs tracking-wider border-b border-slate-200">
-                    <tr>
-                      <th className="p-4">Counselor</th>
-                      <th className="p-4">Message</th>
-                      <th className="p-4">Date & Time</th>
-                      <th className="p-4">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 bg-white">
-                    {counsellors?.map((booking, index) => (
-                      <tr key={index} className="hover:bg-slate-50 transition-colors duration-200">
-                        <td className="p-4 font-medium text-slate-700">
-                          {booking?.counsellor_name || "N/A"}
-                        </td>
-                        <td className="p-4 text-slate-600">{booking?.title || "N/A"}</td>
-                        <td className="p-4 text-slate-600">
-                          {booking?.start
-                            ? new Date(booking?.start).toLocaleString()
-                            : "N/A"}
-                        </td>
-                        <td className="p-4">
-                             <StatusBadge status={booking?.status} />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-12 text-slate-400">
-                 <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 text-2xl">🚧</div>
-                 <p className="font-medium">No counselor bookings available.</p>
-              </div>
-            )}
-          </div>
+      {/* Counselor Bookings Table */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-slate-200 bg-slate-50/50 flex justify-between items-center">
+          <h3 className="text-lg font-bold text-slate-800">
+            Counselor Bookings
+          </h3>
+          <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600">
+              Total: {counsellors?.length || 0}
+          </span>
+        </div>
+        
+        <div className="relative overflow-x-auto">
+          {counsellors?.length > 0 ? (
+            <table className="w-full text-left border-collapse">
+              <thead className="bg-slate-50 border-b border-slate-200">
+                <tr>
+                  <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Counselor</th>
+                  <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Message</th>
+                  <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Date & Time</th>
+                  <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 bg-white">
+                {counsellors?.map((booking, index) => (
+                  <tr key={index} className="hover:bg-slate-50 transition-colors duration-150">
+                    <td className="px-6 py-4 font-medium text-slate-900">
+                      {booking?.counsellor_name || "N/A"}
+                    </td>
+                    <td className="px-6 py-4 text-slate-600 max-w-xs truncate" title={booking?.title}>
+                        {booking?.title || "N/A"}
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                        <div className="flex items-center gap-2">
+                             <FaCalendarAlt className="text-slate-400" />
+                             {booking?.start
+                                ? new Date(booking?.start).toLocaleString(undefined, {
+                                    dateStyle: 'medium',
+                                    timeStyle: 'short'
+                                })
+                                : "N/A"}
+                        </div>
+                    </td>
+                    <td className="px-6 py-4">
+                         <StatusBadge status={booking?.status} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-16 text-slate-400 bg-white">
+               <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3">
+                    <FaCalendarAlt size={20} className="text-slate-300" />
+               </div>
+               <p className="font-medium text-sm">No bookings found for this student.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -129,27 +145,27 @@ const StudentsProfile = () => {
 };
 
 const InfoItem = ({ icon, label, value }) => (
-    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-indigo-50 transition-colors duration-200 border border-slate-100 hover:border-indigo-200/50">
-        <div className="flex items-center gap-3 text-slate-500">
-            <span className="text-indigo-400">{icon}</span>
-            <span className="text-sm font-medium">{label}</span>
+    <div className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-slate-200 hover:shadow-sm transition-all duration-200">
+        <div className="flex items-center gap-3">
+            <span className="text-slate-400">{icon}</span>
+            <span className="text-sm font-medium text-slate-500">{label}</span>
         </div>
-        <span className="text-slate-800 font-semibold text-right">{value || "N/A"}</span>
+        <span className="text-slate-900 font-semibold text-sm text-right">{value || "N/A"}</span>
     </div>
 );
 
 const StatusBadge = ({ status }) => {
-    let colorClass = "bg-slate-100 text-slate-600";
-    if (!status) return <span className={`px-3 py-1 rounded-full text-xs font-bold ${colorClass}`}>N/A</span>
+    let styles = "bg-slate-100 text-slate-600 border-slate-200";
+    if (!status) return <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${styles}`}>N/A</span>
 
     const lowerStatus = status.toLowerCase();
     
-    if (lowerStatus === 'approved' || lowerStatus === 'completed') colorClass = "bg-emerald-100 text-emerald-700";
-    else if (lowerStatus === 'pending') colorClass = "bg-amber-100 text-amber-700";
-    else if (lowerStatus === 'rejected' || lowerStatus === 'cancelled') colorClass = "bg-rose-100 text-rose-700";
+    if (lowerStatus === 'approved' || lowerStatus === 'completed') styles = "bg-emerald-50 text-emerald-700 border-emerald-200";
+    else if (lowerStatus === 'pending') styles = "bg-amber-50 text-amber-700 border-amber-200";
+    else if (lowerStatus === 'rejected' || lowerStatus === 'cancelled') styles = "bg-rose-50 text-rose-700 border-rose-200";
 
     return (
-        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${colorClass}`}>
+        <span className={`px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-bold border ${styles} shadow-sm`}>
             {status}
         </span>
     );

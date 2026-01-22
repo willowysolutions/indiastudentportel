@@ -8,6 +8,7 @@ import {
   FaHeadset,
   FaStar,
   FaCalendarCheck,
+  FaCalendarAlt
 } from "react-icons/fa";
 
 const CounsillorProfile = () => {
@@ -18,124 +19,136 @@ const CounsillorProfile = () => {
     const completedBookings = data?.bookings;
 
     return (
-        <div className="min-h-screen p-6 font-poppins">
-            <div className="space-y-8">
-                
-                {/* Header / Profile Card */}
-                <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden relative">
-                    <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-violet-600 to-fuchsia-600"></div>
-                    <div className="pt-20 px-8 pb-8 flex flex-col md:flex-row items-end gap-6 relative z-10">
-                         {/* Avatar */}
-                        <div className="w-32 h-32 rounded-full bg-white p-1 shadow-lg flex items-center justify-center text-5xl text-violet-600 border-4 border-white">
-                             {/* <img src={icon} alt="Counselor" className="w-full h-full rounded-full object-cover" /> */}
-                             {/* Fallback avatar if no image */}
-                             <span className="font-bold">{data?.details?.name?.charAt(0) || "C"}</span>
+        <div className="min-h-screen font-sans text-slate-900 pb-10 px-4 sm:px-6 lg:px-8 space-y-8">
+            
+            {/* Header / Profile Card */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div className="h-32 bg-gradient-to-r from-violet-900 to-indigo-900 relative">
+                     <div className="absolute inset-0 bg-grid-white/5 bg-[length:20px_20px]"></div>
+                </div>
+                <div className="px-8 pb-8 flex flex-col sm:flex-row items-end -mt-12 gap-6">
+                     {/* Avatar */}
+                    <div className="relative p-1 bg-white rounded-full shadow-md">
+                        <div className="w-24 h-24 rounded-full bg-slate-50 flex items-center justify-center text-4xl text-violet-500 font-bold border-4 border-white">
+                             {data?.details?.name?.charAt(0) || "C"}
                         </div>
+                    </div>
 
-                        {/* Name & Role */}
-                        <div className="flex-1 mb-2">
-                            <h2 className="text-3xl font-bold text-slate-800">
-                                {data?.details?.name || "Name Unavailable"}
-                            </h2>
-                            <p className="text-slate-500 font-medium flex items-center gap-2">
-                                <FaChalkboardTeacher className="text-violet-500" />
-                                Professional Counselor
-                            </p>
-                        </div>
+                    {/* Name & Role */}
+                    <div className="flex-1 pb-2">
+                        <h2 className="text-3xl font-bold text-slate-900">
+                            {data?.details?.name || "Name Unavailable"}
+                        </h2>
+                        <p className="text-slate-500 font-medium flex items-center gap-2">
+                            <span className="inline-block w-2 h-2 rounded-full bg-violet-500"></span>
+                            Professional Counselor
+                        </p>
+                    </div>
 
-                        {/* Stats Widgets */}
-                        <div className="flex gap-4 mb-2">
-                            <StatWidget 
-                                icon={<FaCalendarCheck />} 
-                                value={data?.bookings?.length || 0} 
-                                label="Sessions" 
-                                color="bg-violet-100 text-violet-600" 
-                            />
-                             <StatWidget 
-                                icon={<FaStar />} 
-                                value={data?.average_rating || "N/A"} 
-                                label="Rating" 
-                                color="bg-amber-100 text-amber-600" 
-                            />
-                        </div>
+                    {/* Stats Widgets */}
+                    <div className="flex gap-4 mb-2">
+                        <StatWidget 
+                            icon={<FaCalendarCheck />} 
+                            value={data?.bookings?.length || 0} 
+                            label="Sessions" 
+                            color="bg-violet-50 text-violet-600 border-violet-100" 
+                        />
+                         <StatWidget 
+                            icon={<FaStar />} 
+                            value={data?.average_rating || "N/A"} 
+                            label="Rating" 
+                            color="bg-amber-50 text-amber-600 border-amber-100" 
+                        />
                     </div>
                 </div>
+            </div>
 
-                {/* Info Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
-                        <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                            <span className="p-2 bg-violet-100 rounded-lg text-violet-600"><FaHeadset /></span>
-                            Contact Details
-                        </h3>
-                         <div className="space-y-4">
-                            <InfoItem icon={<FaEnvelope />} label="Email" value={data?.details?.email} />
-                            <InfoItem icon={<FaPhoneAlt />} label="Contact" value={data?.details?.contact} />
-                         </div>
+            {/* Info Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+                    <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
+                        <div className="p-2.5 bg-violet-50 text-violet-600 rounded-lg">
+                           <FaHeadset size={20} />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-800">Contact Details</h3>
                     </div>
-
-                    <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
-                         <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                            <span className="p-2 bg-fuchsia-100 rounded-lg text-fuchsia-600"><FaChalkboardTeacher /></span>
-                            Professional Info
-                        </h3>
-                         <div className="space-y-4">
-                            <InfoItem icon={<FaHeadset />} label="Session Mode" value={data?.session_mode} />
-                            <InfoItem icon={<FaLanguage />} label="Language" value={data?.language} />
-                         </div>
-                    </div>
+                     <div className="space-y-4">
+                        <InfoItem icon={<FaEnvelope />} label="Email" value={data?.details?.email} />
+                        <InfoItem icon={<FaPhoneAlt />} label="Contact" value={data?.details?.contact} />
+                     </div>
                 </div>
 
-                {/* Sessions Table */}
-                <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden">
-                    <div className="p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
-                        <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                            <span className="w-2 h-8 bg-violet-600 rounded-full inline-block"></span>
-                            Counselor Sessions
-                        </h3>
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+                     <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
+                        <div className="p-2.5 bg-fuchsia-50 text-fuchsia-600 rounded-lg">
+                           <FaChalkboardTeacher size={20} />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-800">Professional Info</h3>
                     </div>
+                     <div className="space-y-4">
+                        <InfoItem icon={<FaHeadset />} label="Session Mode" value={data?.session_mode} />
+                        <InfoItem icon={<FaLanguage />} label="Language" value={data?.language} />
+                     </div>
+                </div>
+            </div>
 
-                    <div className="p-6">
-                        {completedBookings?.length > 0 ? (
-                            <div className="rounded-xl border border-slate-200 overflow-hidden overflow-x-auto">
-                                <table className="w-full text-left border-collapse whitespace-nowrap">
-                                    <thead className="bg-slate-50 text-slate-700 font-semibold uppercase text-xs tracking-wider border-b border-slate-200">
-                                        <tr>
-                                            <th className="p-4">Student Name</th>
-                                            <th className="p-4">Title</th>
-                                            <th className="p-4">Start Time</th>
-                                            <th className="p-4">End Time</th>
-                                            <th className="p-4">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-100 bg-white">
-                                        {completedBookings.map((session) => (
-                                            <tr key={session.id} className="hover:bg-slate-50 transition-colors duration-200">
-                                                <td className="p-4 font-medium text-slate-700">
-                                                    {session.student_name || "Unknown"}
-                                                </td>
-                                                <td className="p-4 text-slate-600">{session.title || "No Title"}</td>
-                                                <td className="p-4 text-slate-600">
-                                                     {session.start ? new Date(session.start).toLocaleString() : "N/A"}
-                                                </td>
-                                                <td className="p-4 text-slate-600">
-                                                     {session.end ? new Date(session.end).toLocaleString() : "N/A"}
-                                                </td>
-                                                <td className="p-4">
-                                                    <StatusBadge status={session.status} />
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+            {/* Sessions Table */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div className="p-6 border-b border-slate-200 bg-slate-50/50 flex justify-between items-center">
+                    <h3 className="text-lg font-bold text-slate-800">
+                        Counselor Sessions
+                    </h3>
+                     <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600">
+                        Total: {completedBookings?.length || 0}
+                    </span>
+                </div>
+
+                <div className="relative overflow-x-auto">
+                    {completedBookings?.length > 0 ? (
+                        <table className="w-full text-left border-collapse">
+                            <thead className="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Student Name</th>
+                                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Title</th>
+                                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Start Time</th>
+                                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">End Time</th>
+                                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100 bg-white">
+                                {completedBookings.map((session) => (
+                                    <tr key={session.id} className="hover:bg-slate-50 transition-colors duration-150">
+                                        <td className="px-6 py-4 font-medium text-slate-900">
+                                            {session.student_name || "Unknown"}
+                                        </td>
+                                        <td className="px-6 py-4 text-slate-600">{session.title || "No Title"}</td>
+                                        <td className="px-6 py-4 text-slate-600">
+                                             <div className="flex items-center gap-2">
+                                                <FaCalendarAlt className="text-slate-400" />
+                                                {session.start ? new Date(session.start).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) : "N/A"}
+                                             </div>
+                                        </td>
+                                        <td className="px-6 py-4 text-slate-600">
+                                             <div className="flex items-center gap-2">
+                                                <FaCalendarAlt className="text-slate-400" />
+                                                {session.end ? new Date(session.end).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) : "N/A"}
+                                             </div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <StatusBadge status={session.status} />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                         <div className="flex flex-col items-center justify-center py-16 text-slate-400 bg-white">
+                            <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3">
+                                <FaCalendarCheck size={20} className="text-slate-300" />
                             </div>
-                        ) : (
-                             <div className="flex flex-col items-center justify-center py-12 text-slate-400">
-                                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 text-2xl">📭</div>
-                                <p className="font-medium">No sessions found.</p>
-                             </div>
-                        )}
-                    </div>
+                            <p className="font-medium text-sm">No sessions found.</p>
+                         </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -143,35 +156,35 @@ const CounsillorProfile = () => {
 };
 
 const StatWidget = ({ icon, value, label, color }) => (
-    <div className={`flex flex-col items-center justify-center p-3 rounded-xl min-w-[100px] ${color}`}>
-        <div className="text-2xl mb-1">{icon}</div>
-        <div className="font-bold text-xl">{value}</div>
-        <div className="text-xs uppercase tracking-wide opacity-80">{label}</div>
+    <div className={`flex flex-col items-center justify-center px-4 py-3 rounded-xl border min-w-[100px] ${color}`}>
+        <div className="text-xl mb-1">{icon}</div>
+        <div className="font-bold text-lg">{value}</div>
+        <div className="text-[10px] uppercase tracking-wide opacity-80 font-semibold">{label}</div>
     </div>
 );
 
 const InfoItem = ({ icon, label, value }) => (
-    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-violet-50 transition-colors duration-200 border border-slate-100 hover:border-violet-200/50">
-        <div className="flex items-center gap-3 text-slate-500">
-            <span className="text-violet-400">{icon}</span>
-            <span className="text-sm font-medium">{label}</span>
+    <div className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-slate-200 hover:shadow-sm transition-all duration-200">
+        <div className="flex items-center gap-3">
+            <span className="text-slate-400">{icon}</span>
+            <span className="text-sm font-medium text-slate-500">{label}</span>
         </div>
-        <span className="text-slate-800 font-semibold text-right">{value || "N/A"}</span>
+        <span className="text-slate-900 font-semibold text-sm text-right">{value || "N/A"}</span>
     </div>
 );
 
 const StatusBadge = ({ status }) => {
-     let colorClass = "bg-slate-100 text-slate-600";
-    if (!status) return <span className={`px-3 py-1 rounded-full text-xs font-bold ${colorClass}`}>N/A</span>
+     let styles = "bg-slate-100 text-slate-600 border-slate-200";
+    if (!status) return <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${styles}`}>N/A</span>
 
     const lowerStatus = status.toLowerCase();
     
-    if (lowerStatus === 'approved' || lowerStatus === 'completed') colorClass = "bg-emerald-100 text-emerald-700";
-    else if (lowerStatus === 'pending') colorClass = "bg-amber-100 text-amber-700";
-    else if (lowerStatus === 'rejected' || lowerStatus === 'cancelled') colorClass = "bg-rose-100 text-rose-700";
+    if (lowerStatus === 'approved' || lowerStatus === 'completed') styles = "bg-emerald-50 text-emerald-700 border-emerald-200";
+    else if (lowerStatus === 'pending') styles = "bg-amber-50 text-amber-700 border-amber-200";
+    else if (lowerStatus === 'rejected' || lowerStatus === 'cancelled') styles = "bg-rose-50 text-rose-700 border-rose-200";
 
     return (
-        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${colorClass}`}>
+        <span className={`px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-bold border ${styles} shadow-sm`}>
             {status}
         </span>
     );
