@@ -47,229 +47,156 @@ const AdminLogin = () => {
       })
       .catch((err) => {
         toast.error("Something went wrong!");
-        setLoading(false); 
+        setLoading(false);
         console.error(err);
       });
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
-      <div className="flex h-screen flex-col justify-center px-4 sm:px-6 lg:px-8">
-        <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={false}
-        />
-        <div className="rounded-md p-8 sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="text-3xl sm:text-[45px] font-bold">Admin Login</h2>
-          <p className="text-sm sm:text-base">Enter your account details</p>
-          <div className="mt-8 sm:mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
+      {/* LEFT SECTION - Login Form */}
+      <div className="flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 bg-white">
+        <ToastContainer position="top-center" autoClose={3000} />
+
+        <div className="w-full max-w-md">
+          {/* Header Section */}
+          <div className="mb-10">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg shadow-blue-500/30 mb-6">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-3">
+              Welcome Back
+            </h1>
+            <p className="text-base text-gray-600">
+              Sign in to your admin account to continue
+            </p>
+          </div>
+
+          {/* Form Card */}
+          <div className="bg-white">
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
               onSubmit={onSubmit}
             >
               {({ isSubmitting }) => (
-                <Form className="space-y-4 sm:space-y-6">
+                <Form className="space-y-5">
+                  {/* EMAIL FIELD */}
                   <div>
-                    <div className="border-[1px] border-gray-300 gap-2 flex items-center mt-2">
-                      <Field
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        className="block w-full px-2 border-0 py-1.5  focus:outline-none ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                        placeholder="Email Address"
-                      />
-                    </div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Email Address
+                    </label>
+                    <Field
+                      name="email"
+                      type="email"
+                      placeholder="admin@company.com"
+                      className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900
+                                 placeholder:text-gray-400 focus:bg-white focus:border-blue-600 
+                                 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                    />
                     <ErrorMessage
                       name="email"
-                      component="div"
-                      className="text-red-500 text-xs sm:text-sm mt-1"
+                      component="p"
+                      className="mt-2 text-sm text-red-600 font-medium"
                     />
                   </div>
+
+                  {/* PASSWORD FIELD */}
                   <div>
-                    <div className="border-[1px] border-gray-300 gap-2 flex items-center mt-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Password
+                    </label>
+                    <div className="relative">
                       <Field
-                        id="password"
                         name="password"
                         type={showPassword ? "text" : "password"}
-                        autoComplete="current-password"
-                        required
-                        className="block w-full px-2 border-0 py-1.5 focus:outline-none placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                        placeholder="Password"
+                        placeholder="Enter your password"
+                        className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900
+                                   placeholder:text-gray-400 focus:bg-white focus:border-blue-600 
+                                   focus:ring-4 focus:ring-blue-500/10 outline-none transition-all pr-12"
                       />
-                      <span
-                        className=" cursor-pointer"
-                        onClick={togglePasswordVisibility}
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-gray-700 transition-colors"
                       >
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                      </span>
+                        {showPassword ? (
+                          <FaEyeSlash className="w-5 h-5" />
+                        ) : (
+                          <FaEye className="w-5 h-5" />
+                        )}
+                      </button>
                     </div>
                     <ErrorMessage
                       name="password"
-                      component="div"
-                      className="text-red-500 text-xs sm:text-sm mt-1"
+                      component="p"
+                      className="mt-2 text-sm text-red-600 font-medium"
                     />
                   </div>
-                  <div className="w-full flex items-center justify-center">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting || loading}
-                      className="flex w-full justify-center rounded-md bg-indigo-500  px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                      {loading || isSubmitting ? "Logging..." : "Login"}
-                    </button>
-                  </div>
+
+                  {/* SUBMIT BUTTON */}
+                  <button
+                    type="submit"
+                    disabled={loading || isSubmitting}
+                    className="w-full mt-8 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 
+                               py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30
+                               hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:shadow-blue-500/40
+                               active:scale-[0.98] transition-all duration-200
+                               disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-lg
+                               disabled:active:scale-100"
+                  >
+                    {loading || isSubmitting ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                        Signing in...
+                      </span>
+                    ) : (
+                      "Sign In to Dashboard"
+                    )}
+                  </button>
                 </Form>
               )}
             </Formik>
+
+            {/* Footer */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <p className="text-center text-sm text-gray-500">
+                Protected by enterprise-grade security
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div className="hidden lg:block bg-gradient-to-l from-[#C6E7FF] to-[white] p-8 xl:p-39">
-        <img src={sideImage} alt="side" className="hidden md:block" />
+
+      {/* RIGHT SECTION - Illustration */}
+      <div className="hidden lg:flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
+        
+        {/* Content */}
+        <div className="relative z-10 max-w-lg px-8 text-center">
+          <img
+            src={sideImage}
+            alt="Admin dashboard illustration"
+            className="w-full h-auto drop-shadow-2xl mb-8"
+          />
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Powerful Admin Tools
+          </h2>
+          <p className="text-lg text-blue-100">
+            Manage your platform with confidence using our comprehensive admin dashboard
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
 export default AdminLogin;
-
-
-
-// import { Formik, Form, Field, ErrorMessage } from 'formik'
-// import * as Yup from 'yup'
-// import sideImage from '../../../assets/loginPage image.svg'
-// import { useNavigate } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
-// import { adminlogin } from '../../../Redux/features/adminauthSlice'
-// import { useState } from 'react'
-// import { toast } from 'react-toastify'
-
-// const AdminLogin = () => {
-// 	const [loading, setLoading] = useState(false)
-// 	const initialValues = {
-// 		email: '',
-// 		password: '',
-// 	}
-
-// 	const validationSchema = Yup.object().shape({
-// 		email: Yup.string()
-// 			.email('Invalid email')
-// 			.required('Email is required')
-// 			.matches(
-// 				/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-// 				'Invalid email address'
-// 			),
-// 		password: Yup.string()
-// 			.required('Password is required')
-// 			.min(8, 'Password must be at least 8 characters'),
-// 	})
-
-// 	const handleShowPassword = (showPassword, setShowPassword) => {
-// 		setShowPassword(!showPassword)
-// 	}
-// 	const dispatch = useDispatch()
-// 	const navigate = useNavigate()
-
-// 	const onSubmit = async values => {
-// 		dispatch(adminlogin(values))
-// 			.then(res => {
-// 				if (res?.payload) {
-// 					localStorage.setItem('token', res.payload.token)
-// 					navigate('/admin/dashboard')
-// 				} else {
-// 					toast.error('Please check your email or password')
-// 					setLoading(false)
-// 				}
-// 			})
-// 			.catch(err => console.error(err))
-// 	}
-
-// 	return (
-// 		<div className='grid grid-cols-2'>
-// 			<div className='flex h-screen bg-[#1C1D21] W flex-col justify-center px-6 py-12 lg:px-8'>
-// 				<div className='sm:mx-auto text-white sm:w-full sm:max-w-sm'>
-// 					<h2 className='text-[45px] font-bold'>Loginn</h2>
-// 					<p>Enter your account detail</p>
-// 				</div>
-
-// 				<div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-// 					<Formik
-// 						initialValues={initialValues}
-// 						validationSchema={validationSchema}
-// 						onSubmit={onSubmit}
-// 					>
-// 						{({ isSubmitting }) => (
-// 							<Form className='space-y-6'>
-// 								<div>
-// 									<div className='border-b-[1px] gap-2 flex items-center mt-2'>
-// 										<Field
-// 											id='email'
-// 											name='email'
-// 											type='email'
-// 											autoComplete='email'
-// 											className='block w-full px-2 bg-[#1C1D21] border-0 py-1.5 text-white focus:outline-none ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6'
-// 											placeholder='Username'
-// 										/>
-// 									</div>
-// 									<ErrorMessage
-// 										name='email'
-// 										component='div'
-// 										className='text-red-500 text-[15px]'
-// 									/>
-// 								</div>
-// 								<div>
-// 									<div className='border-b-[1px] gap-2 flex items-center mt-2'>
-// 										<Field
-// 											id='password'
-// 											name='password'
-// 											type='password'
-// 											autoComplete='current-password'
-// 											required
-// 											className='block w-full px-2 bg-[#1C1D21] border-0 py-1.5 text-white focus:outline-none placeholder:text-gray-400 sm:text-sm sm:leading-6'
-// 											placeholder='Password'
-// 										/>
-// 									</div>
-// 									<ErrorMessage
-// 										name='password'
-// 										component='div'
-// 										className='text-red-500 text-[15px]'
-// 									/>
-// 								</div>
-// 								<div className='mt-1'>
-// 									<a href='#' className='text-gray-400 hover:text-gray-300'>
-// 										Forgot password?
-// 									</a>
-// 								</div>
-// 								<div className='w-full flex items-center justify-center'>
-// 									<button
-// 										type='submit'
-// 										disabled={loading}
-// 										className='flex w-full justify-center rounded-md bg-gradient-to-b from-sky-200 to-blue-100 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-// 									>
-// 										Login
-// 									</button>
-// 								</div>
-// 							</Form>
-// 						)}
-// 					</Formik>
-// 				</div>
-// 			</div>
-// 			<div className='bg-gradient-to-b from-sky-200 to-blue-100 px-40 py-40 '>
-// 				<h1 className='text-[60px] text-white leading-[55px] font-bold'>
-// 					Welcome to Admin <br />
-// 					<span className='font-normal'> portal</span>
-// 				</h1>
-// 				<img src={sideImage} alt='side' />
-// 			</div>
-// 		</div>
-// 	)
-// }
-
-// export default AdminLogin
