@@ -26,9 +26,9 @@ const CounsellorSidebar = ({ isOpen, onClose }) => {
   const isActive = (path) => location.pathname.includes(path);
 
   const getNavItemClasses = (active) =>
-    `flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer font-medium transition-all duration-300 group ${
+    `flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium transition-all duration-200 ${
       active
-        ? "bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-200"
+        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-indigo-200/50"
         : "text-slate-500 hover:bg-indigo-50 hover:text-indigo-600"
     }`;
 
@@ -39,18 +39,18 @@ const CounsellorSidebar = ({ isOpen, onClose }) => {
     <>
       {/* Mobile Overlay */}
       <div 
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-30 lg:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[90] lg:hidden transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
       />
 
       <aside
-        className={`fixed top-0 left-0 h-full z-40 w-[260px] transform transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) lg:relative lg:translate-x-0 ${
+        className={`fixed top-0 left-0 h-full z-[100] w-[260px] transform transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) lg:relative lg:translate-x-0 bg-blue-50 border-r border-blue-100 shadow-xl lg:shadow-none ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="h-full bg-white border-r border-slate-100 shadow-xl lg:shadow-none flex flex-col p-6 relative">
+        <div className="h-full flex flex-col pt-6 pb-6 relative">
           {/* Close button for mobile */}
           <button
             onClick={onClose}
@@ -60,22 +60,22 @@ const CounsellorSidebar = ({ isOpen, onClose }) => {
           </button>
 
           {/* Logo Section */}
-          <div className="flex flex-col items-center pt-2 pb-8">
-            <div className="mb-3 group transition-all duration-300">
+          <div className="flex flex-col items-center px-6 pb-6">
+            <div className="mb-2 group transition-all duration-300">
               <img
                 src="/images/Logo-final-file.png"
                 alt="Logo"
                 className="w-40 object-contain transition-transform duration-500 hover:scale-105"
               />
             </div>
-            <h2 className="text-xl font-bold text-slate-800 text-center">
+            {/* <h2 className="text-xl font-bold text-slate-800 text-center">
               India Student
-            </h2>
+            </h2> */}
             <p className="text-xs text-slate-400 font-medium tracking-wide uppercase mt-1">Counsellor Portal</p>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-grow space-y-2 overflow-y-auto no-scrollbar py-4">
+          <nav className="flex-grow space-y-1.5 px-4 overflow-y-auto no-scrollbar py-2">
             {SidebarData.map((data, i) => {
               const active = isActive(data.path);
               return (
@@ -85,7 +85,7 @@ const CounsellorSidebar = ({ isOpen, onClose }) => {
                     navigate(data.path);
                     onClose();
                   }}
-                  className={getNavItemClasses(active)}
+                  className={`${getNavItemClasses(active)} group`}
                 >
                   <data.icon className={getIconClasses(active)} />
                   <span className="text-sm font-semibold tracking-wide">{data.name}</span>
@@ -98,7 +98,7 @@ const CounsellorSidebar = ({ isOpen, onClose }) => {
           </nav>
 
           {/* Logout Button */}
-          <div className="pt-6 border-t border-slate-100 mt-auto">
+          <div className="p-4 border-t border-slate-100 mt-auto">
             <button
               onClick={() => {
                 localStorage.removeItem("token");

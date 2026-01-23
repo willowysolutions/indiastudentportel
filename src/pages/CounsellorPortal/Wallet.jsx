@@ -33,7 +33,7 @@ const Wallet = () => {
 
   return (
     <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
-      <Header title="Wallet" Icon={RiWalletLine} />
+      <Header title="Wallet" Icon={RiWalletLine} description="Track your earnings and withdrawals." />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {walletData.map((item, index) => (

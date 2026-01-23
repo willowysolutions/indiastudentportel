@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { MdOutlineEventNote } from "react-icons/md";
 import { FaUniversity, FaWallet } from "react-icons/fa";
-import { HiArrowRight } from "react-icons/hi";
+import { HiArrowRight, HiOutlineSparkles } from "react-icons/hi";
 //imports................................................................................................
 
 const Dashbord = () => {
@@ -42,40 +42,41 @@ const Dashbord = () => {
   return (
     <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
       {/* Welcome Section */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 text-white shadow-2xl">
-        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      {/* Welcome Section */}
+      <section className="relative overflow-hidden rounded-2xl bg-stone-50 border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-900/5 hover:border-blue-300/50 group">
+        <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover:opacity-[0.08] transition-opacity duration-500">
+            <HiOutlineSparkles size={200} className="text-blue-600 rotate-12"/>
+        </div>
         
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center p-6 md:p-10 gap-8">
-          <div className="space-y-6 max-w-2xl">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-2">
-                Hello, {councilerdata?.name?.split(" ")[0]}!
-              </h2>
-              <p className="text-indigo-200 text-lg font-medium">
-                Here&apos;s what&apos;s happening in your portal today.
-              </p>
-            </div>
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center p-8 gap-8">
+          <div className="space-y-3 max-w-2xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 group-hover:text-blue-700 transition-colors duration-300">
+              Welcome back, <span className="text-blue-600">{councilerdata?.name?.split(" ")[0]}</span>
+            </h2>
+            <p className="text-slate-500 text-lg">
+              Here&apos;s what&apos;s happening in your portal today.
+            </p>
             
-            <div className="flex flex-wrap gap-4 text-sm md:text-base">
-              <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2">
-                <span className="text-indigo-200">Session Mode:</span>
-                <span className="font-semibold text-white">{councilerdata.counsellor?.session_mode || "Online"}</span>
+             <div className="flex flex-wrap gap-3 mt-4">
+              <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 text-sm text-slate-600 group-hover:border-blue-100 group-hover:bg-blue-50/30 transition-colors duration-300">
+                <span className="font-medium text-slate-500">Mode:</span>
+                <span className="font-bold text-slate-800 uppercase tracking-wide text-xs">{councilerdata.counsellor?.session_mode || "Online"}</span>
               </div>
-              <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2">
-                <span className="text-indigo-200">Language:</span>
-                <span className="font-semibold text-white">{councilerdata.counsellor?.language || "English"}</span>
+              <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 text-sm text-slate-600 group-hover:border-blue-100 group-hover:bg-blue-50/30 transition-colors duration-300">
+                <span className="font-medium text-slate-500">Language:</span>
+                <span className="font-semibold text-slate-800">{councilerdata.counsellor?.language || "English"}</span>
               </div>
             </div>
           </div>
 
-          <div className="hidden md:block relative group">
-             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/30 to-purple-500/30 rounded-full blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
-            <img
-              src={icon}
-              alt="Counselor Profile"
-              className="relative w-48 md:w-64 lg:w-72 drop-shadow-2xl transform group-hover:-translate-y-2 transition-transform duration-500 ease-in-out"
-            />
+          <div className="hidden md:block">
+            <div className="w-24 h-24 rounded-full bg-blue-50 p-1 border border-blue-100 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                 <img
+                src={icon}
+                alt="Profile"
+                className="w-full h-full object-cover rounded-full border-2 border-white shadow-sm"
+                />
+            </div>
           </div>
         </div>
       </section>
