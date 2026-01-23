@@ -98,7 +98,7 @@ console.log(admissions,'addmm');
   
   return (
     <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
-        <Header title='Students' Icon={FaGraduationCap} />
+        <Header title='Students' Icon={FaGraduationCap} description="Track and manage new admission requests." />
         
         <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
              {/* <div className="p-4">Optional controls or stats can go here</div> */}

@@ -40,7 +40,7 @@ const CoursesList = () => {
 
   return (
     <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
-      <Header title="Courses Offered" Icon={FaWpforms} />
+      <Header title="Courses Offered" Icon={FaWpforms} description="Manage and view all courses offered by your university." />
 
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
          {loading ? (

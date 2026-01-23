@@ -106,7 +106,7 @@ const AddCourse = () => {
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Header */}
-        <Header title="Manage Courses" Icon={FaBookOpen} />
+        <Header title="Manage Courses" Icon={FaBookOpen} description="Add new courses to your university curriculum." />
 
         {/* Form Container */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
