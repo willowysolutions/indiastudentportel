@@ -28,70 +28,88 @@ const StudentSidebar = ({ isOpen, onClose }) => {
   const getNavItemClasses = (active) =>
     `flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium transition-all duration-200 ${
       active
-        ? "bg-gradient-to-r from-purple-600 to-blue-500 text-white"
-        : "bg-white text-gray-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-500 hover:text-white"
+        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-indigo-200/50"
+        : "text-slate-500 hover:bg-indigo-50 hover:text-indigo-600"
     }`;
 
   const getIconClasses = (active) =>
-    `w-5 h-5 ${active ? "text-white" : "text-gray-600"}`;
+    `w-5 h-5 transition-transform duration-300 group-hover:scale-110 ${active ? "text-white" : "text-slate-400 group-hover:text-indigo-600"}`;
 
   return (
-    <aside
-      className={`fixed top-0 left-0 h-full z-30 w-[239px] transform transition-all duration-300 ease-in-out ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      } lg:relative lg:translate-x-0`}
-    >
-      <div className="h-full flex flex-col bg-white p-4 lg:p-5">
-        {/* Close button for mobile */}
-        <button
-          onClick={onClose}
-          className="lg:hidden absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 text-white"
-        >
-          <HiX className="w-6 h-6" />
-        </button>
+    <>
+      {/* Mobile Overlay */}
+      <div 
+        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[90] lg:hidden transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={onClose}
+      />
 
-        {/* Sidebar Header */}
-        <div className="flex justify-center items-center pt-4 lg:pt-5 mb-4">
-          <img
-            src="/images/Logo-final-file.png"
-            alt="Logo"
-            className="w-40 object-contain transition-transform hover:scale-105"
-          />
+      <aside
+        className={`fixed top-0 left-0 h-full z-[100] w-[260px] transform transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) lg:relative lg:translate-x-0 bg-blue-50 border-r border-blue-100 shadow-xl lg:shadow-none ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="h-full flex flex-col pt-6 pb-6 relative">
+          {/* Close button for mobile */}
+          <button
+            onClick={onClose}
+            className="lg:hidden absolute top-4 right-4 p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors"
+          >
+            <HiX className="w-6 h-6" />
+          </button>
+
+          {/* Sidebar Header */}
+          <div className="flex flex-col items-center px-6 pb-6">
+            <div className="mb-2 group transition-all duration-300">
+              <img
+                src="/images/Logo-final-file.png"
+                alt="Logo"
+                className="w-40 object-contain transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+             <p className="text-xs text-slate-400 font-medium tracking-wide uppercase mt-1">Student Portal</p>
+          </div>
+
+          {/* Navigation */}
+          <nav className="flex-grow space-y-1.5 px-4 overflow-y-auto no-scrollbar py-2">
+            {SidebarData.map((data, i) => {
+              const active = isActive(data.path);
+              return (
+                <div
+                  key={i}
+                  onClick={() => {
+                    navigate(data.path);
+                    onClose();
+                  }}
+                  className={`${getNavItemClasses(active)} group`}
+                >
+                  <data.icon className={getIconClasses(active)} />
+                  <span className="text-sm font-semibold tracking-wide">{data.name}</span>
+                  {active && (
+                     <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse" />
+                  )}
+                </div>
+              );
+            })}
+          </nav>
+
+          {/* Logout Button */}
+          <div className="p-4 border-t border-slate-100 mt-auto">
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/student/login");
+              }}
+              className="flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer font-medium w-full transition-all duration-300 group bg-red-50 text-red-500 hover:bg-red-100 hover:text-red-600 hover:shadow-sm"
+            >
+              <RiLogoutBoxRFill className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-1" />
+              <span className="text-sm font-semibold tracking-wide">Logout</span>
+            </button>
+          </div>
         </div>
-
-        {/* Navigation */}
-        <nav className="flex-grow mt-8 space-y-2">
-          {SidebarData.map((data, i) => {
-            const active = isActive(data.path);
-            return (
-              <div
-                key={i}
-                onClick={() => {
-                  navigate(data.path);
-                  onClose();
-                }}
-                className={getNavItemClasses(active)}
-              >
-                <data.icon className={getIconClasses(active)} />
-                <span className="text-sm lg:text-base">{data.name}</span>
-              </div>
-            );
-          })}
-        </nav>
-
-        {/* Logout Button */}
-        <button
-          onClick={() => {
-            localStorage.removeItem("token");
-            navigate("/student/login");
-          }}
-          className={getNavItemClasses(false)}
-        >
-          <RiLogoutBoxRFill className="h-5 w-5 text-gray-600" />
-          <span>Logout</span>
-        </button>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };
 

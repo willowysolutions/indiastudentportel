@@ -4,7 +4,8 @@ import Button from "../../../components/Button";
 const TestHomePage = ({ onStartTest }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-8">
-      <div className="font-semibold pt-2">Hello there!</div>
+      <div className="font-semibold pt-2 text-xl text-slate-800">Hello there!</div>
+      <p className="text-slate-500 text-sm mb-4">Test your skills and get career insights.</p>
       <div className="pt-2">
         Looks like you are ready to understand more about your Vocational
         Personality!

@@ -13,6 +13,7 @@ import {
     FaEnvelope,
     FaPhoneAlt
 } from "react-icons/fa";
+import { HiOutlineSparkles } from "react-icons/hi";
 
 const Dashbord = () => {
     const navigate = useNavigate();
@@ -57,36 +58,42 @@ const Dashbord = () => {
         <div className="space-y-8 font-poppins min-h-[80vh]">
             
              {/* Header Section */}
-             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl shadow-xl overflow-hidden relative text-white">
-                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
-                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none"></div>
+             <section className="relative overflow-hidden rounded-2xl bg-stone-50 border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-900/5 hover:border-blue-300/50 group">
+                 <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover:opacity-[0.08] transition-opacity duration-500">
+                     <HiOutlineSparkles size={200} className="text-blue-600 rotate-12"/>
+                 </div>
                  
-                 <div className="p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 relative z-10">
-                     {/* Avatar/Icon */}
-                     <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-white/10 backdrop-blur-sm p-4 shadow-lg border border-white/20 flex items-center justify-center text-white text-6xl shadow-indigo-900/20">
-                          <FaUserGraduate />
-                     </div>
-    
-                     {/* Info */}
-                     <div className="flex-1 text-center md:text-left">
-                          <h2 className="text-3xl md:text-4xl font-bold text-white drop-shadow-sm leading-tight mb-2">
-                              Hello, {student?.name || "Student"}!
+                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center p-8 gap-8">
+                      <div className="space-y-3 max-w-2xl">
+                          <h2 className="text-3xl font-bold tracking-tight text-slate-900 group-hover:text-blue-700 transition-colors duration-300">
+                              Hello, <span className="text-blue-600">{student?.name || "Student"}</span>!
                           </h2>
-                          <p className="text-blue-100 font-medium text-lg max-w-2xl mb-6">
-                               Welcome to your personal dashboard. Manage your bookings, take tests, and explore your future opportunities.
+                          <p className="text-slate-500 text-lg">
+                              Welcome to your personal dashboard. Manage your bookings, take tests, and explore your future opportunities.
                           </p>
                           
-                          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm font-medium">
-                                <span className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full border border-white/10 transition-colors backdrop-blur-sm">
-                                    <FaEnvelope className="text-blue-200" /> {student?.email || "N/A"}
-                                </span>
-                                <span className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full border border-white/10 transition-colors backdrop-blur-sm">
-                                    <FaPhoneAlt className="text-blue-200" /> {student?.contact || "N/A"}
-                                </span>
+                          <div className="flex flex-wrap gap-3 mt-4">
+                                <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 text-sm text-slate-600 group-hover:border-blue-100 group-hover:bg-blue-50/30 transition-colors duration-300">
+                                    <span className="font-medium text-slate-500">Email:</span>
+                                    <span className="font-semibold text-slate-800">{student?.email || "N/A"}</span>
+                                </div>
+                                <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 text-sm text-slate-600 group-hover:border-blue-100 group-hover:bg-blue-50/30 transition-colors duration-300">
+                                    <span className="font-medium text-slate-500">Phone:</span>
+                                    <span className="font-semibold text-slate-800">{student?.contact || "N/A"}</span>
+                                </div>
                           </div>
-                     </div>
+                      </div>
+
+                      {/* Right Icon */}
+                      <div className="hidden md:block">
+                           <div className="w-24 h-24 rounded-full bg-blue-50 p-1 border border-blue-100 shadow-sm group-hover:scale-105 transition-transform duration-300 flex items-center justify-center">
+                                <div className="w-full h-full rounded-full border-2 border-white bg-white flex items-center justify-center shadow-sm text-indigo-500 text-4xl">
+                                    <FaUserGraduate />
+                                </div>
+                           </div>
+                      </div>
                  </div>
-            </div>
+             </section>
 
             {/* Quick Actions Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">

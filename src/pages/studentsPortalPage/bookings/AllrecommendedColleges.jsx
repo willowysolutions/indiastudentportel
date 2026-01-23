@@ -51,7 +51,7 @@ const AllrecommendedColleges = () => {
 
   return (
     <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
-      <Header title="Recommended Colleges" Icon={FaUniversity} />
+      <Header title="Recommended Colleges" Icon={FaUniversity} description="Colleges customized nicely for your profile." />
       
       <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
         {loading ? (
