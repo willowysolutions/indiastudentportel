@@ -40,14 +40,14 @@ const AdminSidebar = ({ isOpen, onClose }) => {
     <>
       {/* Mobile Backdrop */}
       <div
-        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-30 lg:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[90] lg:hidden transition-opacity duration-300 ${
             isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
       />
       
       <aside
-        className={`fixed top-0 left-0 h-full z-40 w-[260px] transform transition-transform duration-300 ease-out lg:relative lg:translate-x-0 bg-white border-r border-slate-100 shadow-xl lg:shadow-none ${
+        className={`fixed top-0 left-0 h-full z-[100] w-[260px] transform transition-transform duration-300 ease-out lg:relative lg:translate-x-0 bg-blue-50 border-r border-blue-100 shadow-xl lg:shadow-none ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

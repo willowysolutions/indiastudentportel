@@ -53,7 +53,11 @@ const StudentsAdmin = () => {
 
   return (
     <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
-      <Header title="All Students List" Icon={FaUserGraduate} />
+      <Header
+        title="All Students List"
+        Icon={FaUserGraduate}
+        description="Manage all student profiles and statuses."
+      />
 
       <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
         {loading ? (

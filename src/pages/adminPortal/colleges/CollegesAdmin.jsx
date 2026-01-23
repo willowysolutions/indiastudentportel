@@ -65,7 +65,11 @@ const CollegesAdmin = () => {
     <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
          <div className="flex-grow">
-           <Header title="Colleges" Icon={FaSchool} />
+           <Header
+            title="Colleges"
+            Icon={FaSchool}
+            description="Manage college listings and course details."
+          />
          </div>
       </div>
 

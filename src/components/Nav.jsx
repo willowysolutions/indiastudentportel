@@ -17,7 +17,7 @@ const Nav = ({ onMenuClick , DATA, portalName }) => {
 
   return (
     <header className="sticky top-0 z-50 transition-all duration-300">
-      <div className="absolute inset-0 bg-white/70 backdrop-blur-md shadow-sm border-b border-white/20"></div>
+      <div className="absolute inset-0 bg-stone-50/95 backdrop-blur-md shadow-sm border-b border-stone-200"></div>
       <div className="relative px-4 lg:px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
