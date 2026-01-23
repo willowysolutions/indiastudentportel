@@ -228,22 +228,23 @@ const AdminAddCollege = () => {
       <div className="bg-white/90 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl w-full overflow-hidden">
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white relative overflow-hidden">
-             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+        <div className="bg-slate-50 px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+             <div>
+                 <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <FaUniversity className="text-indigo-600" />
+                    Add New College
+                 </h2>
+                 <p className="text-slate-500 text-xs mt-1">Register a new college in the system.</p>
+             </div>
              <button 
                 onClick={() => navigate('/admin/colleges')}
-                className="flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-4 text-sm font-medium"
+                className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors text-xs font-medium border border-slate-200 bg-white px-3 py-1.5 rounded-lg shadow-sm hover:shadow-md"
              >
                 <FaArrowLeft /> Back to Colleges
              </button>
-             <h2 className="text-3xl font-bold flex items-center gap-3">
-                <FaUniversity className="text-blue-200" />
-                Add New College
-             </h2>
-             <p className="text-blue-100 mt-2">Enter the details below to register a new college in the system.</p>
         </div>
 
-        <div className="p-8 md:p-12">
+        <div className="p-6 md:p-8">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -314,10 +315,10 @@ const AdminAddCollege = () => {
                 </div>
 
                 {/* Form Fields Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                   {formFields.map(({ id, placeholder, label, type, options }) => (
                     <div key={id} className={`flex flex-col ${type === 'textarea' ? 'md:col-span-3' : ''}`}>
-                      <label htmlFor={id} className="mb-1.5 text-sm font-semibold text-slate-700 ml-1">
+                      <label htmlFor={id} className="mb-1 text-xs font-bold text-slate-600 ml-1 uppercase tracking-wide">
                           {label} <span className="text-rose-500">*</span>
                       </label>
                       <div className="relative">
@@ -326,7 +327,7 @@ const AdminAddCollege = () => {
                             as="select"
                             id={id}
                             name={id}
-                            className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400 text-slate-700 appearance-none"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400 text-slate-700 text-sm appearance-none"
                           >
                             <option value="">Select {label}</option>
                             {id === "state_id" ? (
@@ -348,8 +349,8 @@ const AdminAddCollege = () => {
                             as="textarea"
                             id={id}
                             name={id}
-                            rows="4"
-                            className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400 text-slate-700 resize-none"
+                            rows="3"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400 text-slate-700 text-sm resize-none"
                             placeholder={placeholder}
                           />
                         ) : (
@@ -357,7 +358,7 @@ const AdminAddCollege = () => {
                             id={id}
                             name={id}
                             type={type}
-                            className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400 text-slate-700 text-sm"
                             placeholder={placeholder}
                           />
                         )}
@@ -378,7 +379,7 @@ const AdminAddCollege = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm"
                     >
                       {isSubmitting ? (
                           <>

@@ -23,41 +23,38 @@ const CounsillorProfile = () => {
             
             {/* Header / Profile Card */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div className="h-32 bg-gradient-to-r from-violet-900 to-indigo-900 relative">
-                     <div className="absolute inset-0 bg-grid-white/5 bg-[length:20px_20px]"></div>
-                </div>
-                <div className="px-8 pb-8 flex flex-col sm:flex-row items-end -mt-12 gap-6">
+                <div className="px-6 py-6 flex flex-col sm:flex-row items-center gap-6 bg-slate-50 border-b border-slate-100">
                      {/* Avatar */}
-                    <div className="relative p-1 bg-white rounded-full shadow-md">
-                        <div className="w-24 h-24 rounded-full bg-slate-50 flex items-center justify-center text-4xl text-violet-500 font-bold border-4 border-white">
+                    <div className="relative">
+                        <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-3xl text-violet-500 font-bold border border-slate-200 shadow-sm">
                              {data?.details?.name?.charAt(0) || "C"}
                         </div>
                     </div>
 
                     {/* Name & Role */}
-                    <div className="flex-1 pb-2">
-                        <h2 className="text-3xl font-bold text-slate-900">
+                    <div className="flex-1 text-center sm:text-left">
+                        <h2 className="text-2xl font-bold text-slate-900">
                             {data?.details?.name || "Name Unavailable"}
                         </h2>
-                        <p className="text-slate-500 font-medium flex items-center gap-2">
-                            <span className="inline-block w-2 h-2 rounded-full bg-violet-500"></span>
+                        <p className="text-slate-500 text-sm font-medium flex items-center justify-center sm:justify-start gap-2 mt-1">
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-violet-500"></span>
                             Professional Counselor
                         </p>
                     </div>
 
                     {/* Stats Widgets */}
-                    <div className="flex gap-4 mb-2">
+                    <div className="flex gap-3">
                         <StatWidget 
                             icon={<FaCalendarCheck />} 
                             value={data?.bookings?.length || 0} 
                             label="Sessions" 
-                            color="bg-violet-50 text-violet-600 border-violet-100" 
+                            color="bg-white text-violet-600 border-violet-100 shadow-sm" 
                         />
                          <StatWidget 
                             icon={<FaStar />} 
                             value={data?.average_rating || "N/A"} 
                             label="Rating" 
-                            color="bg-amber-50 text-amber-600 border-amber-100" 
+                            color="bg-white text-amber-600 border-amber-100 shadow-sm" 
                         />
                     </div>
                 </div>
@@ -65,12 +62,12 @@ const CounsillorProfile = () => {
 
             {/* Info Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-                    <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
-                        <div className="p-2.5 bg-violet-50 text-violet-600 rounded-lg">
-                           <FaHeadset size={20} />
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-50">
+                        <div className="p-2 bg-violet-50 text-violet-600 rounded-lg">
+                           <FaHeadset size={16} />
                         </div>
-                        <h3 className="text-lg font-bold text-slate-800">Contact Details</h3>
+                        <h3 className="text-base font-bold text-slate-800">Contact Details</h3>
                     </div>
                      <div className="space-y-4">
                         <InfoItem icon={<FaEnvelope />} label="Email" value={data?.details?.email} />
@@ -78,12 +75,12 @@ const CounsillorProfile = () => {
                      </div>
                 </div>
 
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-                     <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
-                        <div className="p-2.5 bg-fuchsia-50 text-fuchsia-600 rounded-lg">
-                           <FaChalkboardTeacher size={20} />
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+                     <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-50">
+                        <div className="p-2 bg-fuchsia-50 text-fuchsia-600 rounded-lg">
+                           <FaChalkboardTeacher size={16} />
                         </div>
-                        <h3 className="text-lg font-bold text-slate-800">Professional Info</h3>
+                        <h3 className="text-base font-bold text-slate-800">Professional Info</h3>
                     </div>
                      <div className="space-y-4">
                         <InfoItem icon={<FaHeadset />} label="Session Mode" value={data?.session_mode} />
@@ -94,8 +91,8 @@ const CounsillorProfile = () => {
 
             {/* Sessions Table */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-slate-200 bg-slate-50/50 flex justify-between items-center">
-                    <h3 className="text-lg font-bold text-slate-800">
+                <div className="p-5 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+                    <h3 className="text-base font-bold text-slate-800">
                         Counselor Sessions
                     </h3>
                      <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600">
@@ -156,20 +153,20 @@ const CounsillorProfile = () => {
 };
 
 const StatWidget = ({ icon, value, label, color }) => (
-    <div className={`flex flex-col items-center justify-center px-4 py-3 rounded-xl border min-w-[100px] ${color}`}>
-        <div className="text-xl mb-1">{icon}</div>
-        <div className="font-bold text-lg">{value}</div>
-        <div className="text-[10px] uppercase tracking-wide opacity-80 font-semibold">{label}</div>
+    <div className={`flex flex-col items-center justify-center px-4 py-2 rounded-xl border min-w-[90px] ${color}`}>
+        <div className="text-lg mb-0.5">{icon}</div>
+        <div className="font-bold text-base">{value}</div>
+        <div className="text-[9px] uppercase tracking-wide opacity-80 font-semibold">{label}</div>
     </div>
 );
 
 const InfoItem = ({ icon, label, value }) => (
-    <div className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-slate-200 hover:shadow-sm transition-all duration-200">
+    <div className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/30 hover:bg-white hover:border-slate-200 hover:shadow-sm transition-all duration-200">
         <div className="flex items-center gap-3">
-            <span className="text-slate-400">{icon}</span>
-            <span className="text-sm font-medium text-slate-500">{label}</span>
+            <span className="text-slate-400 text-sm">{icon}</span>
+            <span className="text-xs font-medium text-slate-500">{label}</span>
         </div>
-        <span className="text-slate-900 font-semibold text-sm text-right">{value || "N/A"}</span>
+        <span className="text-slate-900 font-semibold text-xs text-right">{value || "N/A"}</span>
     </div>
 );
 

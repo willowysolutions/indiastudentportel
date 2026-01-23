@@ -22,22 +22,19 @@ const StudentsProfile = () => {
     <div className="min-h-screen font-sans text-slate-900 pb-10 px-4 sm:px-6 lg:px-8 space-y-8">
       
       {/* Header / Profile Card */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-         <div className="h-32 bg-gradient-to-r from-slate-900 to-slate-800 relative">
-             <div className="absolute inset-0 bg-grid-white/5 bg-[length:20px_20px]"></div>
-         </div>
-         <div className="px-8 pb-8 flex flex-col sm:flex-row items-end -mt-12 gap-6">
-            <div className="relative p-1 bg-white rounded-full shadow-md">
-                <div className="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center text-4xl text-slate-400 font-bold border-4 border-white">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden group">
+         <div className="px-6 py-6 flex flex-col sm:flex-row items-center gap-6 bg-slate-50 border-b border-slate-100">
+            <div className="relative">
+                <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-3xl text-slate-400 font-bold border border-slate-200 shadow-sm">
                     {student?.name?.charAt(0) || "U"}
                 </div>
             </div>
-            <div className="flex-1 pb-2">
-                 <h2 className="text-3xl font-bold text-slate-900">
+            <div className="flex-1 text-center sm:text-left">
+                 <h2 className="text-2xl font-bold text-slate-900">
                     {student?.name || "Name not available"}
                  </h2>
-                 <p className="text-slate-500 font-medium flex items-center gap-2">
-                     <span className="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                 <p className="text-slate-500 text-sm font-medium flex items-center justify-center sm:justify-start gap-2 mt-1">
+                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                      Student Profile
                  </p>
             </div>
@@ -47,12 +44,12 @@ const StudentsProfile = () => {
       {/* Info Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Card 1: Personal Info */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
-                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-lg">
-                   <FaUser size={20} />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+            <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-50">
+                <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                   <FaUser size={16} />
                 </div>
-                <h3 className="text-lg font-bold text-slate-800">Personal Info</h3>
+                <h3 className="text-base font-bold text-slate-800">Personal Info</h3>
             </div>
             
             <div className="space-y-4">
@@ -64,12 +61,12 @@ const StudentsProfile = () => {
         </div>
 
         {/* Card 2: Academic Info */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
-                <div className="p-2.5 bg-purple-50 text-purple-600 rounded-lg">
-                   <FaSchool size={20} />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+            <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-50">
+                <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                   <FaSchool size={16} />
                 </div>
-                <h3 className="text-lg font-bold text-slate-800">Academic Info</h3>
+                <h3 className="text-base font-bold text-slate-800">Academic Info</h3>
             </div>
 
             <div className="space-y-4">
@@ -83,8 +80,8 @@ const StudentsProfile = () => {
 
       {/* Counselor Bookings Table */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-slate-200 bg-slate-50/50 flex justify-between items-center">
-          <h3 className="text-lg font-bold text-slate-800">
+        <div className="p-5 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+          <h3 className="text-base font-bold text-slate-800">
             Counselor Bookings
           </h3>
           <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600">
@@ -145,12 +142,12 @@ const StudentsProfile = () => {
 };
 
 const InfoItem = ({ icon, label, value }) => (
-    <div className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-slate-200 hover:shadow-sm transition-all duration-200">
+    <div className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/30 hover:bg-white hover:border-slate-200 hover:shadow-sm transition-all duration-200">
         <div className="flex items-center gap-3">
-            <span className="text-slate-400">{icon}</span>
-            <span className="text-sm font-medium text-slate-500">{label}</span>
+            <span className="text-slate-400 text-sm">{icon}</span>
+            <span className="text-xs font-medium text-slate-500">{label}</span>
         </div>
-        <span className="text-slate-900 font-semibold text-sm text-right">{value || "N/A"}</span>
+        <span className="text-slate-900 font-semibold text-xs text-right">{value || "N/A"}</span>
     </div>
 );
 

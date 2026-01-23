@@ -23,20 +23,19 @@ const AdmissionProfile = () => {
             <div className="space-y-8">
                 
                 {/* Header Card */}
-                <div className='bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden relative'>
-                     <div className='absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-teal-500 to-emerald-500'></div>
-                     <div className='pt-20 px-8 pb-8 flex flex-col md:flex-row items-end gap-6 relative z-10'>
-                          <div className='w-28 h-28 rounded-full bg-white p-1 shadow-lg flex items-center justify-center text-4xl text-teal-600 border-4 border-white'>
+                <div className='bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden group'>
+                     <div className='px-6 py-6 flex flex-col md:flex-row items-center gap-6 bg-slate-50 border-b border-slate-100'>
+                          <div className='w-20 h-20 rounded-full bg-white p-1 shadow-sm flex items-center justify-center text-3xl text-teal-600 border border-slate-200'>
                                <span className="font-bold">{data.student_name?.charAt(0) || "S"}</span>
                           </div>
-                          <div className="flex-1 mb-2">
-                                <h1 className='text-3xl font-bold text-slate-800'>{data.student_name}</h1>
-                                <p className='text-slate-500 font-medium flex items-center gap-2'>
+                          <div className="flex-1 text-center md:text-left">
+                                <h1 className='text-2xl font-bold text-slate-900'>{data.student_name}</h1>
+                                <p className='text-slate-500 text-sm font-medium flex items-center justify-center md:justify-start gap-2 mt-1'>
                                     <FaUserGraduate className="text-teal-500" />
                                     Admission Candidate
                                 </p>
                           </div>
-                          <div className="text-sm font-medium bg-white/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/60 shadow-sm text-slate-600">
+                          <div className="text-xs font-medium bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm text-slate-600">
                                 {data.email}
                           </div>
                      </div>
@@ -47,9 +46,9 @@ const AdmissionProfile = () => {
                     
                     {/* Left Column: Aptitude Score */}
                     <div className='lg:col-span-1'>
-                        <div className='bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 h-full flex flex-col items-center justify-center'>
-                             <h2 className='text-xl font-bold text-slate-800 mb-6'>Aptitude Score</h2>
-                             <div className='w-48 h-48'>
+                        <div className='bg-white rounded-2xl border border-slate-200 shadow-sm p-5 h-full flex flex-col items-center justify-center'>
+                             <h2 className='text-base font-bold text-slate-800 mb-6'>Aptitude Score</h2>
+                             <div className='w-40 h-40'>
                                 <CircularProgressbar 
                                     value={60} 
                                     text={`${60}%`} 
@@ -61,7 +60,7 @@ const AdmissionProfile = () => {
                                     })}
                                 />
                              </div>
-                             <p className="mt-6 text-center text-slate-500 text-sm">
+                             <p className="mt-4 text-center text-slate-500 text-xs">
                                  Performance based on initial assessment tests.
                              </p>
                         </div>
@@ -69,12 +68,12 @@ const AdmissionProfile = () => {
 
                     {/* Middle Column: Course Details */}
                     <div className='lg:col-span-1'>
-                        <div className='bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 h-full'>
-                            <h2 className='text-xl font-bold text-slate-800 mb-6 flex items-center gap-2'>
-                                <span className="p-2 bg-teal-100 rounded-lg text-teal-600"><FaBookReader /></span>
+                        <div className='bg-white rounded-2xl border border-slate-200 shadow-sm p-5 h-full'>
+                            <h2 className='text-base font-bold text-slate-800 mb-4 flex items-center gap-2 border-b border-slate-50 pb-3'>
+                                <span className="p-1.5 bg-teal-50 rounded-lg text-teal-600"><FaBookReader size={14}/></span>
                                 Course Details
                             </h2>
-                            <div className="space-y-6 relative">
+                            <div className="space-y-4 relative">
                                 <DetailItem label="University" value="Central University" icon={<FaUniversity />} />
                                 <DetailItem label="College" value={data.college?.name} icon={<FaUniversity />} />
                                 <DetailItem label="Course" value={data.course?.course_name} icon={<FaBookReader />} />
@@ -86,12 +85,12 @@ const AdmissionProfile = () => {
 
                     {/* Right Column: Personal Details */}
                     <div className='lg:col-span-1'>
-                         <div className='bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 h-full'>
-                            <h2 className='text-xl font-bold text-slate-800 mb-6 flex items-center gap-2'>
-                                <span className="p-2 bg-emerald-100 rounded-lg text-emerald-600"><FaIdCard /></span>
+                         <div className='bg-white rounded-2xl border border-slate-200 shadow-sm p-5 h-full'>
+                            <h2 className='text-base font-bold text-slate-800 mb-4 flex items-center gap-2 border-b border-slate-50 pb-3'>
+                                <span className="p-1.5 bg-emerald-50 rounded-lg text-emerald-600"><FaIdCard size={14}/></span>
                                 Personal Details
                             </h2>
-                            <div className="space-y-5">
+                            <div className="space-y-4">
                                 <DetailItem label="Guardian" value={data.guardian} icon={<FaUserGraduate />} />
                                 <DetailItem label="Date of Birth" value={data.dob} icon={<FaCalendarAlt />} />
                                 <DetailItem label="Address" value={data.address} icon={<FaMapMarkerAlt />} />
@@ -109,12 +108,12 @@ const AdmissionProfile = () => {
 }
 
 const DetailItem = ({ label, value, icon }) => (
-    <div className="group">
-        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-2">
+    <div className="group flex items-center justify-between py-1.5 border-b border-slate-50 hover:bg-slate-50/50 px-2 rounded-lg transition-colors">
+        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
             {icon && <span className="text-slate-300 group-hover:text-teal-500 transition-colors">{icon}</span>}
             {label}
         </div>
-        <div className="text-slate-700 font-medium border-b border-slate-100 pb-2 group-hover:border-teal-200 transition-colors">
+        <div className="text-slate-700 font-medium text-xs text-right">
             {value || "N/A"}
         </div>
     </div>
