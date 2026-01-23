@@ -6,6 +6,7 @@ import {
   getSingleCollege,
 } from "../../Redux/features/University/UniversitySlice";
 import { FaUniversity, FaEnvelope, FaPhoneAlt, FaEdit, FaUserGraduate } from "react-icons/fa";
+import { HiOutlineSparkles } from "react-icons/hi";
 
 const Dashbord = () => {
   const navigate = useNavigate();
@@ -43,34 +44,55 @@ const Dashbord = () => {
         
         {/* Welcome Section / Header */}
         {/* Welcome Section / Header */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative group">
-             <div className="bg-slate-50 px-8 py-8 flex flex-col md:flex-row items-center gap-8 border-b border-slate-100">
-                 {/* Icon/Image */}
-                 <div className="w-24 h-24 rounded-full bg-white p-4 shadow-sm border border-slate-200 flex items-center justify-center text-indigo-600 text-5xl">
-                      <FaUniversity />
-                 </div>
-
-                 {/* Info */}
-                 <div className="flex-1 text-center md:text-left">
-                      <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight mb-2">
-                          {universityData?.name || "University Name"}
-                      </h2>
-                      <p className="text-slate-500 font-medium text-base flex items-center justify-center md:justify-start gap-2">
-                           Welcome to your University Portal Dashboard
-                      </p>
-                 </div>
-                 
-                   {/* Action Button */}
-                 <div className="">
-                    <button 
-                        onClick={handleEditCollege}
-                        className="flex items-center gap-2 bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-lg hover:bg-slate-50 hover:text-indigo-600 transition-all font-medium text-sm shadow-sm"
-                    >
-                        <FaEdit /> Edit Profile
-                    </button>
-                 </div>
+        {/* Welcome Section / Header */}
+        <section className="relative overflow-hidden rounded-2xl bg-stone-50 border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-900/5 hover:border-blue-300/50 group">
+             <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover:opacity-[0.08] transition-opacity duration-500">
+                 <HiOutlineSparkles size={200} className="text-blue-600 rotate-12"/>
              </div>
-        </div>
+
+             <div className="relative z-10 flex flex-col md:flex-row justify-between items-center p-8 gap-8">
+                  <div className="space-y-3 max-w-2xl">
+                      <h2 className="text-3xl font-bold tracking-tight text-slate-900 group-hover:text-blue-700 transition-colors duration-300">
+                          Welcome back, <span className="text-blue-600">{universityData?.name || "University"}</span>
+                      </h2>
+                      <p className="text-slate-500 text-lg">
+                          Welcome to your University Portal Dashboard.
+                      </p>
+
+                      <div className="flex flex-wrap gap-3 mt-4">
+                           {/* Email Badge */}
+                           <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 text-sm text-slate-600 group-hover:border-blue-100 group-hover:bg-blue-50/30 transition-colors duration-300">
+                               <span className="font-medium text-slate-500">Email:</span>
+                               <span className="font-semibold text-slate-800">{universityData?.email}</span>
+                           </div>
+                           
+                           {/* Phone Badge */}
+                           <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 text-sm text-slate-600 group-hover:border-blue-100 group-hover:bg-blue-50/30 transition-colors duration-300">
+                               <span className="font-medium text-slate-500">Phone:</span>
+                               <span className="font-semibold text-slate-800">{universityData?.contact || "N/A"}</span>
+                           </div>
+
+                           {/* Edit Button */}
+                           <button 
+                               onClick={handleEditCollege}
+                               className="px-4 py-1.5 rounded-full bg-white border border-slate-200 flex items-center gap-2 text-sm text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:shadow-sm transition-all duration-300 cursor-pointer"
+                           >
+                               <FaEdit /> 
+                               <span className="font-semibold">Edit Profile</span>
+                           </button>
+                      </div>
+                  </div>
+
+                  {/* Right Icon */}
+                  <div className="hidden md:block">
+                       <div className="w-24 h-24 rounded-full bg-blue-50 p-1 border border-blue-100 shadow-sm group-hover:scale-105 transition-transform duration-300 flex items-center justify-center">
+                            <div className="w-full h-full rounded-full border-2 border-white bg-white flex items-center justify-center shadow-sm text-indigo-500 text-4xl">
+                                <FaUniversity />
+                            </div>
+                       </div>
+                  </div>
+             </div>
+        </section>
 
         {/* Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
