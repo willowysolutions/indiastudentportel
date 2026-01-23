@@ -23,7 +23,7 @@ function UniversityLayout() {
       </div>
 
       {/* Main content section */}
-      <div className="flex flex-col flex-grow h-screen overflow-hidden bg-gradient-to-b from-sky-200 to-blue-100">
+      <div className="flex flex-col flex-grow h-screen overflow-hidden bg-slate-50">
         {/* Navbar */}
         <Nav
           className="shadow-md z-50"

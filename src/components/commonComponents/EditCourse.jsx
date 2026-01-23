@@ -125,124 +125,161 @@ const EditCourse = () => {
   }, [CourseNameLists]);
   return (
     <div>
-      <div className="flex-row md:py-20 py-10 bg-white">
-        <h2 className="text-[32px] md:text-[45px] font-bold text-center">
-          Edit Course
-        </h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative animate-fadeIn">
+        {/* Header */}
+        <div className="bg-slate-50 px-8 py-6 border-b border-slate-200 flex justify-between items-center">
+             <h2 className="text-xl font-bold text-slate-800">Edit Course</h2>
+             <button 
+                onClick={() => navigate(-1)}
+                className="text-slate-400 hover:text-rose-500 transition-colors"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
         <form
           id="EditCourseForm"
           onSubmit={handleSubmit(onSubmitCourse)}
-          className="w-full max-w-3xl mx-auto px-4"
+          className="p-8"
         >
-          <div className="flex flex-wrap -mx-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Course Selection */}
-            <div className="w-full md:w-1/2 px-4">
-              <select
+            <div className="flex flex-col">
+               <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Select Course</label>
+               <select
                 {...register("course_id")}
-                className="w-full px-3 py-2 border border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm appearance-none"
               >
                 <option value="">Select Course</option>
                 {courseOptions}
               </select>
               {errors.course_id && (
-                <span className="text-red-500 text-xs">
+                <span className="text-rose-500 text-xs mt-1">
                   {errors.course_id.message}
                 </span>
               )}
             </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                id="title"
-                placeholder="Specialization"
-                register={register}
-                errors={errors}
-              />
+            <div className="flex flex-col">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Specialization</label>
+                <input
+                    id="title"
+                    type="text"
+                    {...register("title")}
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
+                    placeholder="Specialization"
+                />
+                <p className="text-rose-500 text-xs mt-1">{errors.title?.message}</p>
             </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                id="course_duration"
-                placeholder="Duration"
-                register={register}
-                errors={errors}
-              />
+            <div className="flex flex-col">
+                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Duration</label>
+                 <input
+                    id="course_duration"
+                    type="text"
+                    {...register("course_duration")}
+                     className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
+                    placeholder="Duration"
+                />
+                 <p className="text-rose-500 text-xs mt-1">{errors.course_duration?.message}</p>
             </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                id="course_fee"
-                placeholder="Course Fee"
-                register={register}
-                errors={errors}
-              />
+            <div className="flex flex-col">
+                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Course Fee</label>
+                 <input
+                    id="course_fee"
+                    type="text"
+                    {...register("course_fee")}
+                     className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
+                    placeholder="Course Fee"
+                />
+                 <p className="text-rose-500 text-xs mt-1">{errors.course_fee?.message}</p>
             </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                id="streem"
-                placeholder="Stream"
-                register={register}
-                errors={errors}
-              />
+            <div className="flex flex-col">
+                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Stream</label>
+                 <input
+                    id="streem"
+                    type="text"
+                    {...register("streem")}
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
+                    placeholder="Stream"
+                />
+                 <p className="text-rose-500 text-xs mt-1">{errors.streem?.message}</p>
             </div>
-            <div className="w-full md:w-1/2 px-4">
-              <Input
-                id="program_offered_by"
-                placeholder="Programs Offered By"
-                register={register}
-                errors={errors}
-              />
+            <div className="flex flex-col md:col-span-2">
+                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Programs Offered By</label>
+                 <input
+                    id="program_offered_by"
+                    type="text"
+                    {...register("program_offered_by")}
+                     className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
+                    placeholder="Programs Offered By"
+                />
+                 <p className="text-rose-500 text-xs mt-1">{errors.program_offered_by?.message}</p>
             </div>
             {/* Textareas */}
-            <div className="w-full px-4">
+            <div className="flex flex-col md:col-span-2">
+               <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Courses & Fees</label>
               <textarea
                 {...register("courses_and_fees")}
-                className="w-full px-3 py-2 border border-blue-500 rounded-lg"
-                rows="2"
+                className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm min-h-[80px]"
+                rows="3"
                 placeholder="Enter Courses & Fees details..."
               />
               {errors.courses_and_fees && (
-                <span className="text-red-500 text-xs">
+                <span className="text-rose-500 text-xs mt-1">
                   {errors.courses_and_fees.message}
                 </span>
               )}
             </div>
-            <div className="w-full px-4">
+            <div className="flex flex-col md:col-span-2">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Eligibility Criteria</label>
               <textarea
                 {...register("eligibility")}
-                className="w-full px-3 py-2 border border-blue-500 rounded-lg"
-                rows="2"
+                className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm min-h-[80px]"
+                rows="3"
                 placeholder="Explain Eligibility Criteria..."
               />
               {errors.eligibility && (
-                <span className="text-red-500 text-xs">
+                <span className="text-rose-500 text-xs mt-1">
                   {errors.eligibility.message}
                 </span>
               )}
             </div>
-            <div className="w-full px-4">
+            <div className="flex flex-col md:col-span-2">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Highlights</label>
               <textarea
                 {...register("highlights")}
-                className="w-full px-3 py-2 border border-blue-500 rounded-lg"
-                rows="2"
+                className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm min-h-[80px]"
+                rows="3"
                 placeholder="Enter Highlights..."
               />
               {errors.highlights && (
-                <span className="text-red-500 text-xs">
+                <span className="text-rose-500 text-xs mt-1">
                   {errors.highlights.message}
                 </span>
               )}
             </div>
             {/* Submit Button */}
-            <div className="w-full px-4 mt-4">
+            <div className="md:col-span-2 flex justify-end pt-4 border-t border-slate-100">
+               <button
+                  onClick={() => navigate(-1)}
+                   type="button"
+                  className="px-6 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold hover:bg-slate-50 transition-all mr-3 text-sm"
+              >
+                  Cancel
+              </button>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                className="px-6 py-2.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-md active:scale-95 text-sm"
               >
-                Update
+                Update Course
               </button>
             </div>
           </div>
         </form>
       </div>
     </div>
+  </div>
   );
 };
 

@@ -42,7 +42,7 @@ const CoursesList = () => {
     <div className="space-y-6 w-full px-4 sm:px-6 lg:px-8 pb-10">
       <Header title="Courses Offered" Icon={FaWpforms} />
 
-      <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-slate-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
          {loading ? (
              <div className="flex flex-col items-center justify-center p-20 min-h-[400px]">
                  <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
@@ -59,7 +59,7 @@ const CoursesList = () => {
                    DATA={courses}
                    COLUMNS={columns}
                  />
-                 <div className="p-4 bg-slate-50 border-t border-slate-100 text-center text-sm text-slate-500 font-medium">
+                 <div className="p-3 bg-slate-50 border-t border-slate-100 text-center text-xs text-slate-500 font-medium">
                     Total Courses: <span className="text-indigo-600 font-bold">{courses.length}</span>
                 </div>
             </div>

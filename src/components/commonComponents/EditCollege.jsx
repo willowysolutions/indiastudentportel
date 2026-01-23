@@ -215,30 +215,41 @@ const EditCollege = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <ToastContainer />
-      <div className="bg-white p-6 md:p-12 rounded-lg shadow-lg w-full max-w-4xl">
-        <div className="px-8 py-6 rounded-md w-full">
-          <h2 className="text-[32px] md:text-[45px] font-bold text-center">
-            Edit College
-          </h2>
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto relative animate-fadeIn">
+         {/* Header */}
+        <div className="bg-slate-50 px-8 py-6 border-b border-slate-200 flex justify-between items-center">
+             <h2 className="text-xl font-bold text-slate-800">Edit College</h2>
+             <button 
+                onClick={() => navigate("/university/collegeProfile")}
+                className="text-slate-400 hover:text-rose-500 transition-colors"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        
+        <div className="p-8">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
             {({ setFieldValue, isSubmitting }) => (
-              <Form className="space-y-6 mt-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {formFields.map(({ id, placeholder, type }) => (
+              <Form className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {formFields.map(({ id, placeholder, type, options }) => (
                     <div key={id} className="flex flex-col">
-                      <div className="border-[1px] border-gray-300 rounded-md gap-2 flex items-center mt-2">
+                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">{placeholder}</label>
+                      <div className="relative">
                         {id === "state_id" ? (
                           <Field
                             as="select"
                             id={id}
                             name={id}
-                            className="block w-full px-2 border-0 py-1.5 focus:outline-none ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm appearance-none"
                           >
                             <option value="">Select State</option>
                             {StateLists && StateLists.length > 0 ? (
@@ -255,13 +266,26 @@ const EditCollege = () => {
                               </option>
                             )}
                           </Field>
+                        ) : type === "select" ? (
+                           <Field
+                            as="select"
+                            id={id}
+                            name={id}
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm appearance-none"
+                          >
+                            <option value="">{placeholder}</option>
+                            {options.map((opt) => (
+                                <option key={opt} value={opt}>{opt}</option>
+                            ))}
+                          </Field>
                         ) : type === "textarea" ? (
                           <Field
                             as="textarea"
                             id={id}
                             name={id}
                             required
-                            className="block w-full px-2 border-0 py-1.5 focus:outline-none ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                            rows="3"
+                             className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm min-h-[80px]"
                             placeholder={placeholder}
                           />
                         ) : (
@@ -270,7 +294,7 @@ const EditCollege = () => {
                             name={id}
                             type={type}
                             required
-                            className="block w-full px-2 border-0 py-1.5 focus:outline-none ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                             className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
                             placeholder={placeholder}
                           />
                         )}
@@ -278,7 +302,7 @@ const EditCollege = () => {
                       <ErrorMessage
                         name={id}
                         component="div"
-                        className="text-red-500 text-[15px]"
+                        className="text-rose-500 text-xs mt-1"
                       />
                     </div>
                   ))}
@@ -376,11 +400,18 @@ const EditCollege = () => {
                       className="text-red-500 text-[15px]"
                     />
                   </div>
-                  <div className="flex justify-center mt-6">
+                  <div className="md:col-span-2 flex justify-end pt-6 border-t border-slate-100">
+                     <button
+                        onClick={() => navigate("/university/collegeProfile")}
+                         type="button"
+                        className="px-6 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold hover:bg-slate-50 transition-all mr-3 text-sm"
+                    >
+                        Cancel
+                    </button>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+                      className="px-6 py-2.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-md active:scale-95 text-sm"
                     >
                       {isSubmitting ? "Updating..." : "Update College"}
                     </button>
@@ -389,7 +420,7 @@ const EditCollege = () => {
               </Form>
             )}
           </Formik>
-        </div>
+      </div>
       </div>
     </div>
   );

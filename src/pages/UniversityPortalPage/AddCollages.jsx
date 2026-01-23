@@ -109,20 +109,21 @@ const AddCourse = () => {
         <Header title="Manage Courses" Icon={FaBookOpen} />
 
         {/* Form Container */}
-        <div className="bg-white/90 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 md:p-10">
-            <form onSubmit={handleSubmit(onSubmitCourse)} className="space-y-8">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
+            <form onSubmit={handleSubmit(onSubmitCourse)} className="space-y-6">
                 
-                <h2 className="text-xl font-bold text-slate-800 border-b border-slate-200 pb-4 mb-6">
+                <h2 className="text-base font-bold text-slate-800 border-b border-slate-50 pb-3 mb-5 flex items-center gap-2">
+                    <span className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg"><FaBookOpen size={14}/></span>
                     Course Information
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Course Selection */}
                     <div className="flex flex-col">
-                        <label className="text-sm font-semibold text-slate-700 mb-2">Select Course <span className="text-rose-500">*</span></label>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Select Course <span className="text-rose-500">*</span></label>
                         <select
                             {...register("course_id")}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 appearance-none"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm appearance-none"
                         >
                             <option value="">-- Choose a Course --</option>
                             {CourseNameLists?.map((course) => (
@@ -136,26 +137,26 @@ const AddCourse = () => {
 
                     {/* Specialization */}
                     <div className="flex flex-col">
-                        <label className="text-sm font-semibold text-slate-700 mb-2">Specialization Title <span className="text-rose-500">*</span></label>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Specialization Title <span className="text-rose-500">*</span></label>
                         <input
                             type="text"
                             placeholder="e.g. Computer Science"
                             {...register("title")}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
                         />
                          <ErrorMessage error={errors.title} />
                     </div>
 
                     {/* Duration */}
                     <div className="flex flex-col">
-                         <label className="text-sm font-semibold text-slate-700 mb-2">Duration <span className="text-rose-500">*</span></label>
+                         <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Duration <span className="text-rose-500">*</span></label>
                          <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"><FaClock /></span>
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"><FaClock /></span>
                             <input
                                 type="text"
                                 placeholder="e.g. 4 Years"
                                 {...register("course_duration")}
-                                className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                                className="w-full pl-9 pr-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
                             />
                          </div>
                          <ErrorMessage error={errors.course_duration} />
@@ -163,14 +164,14 @@ const AddCourse = () => {
 
                     {/* Fees */}
                     <div className="flex flex-col">
-                         <label className="text-sm font-semibold text-slate-700 mb-2">Course Fee <span className="text-rose-500">*</span></label>
+                         <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Course Fee <span className="text-rose-500">*</span></label>
                          <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"><FaMoneyBillWave /></span>
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"><FaMoneyBillWave /></span>
                             <input
                                 type="text"
                                 placeholder="e.g. 50000"
                                 {...register("course_fee")}
-                                className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                                className="w-full pl-9 pr-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
                             />
                          </div>
                          <ErrorMessage error={errors.course_fee} />
@@ -178,76 +179,77 @@ const AddCourse = () => {
 
                      {/* Stream */}
                      <div className="flex flex-col">
-                        <label className="text-sm font-semibold text-slate-700 mb-2">Stream</label>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Stream</label>
                         <input
                             type="text"
                             placeholder="e.g. Engineering"
                             {...register("streem")}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
                         />
                          <ErrorMessage error={errors.streem} />
                     </div>
 
                     {/* Program By */}
                     <div className="flex flex-col">
-                        <label className="text-sm font-semibold text-slate-700 mb-2">Program Offered By</label>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5">Program Offered By</label>
                         <input
                             type="text"
                             placeholder="University Name"
                             {...register("program_offered_by")}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm"
                         />
                          <ErrorMessage error={errors.program_offered_by} />
                     </div>
                 </div>
                 
-                <h2 className="text-xl font-bold text-slate-800 border-b border-slate-200 pb-4 mb-6 mt-8">
+                <h2 className="text-base font-bold text-slate-800 border-b border-slate-50 pb-3 mb-5 mt-6 flex items-center gap-2">
+                    <span className="p-1 bg-emerald-50 text-emerald-600 rounded-lg"><FaGraduationCap size={14}/></span>
                     Detailed Information
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Courses & Fees */}
                     <div className="md:col-span-2">
-                        <label className="text-sm font-semibold text-slate-700 mb-2 block">About Courses & Fees <span className="text-rose-500">*</span></label>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5 block">About Courses & Fees <span className="text-rose-500">*</span></label>
                         <textarea
                             {...register("courses_and_fees")}
-                            rows="4"
+                            rows="3"
                             placeholder=" detailed breakdown of the course structure and fee components..."
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 resize-y min-h-[100px]"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm resize-y min-h-[80px]"
                         />
                         <ErrorMessage error={errors.courses_and_fees} />
                     </div>
 
                     {/* Eligibility */}
                     <div>
-                        <label className="text-sm font-semibold text-slate-700 mb-2 block">Eligibility Criteria <span className="text-rose-500">*</span></label>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5 block">Eligibility Criteria <span className="text-rose-500">*</span></label>
                         <textarea
                             {...register("eligibility")}
-                            rows="4"
+                            rows="3"
                             placeholder="Minimum marks, required subjects, etc..."
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 resize-y min-h-[100px]"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm resize-y min-h-[80px]"
                         />
                         <ErrorMessage error={errors.eligibility} />
                     </div>
 
                     {/* Highlights */}
                     <div>
-                        <label className="text-sm font-semibold text-slate-700 mb-2 block">Course Highlights <span className="text-rose-500">*</span></label>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5 block">Course Highlights <span className="text-rose-500">*</span></label>
                         <textarea
                             {...register("highlights")}
-                            rows="4"
+                            rows="3"
                             placeholder="Unique features, placements, labs, etc..."
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 resize-y min-h-[100px]"
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-700 text-sm resize-y min-h-[80px]"
                         />
                         <ErrorMessage error={errors.highlights} />
                     </div>
                 </div>
 
-                <div className="pt-6 border-t border-slate-100">
+                <div className="pt-5 border-t border-slate-100">
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full md:w-auto md:min-w-[200px] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mx-auto"
+                        className="w-full md:w-auto md:min-w-[180px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mx-auto text-sm"
                     >
                         {isSubmitting ? (
                             <>

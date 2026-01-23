@@ -2,262 +2,251 @@ import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
 function CollegeProfile() {
   return (
-    <div className="lg:p-20 p-5 bg-white rounded-lg">
-      <form>
-        <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
-            <h1 className="text-base/7 font-semibold text-gray-900">
-              COLLEG PROFILE
-            </h1>
-            <p className="mt-1 text-sm/6 text-gray-600">
-              Use a permanent address where you can receive mail.
-            </p>
-            <div className="col-span-full">
-              <div className="mt-2 flex items-center gap-x-3">
+    <div className="p-6 md:p-8 w-full max-w-5xl mx-auto">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        {/* Header */}
+        <div className="bg-slate-50 px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+           <div>
+               <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                  <UserCircleIcon className="w-6 h-6 text-indigo-600" />
+                  University Profile
+               </h2>
+               <p className="text-slate-500 text-xs mt-1">Manage public facing information.</p>
+           </div>
+        </div>
+
+        <div className="p-6 md:p-8">
+            <form>
+             <div className="flex items-center gap-6 mb-8 bg-slate-50 p-4 rounded-xl border border-dashed border-slate-300">
                 <UserCircleIcon
                   aria-hidden="true"
-                  className="size-12 text-gray-300"
+                  className="size-16 text-slate-300"
                 />
                 <button
                   type="button"
-                  className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50"
+                  className="rounded-lg bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50"
                 >
                   Upload Logo
                 </button>
               </div>
-            </div>
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6 border-b border-slate-100 pb-8 mb-8">
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="first-name"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="college-name"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   College Name
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
-                    id="first-name"
-                    name="first-name"
+                    id="college-name"
+                    name="college-name"
                     type="text"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="last-name"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="university-name"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   University
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
-                    id="last-name"
-                    name="last-name"
+                    id="university-name"
+                    name="university-name"
                     type="text"
-                    autoComplete="family-name"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="sm:col-span-3">
                 <label
                   htmlFor="email"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   Email address
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
                     id="email"
                     name="email"
                     type="email"
                     autoComplete="email"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
-              </div>{" "}
+              </div>
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="email"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="contact"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   Contact Number
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    id="contact"
+                    name="contact"
+                    type="text"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="sm:col-span-2 sm:col-start-1">
                 <label
-                  htmlFor="city"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="ugc"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   UGC/NAAC/AICTE
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
-                    id="city"
-                    name="city"
+                    id="ugc"
+                    name="ugc"
                     type="text"
-                    autoComplete="address-level2"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>{" "}
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="region"
-                  className="block text-sm/6 font-medium text-gray-900"
-                >
-                  NAAC Grade
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="region"
-                    name="region"
-                    type="text"
-                    autoComplete="address-level1"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="postal-code"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="naac"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
-                  NIRF Ranging
+                  NAAC Grade
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
-                    id="postal-code"
-                    name="postal-code"
+                    id="naac"
+                    name="naac"
                     type="text"
-                    autoComplete="postal-code"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="nirf"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
+                >
+                  NIRF Ranking
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="nirf"
+                    name="nirf"
+                    type="text"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="col-span-full">
                 <label
                   htmlFor="street-address"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
-                  Full address
+                 Full address
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
                     id="street-address"
                     name="street-address"
                     type="text"
                     autoComplete="street-address"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="sm:col-span-2 sm:col-start-1">
                 <label
-                  htmlFor="city"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="street"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   Street
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
-                    id="city"
-                    name="city"
+                    id="street"
+                    name="street"
                     type="text"
-                    autoComplete="address-level2"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="region"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="district"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   District
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
-                    id="region"
-                    name="region"
+                    id="district"
+                    name="district"
                     type="text"
-                    autoComplete="address-level1"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="country"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="state"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   State
                 </label>
-                <div className="mt-2 grid grid-cols-1">
+                <div className="mt-1 grid grid-cols-1">
                   <select
-                    id="country"
-                    name="country"
-                    autoComplete="country-name"
-                    className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    id="state"
+                    name="state"
+                    className="col-start-1 row-start-1 w-full appearance-none rounded-lg bg-slate-50 py-2 pr-8 pl-3 text-slate-700 outline-none ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   >
                     <option>United States</option>
                     <option>Canada</option>
                     <option>Mexico</option>
                   </select>
-                  {/* <ChevronDownIcon
-                    aria-hidden="true"
-                    className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                  /> */}
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="first-name"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="established-year"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   Established Year
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
-                    id="first-name"
-                    name="first-name"
+                    id="established-year"
+                    name="established-year"
                     type="text"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                   />
                 </div>
               </div>
               <div className="sm:col-span-4">
                 <div>
                   <div className="sm:col-span-4">
-                    <div className="mt-2">
+                    <div className="mt-1">
                       <label
-                        htmlFor="first-name"
-                        className="block text-sm/6 font-medium text-gray-900"
+                        htmlFor="crm-link"
+                        className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                       >
                         College CRM Link
                       </label>
-                      <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                        <div className="shrink-0 text-base text-gray-500 select-none sm:text-sm/6">
+                      <div className="flex items-center rounded-lg bg-slate-50 px-3 py-2 outline-none ring-1 ring-inset ring-slate-200 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        <span className="select-none text-slate-500 sm:text-sm">
                           college.com/
-                        </div>
+                        </span>
                         <input
-                          id="username"
-                          name="username"
+                          id="crm-link"
+                          name="crm-link"
                           type="text"
-                          placeholder="Upload college CRM or Leed collection link"
-                          className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
+                          placeholder="janesmith"
+                          className="block flex-1 border-0 bg-transparent py-0 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
                         />
                       </div>
                     </div>
@@ -267,60 +256,60 @@ function CollegeProfile() {
               <div className="col-span-full">
                 <label
                   htmlFor="about"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   About College
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <textarea
                     id="about"
                     name="about"
                     rows={3}
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                     defaultValue={""}
                   />
                 </div>
-                <p className="mt-3 text-sm/6 text-gray-600">
+                <p className="mt-1 text-xs text-slate-500">
                   Write a few sentences about College.
                 </p>
               </div>{" "}
               <div className="col-span-full">
                 <label
-                  htmlFor="about"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  htmlFor="highlights"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   College Highlight
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <textarea
-                    id="about"
-                    name="about"
+                    id="highlights"
+                    name="highlights"
                     rows={3}
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-lg bg-slate-50 px-3 py-2 text-slate-700 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 border-0"
                     defaultValue={""}
                   />
                 </div>
-                <p className="mt-3 text-sm/6 text-gray-600">
-                  Write a few sentences about Collge Highlight
+                <p className="mt-1 text-xs text-slate-500">
+                  Write a few sentences about College Highlights.
                 </p>
               </div>
               <div className="col-span-full">
                 <label
                   htmlFor="cover-photo"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-0.5"
                 >
                   Upload a College Image
                 </label>
-                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-slate-300 px-6 py-10 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer">
                   <div className="text-center">
                     <PhotoIcon
                       aria-hidden="true"
-                      className="mx-auto size-12 text-gray-300"
+                      className="mx-auto size-12 text-slate-300"
                     />
-                    <div className="mt-4 flex text-sm/6 text-gray-600">
+                    <div className="mt-4 flex text-sm leading-6 text-slate-600 bg-transparent justify-center">
                       <label
                         htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500"
+                        className="relative cursor-pointer rounded-md bg-transparent font-semibold text-indigo-600 focus-within:outline-none hover:text-indigo-500"
                       >
                         <span>Upload a College image</span>
                         <input
@@ -332,31 +321,31 @@ function CollegeProfile() {
                       </label>
                       <p className="pl-1">or drag and drop</p>
                     </div>
-                    <p className="text-xs/5 text-gray-600">
+                    <p className="text-xs leading-5 text-slate-500">
                       PNG, JPG, GIF up to 10MB
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="mt-6 flex items-center justify-end gap-x-6">
+        <div className="mt-6 flex items-center justify-end gap-x-4 border-t border-slate-100 pt-6">
           <button
             type="button"
-            className="text-sm/6 font-semibold text-gray-900"
+            className="text-sm font-semibold leading-6 text-slate-600 hover:text-slate-900"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all"
           >
-            Save
+            Save Changes
           </button>
         </div>
       </form>
+      </div>
+      </div>
     </div>
   );
 }

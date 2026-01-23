@@ -42,35 +42,32 @@ const Dashbord = () => {
     <div className="space-y-8 font-poppins min-h-[80vh]">
         
         {/* Welcome Section / Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl shadow-xl overflow-hidden relative text-white">
-             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
-             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none"></div>
-             
-             {/* Action Button */}
-             <div className="absolute top-6 right-6 z-20">
-                <button 
-                    onClick={handleEditCollege}
-                    className="flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 text-white px-5 py-2.5 rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl font-medium"
-                >
-                    <FaEdit /> Edit Profile
-                </button>
-             </div>
-
-             <div className="p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 relative z-10">
+        {/* Welcome Section / Header */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative group">
+             <div className="bg-slate-50 px-8 py-8 flex flex-col md:flex-row items-center gap-8 border-b border-slate-100">
                  {/* Icon/Image */}
-                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-white/10 backdrop-blur-sm p-4 shadow-lg border border-white/20 flex items-center justify-center text-white text-6xl shadow-indigo-900/20">
-                      {/* <img src={icon} alt="University" className="w-full h-full object-contain" /> */}
+                 <div className="w-24 h-24 rounded-full bg-white p-4 shadow-sm border border-slate-200 flex items-center justify-center text-indigo-600 text-5xl">
                       <FaUniversity />
                  </div>
 
                  {/* Info */}
                  <div className="flex-1 text-center md:text-left">
-                      <h2 className="text-3xl md:text-4xl font-bold text-white drop-shadow-sm leading-tight mb-2">
+                      <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight mb-2">
                           {universityData?.name || "University Name"}
                       </h2>
-                      <p className="text-blue-100 font-medium text-lg flex items-center justify-center md:justify-start gap-2">
+                      <p className="text-slate-500 font-medium text-base flex items-center justify-center md:justify-start gap-2">
                            Welcome to your University Portal Dashboard
                       </p>
+                 </div>
+                 
+                   {/* Action Button */}
+                 <div className="">
+                    <button 
+                        onClick={handleEditCollege}
+                        className="flex items-center gap-2 bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-lg hover:bg-slate-50 hover:text-indigo-600 transition-all font-medium text-sm shadow-sm"
+                    >
+                        <FaEdit /> Edit Profile
+                    </button>
                  </div>
              </div>
         </div>
@@ -78,9 +75,9 @@ const Dashbord = () => {
         {/* Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              {/* Confact Info */}
-             <div className="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
-                  <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                      <span className="p-2 bg-indigo-100 rounded-lg text-indigo-600"><FaUniversity /></span>
+             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                  <h3 className="text-base font-bold text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-50 pb-3">
+                      <FaUniversity className="text-indigo-600" />
                       Contact Details
                   </h3>
                   <div className="space-y-4">
@@ -90,20 +87,19 @@ const Dashbord = () => {
              </div>
 
              {/* Quick Actions / Status (Placeholder for now) */}
-             <div className="bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none group-hover:bg-white/20 transition-all"></div>
+             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 relative overflow-hidden group">
                   
-                  <h3 className="text-2xl font-bold mb-2 relative z-10">University Status</h3>
-                  <p className="text-indigo-100 mb-6 relative z-10">Manage your courses, colleges, and student admissions efficiently.</p>
+                  <h3 className="text-base font-bold text-slate-800 mb-2 relative z-10 border-b border-slate-50 pb-3">University Status</h3>
+                  <p className="text-slate-500 text-sm mb-6 relative z-10">Manage your courses, colleges, and student admissions efficiently.</p>
                   
                   <div className="grid grid-cols-2 gap-4 relative z-10">
-                      <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
-                          <div className="text-3xl font-bold">Active</div>
-                          <div className="text-indigo-200 text-sm">Account Status</div>
+                      <div className="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+                          <div className="text-2xl font-bold text-indigo-600">Active</div>
+                          <div className="text-slate-500 text-xs font-semibold uppercase mt-1">Account Status</div>
                       </div>
-                      <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
-                           <FaUserGraduate className="text-3xl mb-1" />
-                           <div className="text-indigo-200 text-sm">Student Access</div>
+                      <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                           <FaUserGraduate className="text-2xl mb-1 text-emerald-600" />
+                           <div className="text-slate-500 text-xs font-semibold uppercase mt-1">Student Access</div>
                       </div>
                   </div>
              </div>
@@ -114,13 +110,13 @@ const Dashbord = () => {
 };
 
 const InfoItem = ({ icon, label, value }) => (
-    <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-indigo-200 transition-colors">
-         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-500 text-xl shadow-sm">
+    <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100 hover:border-slate-200 transition-colors">
+         <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-indigo-500 text-sm shadow-sm shrink-0 border border-slate-100">
              {icon}
          </div>
-         <div>
-             <div className="text-xs font-bold text-slate-400 uppercase tracking-wide">{label}</div>
-             <div className="text-slate-800 font-semibold">{value || "N/A"}</div>
+         <div className="overflow-hidden">
+             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide truncate">{label}</div>
+             <div className="text-slate-800 font-semibold text-sm truncate">{value || "N/A"}</div>
          </div>
     </div>
 );

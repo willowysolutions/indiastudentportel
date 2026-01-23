@@ -3,6 +3,7 @@ import { FaGraduationCap } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import { HiX } from "react-icons/hi";
+import PropTypes from "prop-types";
 
 const SidebarData = [
   { name: "Dashboard", icon: MdDashboard, path: "/university/dashboard" },
@@ -16,49 +17,61 @@ const CollegeSidebar = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Helper to determine active state
   const isActive = (path) => location.pathname.includes(path);
 
-  // Dynamic classes for navigation items
   const getNavItemClasses = (active) =>
     `flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer font-medium transition-all duration-200 ${
       active
-        ? "bg-gradient-to-r from-purple-600 to-blue-500 text-white"
-        : "bg-white text-gray-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-500 hover:text-white"
+        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-indigo-200/50"
+        : "text-slate-500 hover:bg-indigo-50 hover:text-indigo-600"
     }`;
 
-  // Dynamic classes for icons
   const getIconClasses = (active) =>
-    `w-5 h-5 ${active ? "text-white" : "text-gray-600"}`;
+    `w-5 h-5 transition-transform duration-300 group-hover:scale-110 ${
+      active ? "text-white" : "text-slate-400 group-hover:text-indigo-600"
+    }`;
 
   return (
-    <aside
-      className={`fixed top-0 left-0 h-full z-30 w-[239px] transform transition-all duration-300 ease-in-out lg:relative lg:translate-x-0 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
-    >
-      <div className="h-full">
-        <div className="flex flex-col h-full bg-white p-4 lg:p-5 relative">
+    <>
+      {/* Mobile Backdrop */}
+      <div
+        className={`fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[90] lg:hidden transition-opacity duration-300 ${
+            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={onClose}
+      />
+      
+      <aside
+        className={`fixed top-0 left-0 h-full z-[100] w-[260px] transform transition-transform duration-300 ease-out lg:relative lg:translate-x-0 bg-blue-50 border-r border-blue-100 shadow-xl lg:shadow-none ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="h-full flex flex-col">
           {/* Close button - Mobile only */}
-          <button
+           <button
             onClick={onClose}
-            className="lg:hidden absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 text-white"
-            aria-label="Close Sidebar"
+            className="lg:hidden absolute top-4 right-4 p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors"
           >
             <HiX className="w-6 h-6" />
           </button>
 
-          {/* Sidebar header */}
-          <div className="flex justify-center items-center pt-4 lg:pt-5 mb-4">
-            <img
-              src="/images/Logo-final-file.png"
-              alt="Logo"
-              className="w-40 object-contain transition-transform hover:scale-105"
-            />
+           {/* Logo Section */}
+           <div className="flex flex-col items-center pt-6 pb-6 px-6">
+             <div className="mb-2 group transition-all duration-300">
+              <img
+                src="/images/Logo-final-file.png"
+                alt="India Student Portal"
+                className="w-40 object-contain transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+            {/* <h2 className="text-xl font-bold text-slate-800 text-center">
+              University Portal
+            </h2> */}
+            <p className="text-xs text-slate-400 font-medium tracking-wide uppercase mt-1">University Portal</p>
           </div>
 
-          {/* Navigation items */}
-          <nav className="flex-grow mt-8 space-y-2">
+          {/* Navigation */}
+          <nav className="flex-grow space-y-1.5 px-4 overflow-y-auto no-scrollbar py-2">
             {SidebarData.map((data, i) => {
               const Icon = data.icon;
               const active = isActive(data.path);
@@ -69,31 +82,40 @@ const CollegeSidebar = ({ isOpen, onClose }) => {
                     navigate(data.path);
                     onClose();
                   }}
-                  className={getNavItemClasses(active)}
+                  className={`${getNavItemClasses(active)} group`}
                 >
                   <Icon className={getIconClasses(active)} />
-                  <span className="text-sm lg:text-base">{data.name}</span>
+                  <span className="text-sm font-semibold tracking-wide">{data.name}</span>
+                   {active && (
+                     <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse" />
+                  )}
                 </div>
               );
             })}
           </nav>
 
-          {/* Logout button */}
-          <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              navigate("/university/login");
-            }}
-            className="flex items-center gap-3 px-4 py-3 mt-4 text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-500 rounded-lg transition-all duration-200"
-            aria-label="Logout"
-          >
-            <RiLogoutBoxRFill className="h-5 w-5" />
-            <span>Logout</span>
-          </button>
+          {/* Logout Button */}
+          <div className="p-4 border-t border-slate-100 mt-auto">
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/university/login");
+              }}
+              className="flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer font-medium w-full transition-all duration-300 group bg-red-50 text-red-500 hover:bg-red-100 hover:text-red-600 hover:shadow-sm"
+            >
+              <RiLogoutBoxRFill className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-1" />
+              <span className="text-sm font-semibold tracking-wide">Logout</span>
+            </button>
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
+};
+
+CollegeSidebar.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default CollegeSidebar;

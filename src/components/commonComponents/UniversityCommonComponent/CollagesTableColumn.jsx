@@ -1,4 +1,4 @@
-import { FaUser } from "react-icons/fa6";
+import { FaEdit, FaUser } from "react-icons/fa";
 import { FaUserClock } from "react-icons/fa";
 
 export const coursesColumns = (handleEditCourse) => [
@@ -20,15 +20,15 @@ export const coursesColumns = (handleEditCourse) => [
     Cell: ({ value }) => `₹${value}`,
   },
   {
-    Header: "edit",
+    Header: "Edit",
     accessor: "id",
     Cell: ({ row }) => (
       <button
         onClick={() => handleEditCourse(row.original)}
-        className="rounded-xl px-4 py-1 overflow-hidden group bg-zinc-600 relative hover:bg-gradient-to-r hover:from-purple-500 hover:to-purple-400 text-white transition-all ease-out duration-300"
+        className="p-2 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors duration-200"
+        title="Edit Course"
       >
-        <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40"></span>
-        <span className="relative text-purple-400">Edit</span>
+        <FaEdit className="text-xl" />
       </button>
     ),
   },
