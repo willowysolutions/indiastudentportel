@@ -144,23 +144,10 @@ const AdminEditCollege = () => {
 
     const onSubmit = async (values, { setSubmitting }) => {
         try {
-            let base64Logo = logoPreview;
-            let base64Image = imagePreview;
-
-            if (values.logo instanceof File) {
-                const compressedLogo = await compressImage(values.logo);
-                base64Logo = await convertToBase64(compressedLogo);
-            }
-
-            if (values.image instanceof File) {
-                const compressedImage = await compressImage(values.image);
-                base64Image = await convertToBase64(compressedImage);
-            }
-
             const updateData = {
                 ...values,
-                logo: base64Logo,
-                image: base64Image,
+                // logo: base64Logo,
+                // image: base64Image,
             };
 
             // Remove password if not provided
@@ -268,8 +255,8 @@ const AdminEditCollege = () => {
                         {({ setFieldValue, isSubmitting }) => (
                             <Form className="space-y-8">
 
-                                {/* Image Upload Section */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                {/* Image Upload Section - Temporarily Disabled */}
+                                {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="bg-slate-50 p-6 rounded-xl border border-dashed border-slate-300 hover:border-blue-400 transition-colors">
                                         <label className="block mb-4 font-semibold text-slate-700">College Logo</label>
                                         <div className="flex items-center gap-6">
@@ -327,7 +314,7 @@ const AdminEditCollege = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* Form Fields Grid */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
