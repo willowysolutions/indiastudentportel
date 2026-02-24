@@ -19,6 +19,7 @@ import AdminAddCourse from '../pages/adminPortal/colleges/AdminAddCollege/AdminA
 import EditCollege from '../components/commonComponents/EditCollege'
 import EditCourse from '../components/commonComponents/EditCourse'
 import ImportExcel from '../pages/adminPortal/colleges/AdminAddCollege/ImportExcel'
+import AdminEditCollege from '../pages/adminPortal/colleges/AdminAddCollege/AdminEditCollege'
 
 const RedirectIfAuthenticated = ({ children }) => {
 	const token = localStorage.getItem('token')
@@ -76,7 +77,7 @@ const AdminPortalRoute = () => {
 						<Route path='colleges/profile' element={<CollegeProfile />} />
 						<Route path="colleges/importExcel" element={<ImportExcel />} />
 						<Route path="colleges/adminAddCollege" element={<AdminAddCollege />} />
-						<Route path="colleges/editCollege/:id" element={<EditCollege />} />
+						<Route path="colleges/adminEditCollege" element={<AdminEditCollege />} />
 						<Route path="colleges/AdminAddCourse" element={<AdminAddCourse />} />
 						<Route path="colleges/editCourse/:id" element={<EditCourse />} />
 						{/* <Route path='university' element={<UniversityAdmin />} /> */}
