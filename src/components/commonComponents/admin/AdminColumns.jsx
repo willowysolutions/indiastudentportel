@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
-import { FiEye, FiPlus } from "react-icons/fi";
+import { FiEye, FiPlus, FiEdit } from "react-icons/fi";
 
 // Custom hook to handle clicking outside dropdown
 function useOnClickOutside(ref, handler) {
@@ -75,11 +75,10 @@ const StatusDropdown = ({ currentStatus, setCurrentStatus, handleStatusChange, r
             {["Approve", "Reject"].map((status) => (
               <div
                 key={status}
-                className={`block px-4 py-2 text-xs font-medium cursor-pointer transition-colors ${
-                  (status === "Approve" && currentStatus == 1) || (status === "Reject" && currentStatus == 0)
-                    ? "bg-indigo-50 text-indigo-700"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                }`}
+                className={`block px-4 py-2 text-xs font-medium cursor-pointer transition-colors ${(status === "Approve" && currentStatus == 1) || (status === "Reject" && currentStatus == 0)
+                  ? "bg-indigo-50 text-indigo-700"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  }`}
                 onClick={(e) => handleSelect(status, e)}
               >
                 {status}
@@ -125,10 +124,10 @@ export const StudentColumns = (handleViewProfile, handleStatusChange) => [
     Cell: ({ row }) => {
       const [currentStatus, setCurrentStatus] = useState(getInitialStatus(row));
       return (
-        <StatusDropdown 
-          currentStatus={currentStatus} 
-          setCurrentStatus={setCurrentStatus} 
-          handleStatusChange={handleStatusChange} 
+        <StatusDropdown
+          currentStatus={currentStatus}
+          setCurrentStatus={setCurrentStatus}
+          handleStatusChange={handleStatusChange}
           rowId={row.original.id}
         />
       );
@@ -186,10 +185,10 @@ export const AdminCouncillorColumns = (handleViewProfile, handleStatusChange) =>
     Cell: ({ row }) => {
       const [currentStatus, setCurrentStatus] = useState(getInitialStatus(row));
       return (
-        <StatusDropdown 
-          currentStatus={currentStatus} 
-          setCurrentStatus={setCurrentStatus} 
-          handleStatusChange={handleStatusChange} 
+        <StatusDropdown
+          currentStatus={currentStatus}
+          setCurrentStatus={setCurrentStatus}
+          handleStatusChange={handleStatusChange}
           rowId={row.original.id}
         />
       );
@@ -210,7 +209,7 @@ export const AdminCouncillorColumns = (handleViewProfile, handleStatusChange) =>
   },
 ];
 
-export const AdminCollegesColumn = (handleViewProfile, handleStatusChange, handleAddCourse) => [
+export const AdminCollegesColumn = (handleViewProfile, handleStatusChange, handleAddCourse, handleEditCollege) => [
   {
     Header: "No",
     accessor: (row, rowIndex) => rowIndex + 1,
@@ -271,14 +270,27 @@ export const AdminCollegesColumn = (handleViewProfile, handleStatusChange, handl
     Cell: ({ row }) => {
       const [currentStatus, setCurrentStatus] = useState(getInitialStatus(row));
       return (
-        <StatusDropdown 
-          currentStatus={currentStatus} 
-          setCurrentStatus={setCurrentStatus} 
-          handleStatusChange={handleStatusChange} 
+        <StatusDropdown
+          currentStatus={currentStatus}
+          setCurrentStatus={setCurrentStatus}
+          handleStatusChange={handleStatusChange}
           rowId={row.original.user.id}
         />
       );
     },
+  },
+  {
+    Header: "Edit",
+    id: "edit",
+    Cell: ({ row }) => (
+      <button
+        onClick={() => handleEditCollege(row.original)}
+        className="p-1.5 rounded-md text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+        title="Edit College"
+      >
+        <FiEdit size={18} />
+      </button>
+    ),
   },
   {
     Header: "View",
