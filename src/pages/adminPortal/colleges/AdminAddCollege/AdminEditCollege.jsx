@@ -8,6 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import { getStateList } from "../../../../Redux/features/University/UniversitySlice";
 import { UpdateAdminCollege } from "../../../../Redux/features/admin/AdminSlice";
+import { resolveCollegeMediaUrl } from "../../../../api/constants";
 
 const AdminEditCollege = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -38,8 +39,20 @@ const AdminEditCollege = () => {
 
     useEffect(() => {
         if (collegeData) {
-            if (collegeData.logo) setLogoPreview(collegeData.logo);
-            if (collegeData.image) setImagePreview(collegeData.image);
+            setLogoPreview(
+                resolveCollegeMediaUrl(
+                    collegeData.logo_url,
+                    collegeData.logo,
+                    "logo"
+                )
+            );
+            setImagePreview(
+                resolveCollegeMediaUrl(
+                    collegeData.image_url,
+                    collegeData.image,
+                    "image"
+                )
+            );
         }
     }, [collegeData]);
 
@@ -71,28 +84,37 @@ const AdminEditCollege = () => {
         name: Yup.string()
             .required("Name is required")
             .min(3, "Name must be at least 3 characters")
-            .max(50, "Name must be at most 50 characters"),
+            .max(255, "Name must be at most 255 characters"),
         university_name: Yup.string().required("University name is required"),
         email: Yup.string().email("Invalid email").required("Email is required"),
         contact: Yup.string()
-            .required("Contact number is required")
-            .matches(/^\d{10}$/, "Invalid phone number"),
-        established_year: Yup.string().required("Established year is required"),
-        accrediction_grade: Yup.string().required("Accredition grade is required"),
-        naac_grade: Yup.string().required("NAAC grade is required"),
-        nirf_ranking: Yup.string().required("NIRF ranking is required"),
-        pin_code: Yup.string().required("Pincode is required"),
-        state_id: Yup.number().required("State ID is required"),
-        district: Yup.string().required("District is required"),
-        country: Yup.string().required("Country is required"),
-        street: Yup.string().required("Street is required"),
-        address: Yup.string().required("Address is required"),
-        college_details: Yup.string()
-            .required("College details are required")
-            .min(10, "Details must be at least 10 characters"),
-        college_highlights: Yup.string()
-            .required("College highlights are required")
-            .min(10, "Highlights must be at least 10 characters"),
+            .nullable()
+            .matches(/^\+?[0-9]{7,15}$/, {
+                message: "Enter a valid contact number",
+                excludeEmptyString: true,
+            }),
+        established_year: Yup.string()
+            .nullable()
+            .matches(/^\d{4}$/, {
+                message: "Enter a valid four-digit year",
+                excludeEmptyString: true,
+            }),
+        pin_code: Yup.string()
+            .nullable()
+            .matches(/^[0-9]{4,10}$/, {
+                message: "Enter a valid pincode",
+                excludeEmptyString: true,
+            }),
+        state_id: Yup.mixed().nullable(),
+        district: Yup.string().nullable(),
+        country: Yup.string().nullable(),
+        street: Yup.string().nullable(),
+        address: Yup.string().nullable(),
+        accrediction_grade: Yup.string().nullable(),
+        naac_grade: Yup.string().nullable(),
+        nirf_ranking: Yup.string().nullable(),
+        college_details: Yup.string().nullable(),
+        college_highlights: Yup.string().nullable(),
     });
 
     const compressImage = async (file) => {
@@ -125,52 +147,70 @@ const AdminEditCollege = () => {
             toast.error("File size should not exceed 6MB.");
             return false;
         }
-        if (!["image/jpeg", "image/png"].includes(file.type)) {
-            toast.error("Only JPEG and PNG formats are supported.");
+        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+            toast.error("Only JPEG, PNG and WEBP formats are supported.");
             return false;
         }
         return true;
     };
 
-    const handleFileUpload = async (e, setFieldValue, type) => {
-        const file = e.target.files[0];
-        if (validateFile(file)) {
-            const previewURL = URL.createObjectURL(file);
-            if (type === "logo") setLogoPreview(previewURL);
-            if (type === "image") setImagePreview(previewURL);
-            setFieldValue(type, file);
-        }
+    const handleFileUpload = (e, setFieldValue, type) => {
+        const file = e.target.files?.[0];
+        if (!file || !validateFile(file)) return;
+
+        const previewURL = URL.createObjectURL(file);
+        if (type === "logo") setLogoPreview(previewURL);
+        if (type === "image") setImagePreview(previewURL);
+        setFieldValue(type, file);
+    };
+
+    const prepareImageForUpload = async (value) => {
+        if (!(value instanceof File)) return undefined;
+
+        const compressedFile = await compressImage(value);
+        return convertToBase64(compressedFile);
     };
 
     const onSubmit = async (values, { setSubmitting }) => {
         try {
-            const updateData = {
-                ...values,
-                // logo: base64Logo,
-                // image: base64Image,
-            };
+            const updateData = { ...values };
 
-            // Remove password if not provided
+            const base64Logo = await prepareImageForUpload(values.logo);
+            const base64Image = await prepareImageForUpload(values.image);
+
+            if (base64Logo) {
+                updateData.logo = base64Logo;
+            } else {
+                delete updateData.logo;
+            }
+
+            if (base64Image) {
+                updateData.image = base64Image;
+            } else {
+                delete updateData.image;
+            }
+
             if (!updateData.password) {
                 delete updateData.password;
             }
 
-            const response = await dispatch(UpdateAdminCollege({ id: collegeData.id, data: updateData }));
+            delete updateData.activeStatus;
 
-            if (response?.payload?.success) {
-                toast.success("College updated successfully!");
-                setTimeout(() => {
-                    navigate("/admin/colleges");
-                }, 2000);
-            } else {
-                toast.error(
-                    response?.payload?.message ||
-                    "Something went wrong, please try again later"
-                );
-            }
+            await dispatch(
+                UpdateAdminCollege({ id: collegeData.id, data: updateData })
+            ).unwrap();
+
+            toast.success("College updated successfully!");
+            setTimeout(() => {
+                navigate("/admin/colleges");
+            }, 1200);
         } catch (error) {
-            console.error("Error occurred during update:", error.message);
-            toast.error("College update failed. Please try again.");
+            console.error("Error occurred during update:", error);
+            toast.error(
+                error?.message ||
+                error?.error ||
+                "College update failed. Please try again."
+            );
         } finally {
             setSubmitting(false);
         }
@@ -223,6 +263,8 @@ const AdminEditCollege = () => {
         },
     ];
 
+    const requiredFieldIds = new Set(["name", "university_name", "email"]);
+
     return (
         <div className="min-h-screen p-6 font-poppins">
             <ToastContainer />
@@ -255,14 +297,19 @@ const AdminEditCollege = () => {
                         {({ setFieldValue, isSubmitting }) => (
                             <Form className="space-y-8">
 
-                                {/* Image Upload Section - Temporarily Disabled */}
-                                {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                {/* Image Upload Section */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="bg-slate-50 p-6 rounded-xl border border-dashed border-slate-300 hover:border-blue-400 transition-colors">
                                         <label className="block mb-4 font-semibold text-slate-700">College Logo</label>
                                         <div className="flex items-center gap-6">
                                             <div className="w-24 h-24 bg-white rounded-lg shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden">
                                                 {logoPreview ? (
-                                                    <img src={logoPreview} alt="Logo" className="w-full h-full object-contain" />
+                                                    <img
+                                                        src={logoPreview}
+                                                        alt="Logo"
+                                                        className="w-full h-full object-contain"
+                                                        onError={() => setLogoPreview(null)}
+                                                    />
                                                 ) : (
                                                     <FaCloudUploadAlt className="text-4xl text-slate-300" />
                                                 )}
@@ -272,7 +319,7 @@ const AdminEditCollege = () => {
                                                     type="file"
                                                     id="logo"
                                                     name="logo"
-                                                    accept="image/*"
+                                                    accept="image/jpeg,image/png,image/webp"
                                                     onChange={(e) => handleFileUpload(e, setFieldValue, "logo")}
                                                     className="block w-full text-sm text-slate-500
                                       file:mr-4 file:py-2 file:px-4
@@ -291,7 +338,12 @@ const AdminEditCollege = () => {
                                         <div className="flex items-center gap-6">
                                             <div className="w-32 h-24 bg-white rounded-lg shadow-sm border border-slate-200 flex items-center justify-center overflow-hidden">
                                                 {imagePreview ? (
-                                                    <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                                                    <img
+                                                        src={imagePreview}
+                                                        alt="Preview"
+                                                        className="w-full h-full object-cover"
+                                                        onError={() => setImagePreview(null)}
+                                                    />
                                                 ) : (
                                                     <FaCloudUploadAlt className="text-4xl text-slate-300" />
                                                 )}
@@ -301,7 +353,7 @@ const AdminEditCollege = () => {
                                                     type="file"
                                                     id="image"
                                                     name="image"
-                                                    accept="image/*"
+                                                    accept="image/jpeg,image/png,image/webp"
                                                     onChange={(e) => handleFileUpload(e, setFieldValue, "image")}
                                                     className="block w-full text-sm text-slate-500
                                       file:mr-4 file:py-2 file:px-4
@@ -314,14 +366,17 @@ const AdminEditCollege = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div> */}
+                                </div>
 
                                 {/* Form Fields Grid */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                     {formFields.map(({ id, placeholder, label, type, options }) => (
                                         <div key={id} className={`flex flex-col ${type === 'textarea' ? 'md:col-span-3' : ''}`}>
                                             <label htmlFor={id} className="mb-1 text-xs font-bold text-slate-600 ml-1 uppercase tracking-wide">
-                                                {label} <span className="text-rose-500">*</span>
+                                                {label}
+                                                {requiredFieldIds.has(id) && (
+                                                    <span className="text-rose-500"> *</span>
+                                                )}
                                             </label>
                                             <div className="relative">
                                                 {type === "select" ? (
