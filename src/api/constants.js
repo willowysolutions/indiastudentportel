@@ -6,6 +6,7 @@ export const baseUrl = ensureTrailingSlash(
     "https://indiastudentportal.com/studentapi/"
 );
 
+
 export const publicStorageUrl = removeTrailingSlash(
   import.meta.env.VITE_PUBLIC_STORAGE_URL ||
     `${removeTrailingSlash(baseUrl)}/storage/app/public`
